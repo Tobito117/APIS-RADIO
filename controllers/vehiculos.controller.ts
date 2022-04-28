@@ -105,7 +105,68 @@ export const deleteVehiculos = async( req: Request , res: Response ) => {
         })
         
     }
+}
 
- 
+
+export const updateEstatusVehiculos = async (req: Request, res: Response) => {
+
+    const  id  = Number(req.params.id);
+    const fk_status = req.query.fk_status;
+  
+    if (isNaN(id))
+    {
+      return res.status(400).json({
+        data: null,
+        success: false,
+        message: 'El idVehiculos no es un valor válido'
+      });
+    }
+    
+    const vehiculos = await Vehiculos.findByPk(id);
+
+    
+  if (!vehiculos)
+  {
+    return res.status(404).json({
+      data: null,
+      success: false,
+      message: 'No existe registro con el id ' + id
+    });
+  }
+
+  if(fk_status == undefined)
+  {
+      return res.status(400).json({
+          data: null,
+          success: false,
+          message: 'El Valor del estatus es requerido (true o false)'
+      });
+  }
+
+  //Habilitar o deshabilitar un registro (Update estatus)
+  if ( fk_status == 'true')
+  {
+      //Si el estatus viene con valor 'true' deshabilitada el registro
+      vehiculos.update({ fk_status: 6 })
+  }
+  else if (fk_status == 'false')
+  {
+      vehiculos.update({ fk_status: 1})
+  }
+  else
+  {
+      return res.status(400).json({
+          data: null,
+          success: false,
+          message: 'El valor del estatus no es valido (true o false)'
+      })
+  }
+
+  res.json({
+      data: vehiculos,
+      success: true,
+      message: 'Estatus actualizado'
+  })
+
 }
 

@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import User from '../models/usuario.model';
+import { generarJWT } from '../helpers/generar-jwt';
 
 
 export const getUsuarios = async( req: Request , res: Response ) => {
@@ -96,8 +97,12 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
         }
 
        // await usuario.destroy ();
+
+       const UsuarioAutenticado = req.user;
+
+
        await usuario.update({ status: false });
-        res.json( usuario );
+        res.json({ usuario, UsuarioAutenticado });
         
     } catch (error) {
 
@@ -110,4 +115,78 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
 
  
 }
+
+//GENERAR JWT PRUEBAAAA
+
+export const validarUsuarioPrueba = async ( req: Request, res: Response) => {
+
+    
+
+    const { body } = req
+    try {
+        //verificar si el usuario existe
+        const existeUsuario: any = await User.findOne({
+            where: {
+                username: body.username,
+                password_hash : body.password_hash
+
+            }
+        });
+
+        //Verificar si el email existe
+        if(!existeUsuario){
+            return res.status(400).json({
+                msg: 'Usuario / Password no son correctos - name'
+            });
+        }
+
+        //si el usuario está activo
+        if (!existeUsuario.dataValues.status){
+            return res.status(400).json({
+                msg: 'Usuario / Passwordno son correctos - estado: inactivo'
+            })
+        }
+
+        //Genenerar JWT 
+        const token = await generarJWT( existeUsuario.dataValues.id)
+
+
+        res.json({
+            existeUsuario,
+            token
+        })
+
+
+        
+    } catch (error) {
+
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        })
+        
+    }
+}
+
+// AQUI ERA ERA UNA FUNCION DE LLAVE PARA VALIDAR CIERTOS CAMPOS
+// export const validarCampos = async (req: Request, res: Response, next: NextFunction) => {
+
+//   // const idUsers = Number(request.params.idUsers);
+//   // const NameUser = request.query.NameUser;
+//   // const PassUser = request.query.PassUser;
+
+//    const body = req.body;
+//    const idUser = body.idUser;
+
+//    console.log("IdUsuario", idUser);
+//   // const estatus = body.estatus;
+//   const errors = validationResult(req);
+//     if( !errors.isEmpty() ){
+//         return res.status(400).json(errors);
+//     }
+
+//     next();
+
+// }
+
 

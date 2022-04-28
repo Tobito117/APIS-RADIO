@@ -7,6 +7,11 @@ import userRoutes from '../routes/usuario.routes';
 import usuariosRoutes from '../routes/usuarios.routes';
 import vehiculosRoutes from '../routes/vehiculos.routes';
 import zonasregionesRoutes from '../routes/zonasregiones.routes';
+import tipos_tiposRoutes from '../routes/tipos_tipos.routes';
+import statusRoutes from '../routes/status.routes';
+import tiposRoutes from '../routes/tipos.routes';
+import serviciosRoutes from '../routes/servicios.routes';
+import recursoscomprasRoutes from '../routes/recursos-compras.routes'
 
 export class Server {
 
@@ -16,7 +21,12 @@ export class Server {
         users: '/api/v0/users',
         usuarios: '/api/v0/usuarios',
         vehiculos: '/api/v0/vehiculos',
-        zonasregiones: '/api/v0/zonasregiones'        
+        zonasregiones: '/api/v0/zonasregiones',
+        tipos_tipos: '/api/v0/tipos_tipos',
+        status: '/api/v0/status',
+        tipos: '/api/v0/tipos',
+        servicios: '/api/v0/servicios',
+        recursos_compras: '/api/v0/recursoscompras'
     }
 
     constructor(){
@@ -62,7 +72,12 @@ export class Server {
         this.app.use( this.baseUrl.users, userRoutes);
         this.app.use ( this.baseUrl.usuarios, usuariosRoutes);
         this.app.use ( this.baseUrl.vehiculos, vehiculosRoutes);
-        this.app.use (this.baseUrl.zonasregiones, zonasregionesRoutes)
+        this.app.use (this.baseUrl.zonasregiones, zonasregionesRoutes);
+        this.app.use (this.baseUrl.tipos_tipos, tipos_tiposRoutes);
+        this.app.use (this.baseUrl.status, statusRoutes);
+        this.app.use (this.baseUrl.tipos, tiposRoutes);
+        this.app.use (this.baseUrl.servicios, serviciosRoutes);
+        this.app.use (this.baseUrl.recursos_compras, recursoscomprasRoutes);
     }
 
     listen(){

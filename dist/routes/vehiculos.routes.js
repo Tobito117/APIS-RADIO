@@ -8,5 +8,6 @@ router.get('/:id', vehiculos_controller_1.getVehiculosById);
 router.post('/', vehiculos_controller_1.postVehiculos);
 router.put('/:id', vehiculos_controller_1.putVehiculos);
 router.delete('/:id', vehiculos_controller_1.deleteVehiculos);
+router.put('/status/:id', vehiculos_controller_1.updateEstatusVehiculos);
 exports.default = router;
 //# sourceMappingURL=vehiculos.routes.js.map

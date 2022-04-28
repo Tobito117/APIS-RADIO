@@ -1,10 +1,14 @@
-import { DataTypes } from 'sequelize';
+import {   Model,DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const User = db.define('User', {
     id: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        // get(){
+        //     const rawValue = this.getDataValue('id');
+        //     return rawValue? rawValue.toUpperCase(): null;
+        // }
       },
     username: {
         type: DataTypes.STRING
@@ -49,7 +53,7 @@ const User = db.define('User', {
         type: DataTypes.DATE
     }
     
-});
+}); 
 
 
 export default User;

@@ -21,13 +21,23 @@ const usuario_routes_1 = __importDefault(require("../routes/usuario.routes"));
 const usuarios_routes_1 = __importDefault(require("../routes/usuarios.routes"));
 const vehiculos_routes_1 = __importDefault(require("../routes/vehiculos.routes"));
 const zonasregiones_routes_1 = __importDefault(require("../routes/zonasregiones.routes"));
+const tipos_tipos_routes_1 = __importDefault(require("../routes/tipos_tipos.routes"));
+const status_routes_1 = __importDefault(require("../routes/status.routes"));
+const tipos_routes_1 = __importDefault(require("../routes/tipos.routes"));
+const servicios_routes_1 = __importDefault(require("../routes/servicios.routes"));
+const recursos_compras_routes_1 = __importDefault(require("../routes/recursos-compras.routes"));
 class Server {
     constructor() {
         this.baseUrl = {
             users: '/api/v0/users',
             usuarios: '/api/v0/usuarios',
             vehiculos: '/api/v0/vehiculos',
-            zonasregiones: '/api/v0/zonasregiones'
+            zonasregiones: '/api/v0/zonasregiones',
+            tipos_tipos: '/api/v0/tipos_tipos',
+            status: '/api/v0/status',
+            tipos: '/api/v0/tipos',
+            servicios: '/api/v0/servicios',
+            recursos_compras: '/api/v0/recursoscompras'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
@@ -62,6 +72,11 @@ class Server {
         this.app.use(this.baseUrl.usuarios, usuarios_routes_1.default);
         this.app.use(this.baseUrl.vehiculos, vehiculos_routes_1.default);
         this.app.use(this.baseUrl.zonasregiones, zonasregiones_routes_1.default);
+        this.app.use(this.baseUrl.tipos_tipos, tipos_tipos_routes_1.default);
+        this.app.use(this.baseUrl.status, status_routes_1.default);
+        this.app.use(this.baseUrl.tipos, tipos_routes_1.default);
+        this.app.use(this.baseUrl.servicios, servicios_routes_1.default);
+        this.app.use(this.baseUrl.recursos_compras, recursos_compras_routes_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

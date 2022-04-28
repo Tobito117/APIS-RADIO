@@ -8,7 +8,11 @@ const connection_1 = __importDefault(require("../db/connection"));
 const User = connection_1.default.define('User', {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        // get(){
+        //     const rawValue = this.getDataValue('id');
+        //     return rawValue? rawValue.toUpperCase(): null;
+        // }
     },
     username: {
         type: sequelize_1.DataTypes.STRING

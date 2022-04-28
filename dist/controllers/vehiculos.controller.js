@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteVehiculos = exports.putVehiculos = exports.postVehiculos = exports.getVehiculosById = exports.getVehiculos = void 0;
+exports.updateEstatusVehiculos = exports.deleteVehiculos = exports.putVehiculos = exports.postVehiculos = exports.getVehiculosById = exports.getVehiculos = void 0;
 const vehiculos_model_1 = __importDefault(require("../models/vehiculos.model"));
 const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const vehiculos = yield vehiculos_model_1.default.findAll();
@@ -98,4 +98,51 @@ const deleteVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.deleteVehiculos = deleteVehiculos;
+const updateEstatusVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    const fk_status = req.query.fk_status;
+    if (isNaN(id)) {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El idVehiculos no es un valor válido'
+        });
+    }
+    const vehiculos = yield vehiculos_model_1.default.findByPk(id);
+    if (!vehiculos) {
+        return res.status(404).json({
+            data: null,
+            success: false,
+            message: 'No existe registro con el id ' + id
+        });
+    }
+    if (fk_status == undefined) {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El Valor del estatus es requerido (true o false)'
+        });
+    }
+    //Habilitar o deshabilitar un registro (Update estatus)
+    if (fk_status == 'true') {
+        //Si el estatus viene con valor 'true' deshabilitada el registro
+        vehiculos.update({ fk_status: 6 });
+    }
+    else if (fk_status == 'false') {
+        vehiculos.update({ fk_status: 1 });
+    }
+    else {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El valor del estatus no es valido (true o false)'
+        });
+    }
+    res.json({
+        data: vehiculos,
+        success: true,
+        message: 'Estatus actualizado'
+    });
+});
+exports.updateEstatusVehiculos = updateEstatusVehiculos;
 //# sourceMappingURL=vehiculos.controller.js.map

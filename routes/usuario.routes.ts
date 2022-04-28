@@ -1,12 +1,21 @@
 import { Router } from "express";
-import { getUsuarios, getUsuarioById, postUsuario, putUsuario, deleteUsuario } from "../controllers/usuario.controller";
+import { check } from "express-validator";
+
+import { validarJWT } from "../middlewares/validar-jwt";
+import { esAdminRole } from "../middlewares/validar-role";
+
+
+import { getUsuarios, getUsuarioById, postUsuario, putUsuario, deleteUsuario, validarUsuarioPrueba } from "../controllers/usuario.controller";
+
 
 const router = Router();
 
-router.get('/',       getUsuarios);
-router.get('/:id',    getUsuarioById);
-router.post('/',      postUsuario);
-router.put('/:id',    putUsuario);
-router.delete('/:id', deleteUsuario);
+router.get('/',         getUsuarios);
+router.get('/:id',      getUsuarioById);
+router.post('/',        postUsuario);
+router.put('/:id',      putUsuario);
+router.delete('/:id',[validarJWT,esAdminRole],   deleteUsuario);
+router.post('/validar',/*[
+    check('username','El Usuario es obligatori').isEmail()]*/ validarUsuarioPrueba);
 
 export default router;

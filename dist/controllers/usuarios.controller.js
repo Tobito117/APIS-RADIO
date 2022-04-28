@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
+exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
 const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuarios_model_1.default.findAll();
@@ -98,4 +98,51 @@ const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteUsuario = deleteUsuario;
+const updateEstatusUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    const fk_status = req.query.fk_status;
+    if (isNaN(id)) {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El idusuarios no es un valor válido'
+        });
+    }
+    const usuarios = yield usuarios_model_1.default.findByPk(id);
+    if (!usuarios) {
+        return res.status(404).json({
+            data: null,
+            success: false,
+            message: 'No existe registro con el id ' + id
+        });
+    }
+    if (fk_status == undefined) {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El Valor del estatus es requerido (true o false)'
+        });
+    }
+    //Habilitar o deshabilitar un registro (Update estatus)
+    if (fk_status == 'true') {
+        //Si el estatus viene con valor 'true' deshabilitada el registro
+        usuarios.update({ fk_status: 6 });
+    }
+    else if (fk_status == 'false') {
+        usuarios.update({ fk_status: 1 });
+    }
+    else {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El valor del estatus no es valido (true o false)'
+        });
+    }
+    res.json({
+        data: usuarios,
+        success: true,
+        message: 'Estatus actualizado'
+    });
+});
+exports.updateEstatusUsuarios = updateEstatusUsuarios;
 //# sourceMappingURL=usuarios.controller.js.map
