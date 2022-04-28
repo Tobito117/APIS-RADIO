@@ -26,6 +26,8 @@ const status_routes_1 = __importDefault(require("../routes/status.routes"));
 const tipos_routes_1 = __importDefault(require("../routes/tipos.routes"));
 const servicios_routes_1 = __importDefault(require("../routes/servicios.routes"));
 const recursos_compras_routes_1 = __importDefault(require("../routes/recursos-compras.routes"));
+const puestos_routes_1 = __importDefault(require("../routes/puestos.routes"));
+const modelos_routes_1 = __importDefault(require("../routes/modelos.routes"));
 class Server {
     constructor() {
         this.baseUrl = {
@@ -37,7 +39,9 @@ class Server {
             status: '/api/v0/status',
             tipos: '/api/v0/tipos',
             servicios: '/api/v0/servicios',
-            recursos_compras: '/api/v0/recursoscompras'
+            recursos_compras: '/api/v0/recursoscompras',
+            puestos: '/api/v0/puestos',
+            modelos: '/api/v0/modelos'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
@@ -77,6 +81,8 @@ class Server {
         this.app.use(this.baseUrl.tipos, tipos_routes_1.default);
         this.app.use(this.baseUrl.servicios, servicios_routes_1.default);
         this.app.use(this.baseUrl.recursos_compras, recursos_compras_routes_1.default);
+        this.app.use(this.baseUrl.puestos, puestos_routes_1.default);
+        this.app.use(this.baseUrl.modelos, modelos_routes_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

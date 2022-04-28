@@ -11,7 +11,9 @@ import tipos_tiposRoutes from '../routes/tipos_tipos.routes';
 import statusRoutes from '../routes/status.routes';
 import tiposRoutes from '../routes/tipos.routes';
 import serviciosRoutes from '../routes/servicios.routes';
-import recursoscomprasRoutes from '../routes/recursos-compras.routes'
+import recursoscomprasRoutes from '../routes/recursos-compras.routes';
+import puestosRoutes from '../routes/puestos.routes';
+import ModelosRoutes from '../routes/modelos.routes'
 
 export class Server {
 
@@ -26,7 +28,9 @@ export class Server {
         status: '/api/v0/status',
         tipos: '/api/v0/tipos',
         servicios: '/api/v0/servicios',
-        recursos_compras: '/api/v0/recursoscompras'
+        recursos_compras: '/api/v0/recursoscompras',
+        puestos: '/api/v0/puestos',
+        modelos: '/api/v0/modelos'
     }
 
     constructor(){
@@ -78,6 +82,8 @@ export class Server {
         this.app.use (this.baseUrl.tipos, tiposRoutes);
         this.app.use (this.baseUrl.servicios, serviciosRoutes);
         this.app.use (this.baseUrl.recursos_compras, recursoscomprasRoutes);
+        this.app.use (this.baseUrl.puestos, puestosRoutes);
+        this.app.use(this.baseUrl.modelos, ModelosRoutes);
     }
 
     listen(){
