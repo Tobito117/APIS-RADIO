@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ConfigReportes from '../models/configreportes.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getConfigReportes = async( req: Request , res: Response ) => {
 
     const configreportes = await ConfigReportes.findAll();
@@ -8,6 +9,7 @@ export const getConfigReportes = async( req: Request , res: Response ) => {
     res.json({ configreportes });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getConfigReportesById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getConfigReportesById = async( req: Request , res: Response ) => {
         res.json(configreportes)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe configreportes en la base de datos"
         });
     } 
 
 }
 
+// Función para agregar un elemento a la tabla de nuestra base de datos configreportes
 export const postConfigReportes = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postConfigReportes = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos configreportes
 export const putConfigReportes = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putConfigReportes = async( req: Request , res: Response ) => {
         const configreportes = await ConfigReportes.findByPk( id );
         if (!configreportes){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una configreportes con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putConfigReportes = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos configreportes (Solo se dehabilita)
 export const deleteConfigReportes = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,11 +94,11 @@ export const deleteConfigReportes = async( req: Request , res: Response ) => {
         const configreportes = await ConfigReportes.findByPk( id );
         if (!configreportes){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una configreportes con el id ' + id
             })
         }
 
-       // await usuario.destroy ();
+       // await usuario.destroy (); //elimina elemento verdadero de la base de datos
        await configreportes.update({ fk_status: 6 });
         res.json( configreportes );
         
@@ -110,6 +114,7 @@ export const deleteConfigReportes = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de configreportes
 export const updateEstatusConfigReportes = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

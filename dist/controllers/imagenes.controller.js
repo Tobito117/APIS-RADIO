@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusImagenes = exports.deleteImagenes = exports.putImagenes = exports.postImagenes = exports.getImagenesById = exports.getImagenes = void 0;
 const imagenes_model_1 = __importDefault(require("../models/imagenes.model"));
+//Función para obtener todos los elementos de una tabla
 const getImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const imagenes = yield imagenes_model_1.default.findAll();
     res.json({ imagenes });
 });
 exports.getImagenes = getImagenes;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getImagenesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const imagenes = yield imagenes_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getImagenesById = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe Imagen en la base de datos"
         });
     }
 });
 exports.getImagenesById = getImagenesById;
+//Función para agregar un elemento a la tabla de nuestra base de datos imagenes
 const postImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.postImagenes = postImagenes;
+//Función para actualizar un elemento a la tabla de nuestra base de datos imagenes
 const putImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const imagenes = yield imagenes_model_1.default.findByPk(id);
         if (!imagenes) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una Imagen con el id ' + id
             });
         }
         yield imagenes.update(body);
@@ -77,13 +81,14 @@ const putImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.putImagenes = putImagenes;
+//Función para borrar un elemento a la tabla de nuestra base de datos imagenes (Solo se dehabilita)
 const deleteImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const imagenes = yield imagenes_model_1.default.findByPk(id);
         if (!imagenes) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una Imagen con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteImagenes = deleteImagenes;
+//Función para habilitar y deshabilitar el estatus de Imagenes 
 const updateEstatusImagenes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -105,7 +111,7 @@ const updateEstatusImagenes = (req, res) => __awaiter(void 0, void 0, void 0, fu
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idImagen no es un valor válido'
         });
     }
     const imagenes = yield imagenes_model_1.default.findByPk(id);

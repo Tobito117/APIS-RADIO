@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Modelos from '../models/modelos.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getModelos = async( req: Request , res: Response ) => {
 
     const modelos = await Modelos.findAll();
@@ -8,6 +9,7 @@ export const getModelos = async( req: Request , res: Response ) => {
     res.json({ modelos });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getModelosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getModelosById = async( req: Request , res: Response ) => {
         res.json(modelos)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe modelo en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos modelos
 export const postModelos = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postModelos = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos modelos
 export const putModelos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putModelos = async( req: Request , res: Response ) => {
         const modelos = await Modelos.findByPk( id );
         if (!modelos){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un modelo con el id ' + id
             })
         }
 
@@ -80,6 +84,7 @@ export const putModelos = async( req: Request , res: Response ) => {
    
 }
 
+//Función para borrar un elemento a la tabla de nuestra base de datos modelos (Solo se dehabilita)
 export const deleteModelos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -89,7 +94,7 @@ export const deleteModelos = async( req: Request , res: Response ) => {
         const modelos = await Modelos.findByPk( id );
         if (!modelos){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un modelo con el id ' + id
             })
         }
 
@@ -109,6 +114,7 @@ export const deleteModelos = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de modelos
 export const updateEstatusModelos = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
@@ -119,7 +125,7 @@ export const updateEstatusModelos = async (req: Request, res: Response) => {
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idmodelo no es un valor válido'
       });
     }
     

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Asig_Vehiculos from '../models/asig_vehiculos.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getAsig_Vehiculos = async( req: Request , res: Response ) => {
 
     const asig_vehiculos = await Asig_Vehiculos.findAll();
@@ -8,6 +9,7 @@ export const getAsig_Vehiculos = async( req: Request , res: Response ) => {
     res.json({ asig_vehiculos });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getAsig_VehiculosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getAsig_VehiculosById = async( req: Request , res: Response ) => {
         res.json(asig_vehiculos)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe asig_vehiculos en la base de datos"
         });
     } 
 
 }
 
+// Función para agregar un elemento a la tabla de nuestra base de datos asig_vehiculos
 export const postAsig_Vehiculos = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postAsig_Vehiculos = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos asig_vehiculos
 export const putAsig_Vehiculos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putAsig_Vehiculos = async( req: Request , res: Response ) => {
         const asig_vehiculos = await Asig_Vehiculos.findByPk( id );
         if (!asig_vehiculos){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una asig_vehiculos con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putAsig_Vehiculos = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos asig_vehiculos (Solo se dehabilita)
 export const deleteAsig_Vehiculos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,7 +94,7 @@ export const deleteAsig_Vehiculos = async( req: Request , res: Response ) => {
         const asig_vehiculos = await Asig_Vehiculos.findByPk( id );
         if (!asig_vehiculos){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una asig_vehiculo con el id ' + id
             })
         }
 
@@ -110,6 +114,7 @@ export const deleteAsig_Vehiculos = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de asig_vehiculos
 export const updateEstatusAsig_Vehiculos = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
@@ -120,7 +125,7 @@ export const updateEstatusAsig_Vehiculos = async (req: Request, res: Response) =
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idasig_vehiculos no es un valor válido'
       });
     }
     

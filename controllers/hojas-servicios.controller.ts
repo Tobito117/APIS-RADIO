@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import HojasServicios from '../models/hojas-servicios.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getHojasServicios = async( req: Request , res: Response ) => {
 
     const hojasservicios = await HojasServicios.findAll();
@@ -8,6 +9,7 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
     res.json({ hojasservicios });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getHojasServiciosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getHojasServiciosById = async( req: Request , res: Response ) => {
         res.json(hojasservicios)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe hoja-servicio en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos hoja-servicio
 export const postHojasServicios = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postHojasServicios = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos hoja-servicios
 export const putHojasServicios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putHojasServicios = async( req: Request , res: Response ) => {
         const hojasservicios = await HojasServicios.findByPk( id );
         if (!hojasservicios){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una hoja-servicios con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putHojasServicios = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos asig_usuarios (Solo se dehabilita)
 export const deleteHojasServicios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,11 +94,11 @@ export const deleteHojasServicios = async( req: Request , res: Response ) => {
         const hojasservicios = await HojasServicios.findByPk( id );
         if (!hojasservicios){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una hoja-servicios con el id ' + id
             })
         }
 
-       // await usuario.destroy ();
+       // await usuario.destroy (); //se elimina el elemento total de la base de datos
        await hojasservicios.update({ fk_status: 6 });
         res.json( hojasservicios );
         
@@ -110,6 +114,7 @@ export const deleteHojasServicios = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de hojas-servicios
 export const updateEstatusHojasServicios = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

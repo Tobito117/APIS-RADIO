@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusZonasRegiones = exports.deleteZonasRegiones = exports.putZonasRegiones = exports.postZonasRegiones = exports.getZonasRegionesById = exports.getZonasRegiones = void 0;
 const zonasregiones_model_1 = __importDefault(require("../models/zonasregiones.model"));
+//Función para obtener todos los elementos de una tabla
 const getZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const zonasregiones = yield zonasregiones_model_1.default.findAll();
     res.json({ zonasregiones });
 });
 exports.getZonasRegiones = getZonasRegiones;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getZonasRegionesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const zonasregiones = yield zonasregiones_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getZonasRegionesById = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe zonasregiones en la base de datos"
         });
     }
 });
 exports.getZonasRegionesById = getZonasRegionesById;
+//Función para agregar un elemento a la tabla de nuestra base de datos zonasregiones
 const postZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.postZonasRegiones = postZonasRegiones;
+//Función para actualizar un elemento a la tabla de nuestra base de datos zonasregiones
 const putZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, functio
         const zonasregiones = yield zonasregiones_model_1.default.findByPk(id);
         if (!zonasregiones) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una zonasregion con el id ' + id
             });
         }
         yield zonasregiones.update(body);
@@ -77,13 +81,14 @@ const putZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.putZonasRegiones = putZonasRegiones;
+//Función para borrar un elemento a la tabla de nuestra base de datos zonasregiones (Solo se dehabilita)
 const deleteZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const zonasregiones = yield zonasregiones_model_1.default.findByPk(id);
         if (!zonasregiones) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un zonasregiones con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.deleteZonasRegiones = deleteZonasRegiones;
+//Función para habilitar y deshabilitar el estatus de zonasregiones
 const updateEstatusZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusPuestos = exports.deletePuestos = exports.putPuestos = exports.postPuestos = exports.getPuestosById = exports.getPuestos = void 0;
 const puestos_model_1 = __importDefault(require("../models/puestos.model"));
+//Función para obtener todos los elementos de una tabla
 const getPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const puestos = yield puestos_model_1.default.findAll();
     res.json({ puestos });
 });
 exports.getPuestos = getPuestos;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getPuestosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const puestos = yield puestos_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getPuestosById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe puesto en la base de datos"
         });
     }
 });
 exports.getPuestosById = getPuestosById;
+//Función para agregar un elemento a la tabla de nuestra base de datos puestos
 const postPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.postPuestos = postPuestos;
+//Función para actualizar un elemento a la tabla de nuestra base de datos puestos
 const putPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const puestos = yield puestos_model_1.default.findByPk(id);
         if (!puestos) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un puesto con el id ' + id
             });
         }
         yield puestos.update(body);
@@ -77,13 +81,14 @@ const putPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.putPuestos = putPuestos;
+//Función para borrar un elemento a la tabla de nuestra base de datos puestos (Solo se dehabilita)
 const deletePuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const puestos = yield puestos_model_1.default.findByPk(id);
         if (!puestos) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un puesto con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deletePuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deletePuestos = deletePuestos;
+//Función para habilitar y deshabilitar el estatus de puestos
 const updateEstatusPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

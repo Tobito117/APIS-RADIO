@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Status from '../models/status.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getStatus = async( req: Request , res: Response ) => {
 
     const status = await Status.findAll();
@@ -8,6 +9,7 @@ export const getStatus = async( req: Request , res: Response ) => {
     res.json({ status });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getStatusById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getStatusById = async( req: Request , res: Response ) => {
         res.json(status)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe status en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos staus
 export const postStatus = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postStatus = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos status
 export const putStatus = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putStatus = async( req: Request , res: Response ) => {
         const status = await Status.findByPk( id );
         if (!status){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un status con el id ' + id
             })
         }
 
@@ -80,6 +84,7 @@ export const putStatus = async( req: Request , res: Response ) => {
    
 }
 
+//Función para borrar un elemento a la tabla de nuestra base de datos status (Solo se dehabilita)
 export const deleteStatus = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -89,7 +94,7 @@ export const deleteStatus = async( req: Request , res: Response ) => {
         const status = await Status.findByPk( id );
         if (!status){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un status con el id ' + id
             })
         }
 

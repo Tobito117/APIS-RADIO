@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Servicios from '../models/servicios.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getServicios = async( req: Request , res: Response ) => {
 
     const servicios = await Servicios.findAll();
@@ -8,6 +9,7 @@ export const getServicios = async( req: Request , res: Response ) => {
     res.json({ servicios });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getServiciosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getServiciosById = async( req: Request , res: Response ) => {
         res.json(servicios)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe servicio en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos recursos-compras
 export const postServicios = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,7 +55,7 @@ export const postServicios = async( req: Request , res: Response ) => {
     }
 }
 
-
+//Función para actualizar un elemento a la tabla de nuestra base de datos accesorios
 export const putServicios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -63,7 +66,7 @@ export const putServicios = async( req: Request , res: Response ) => {
         const servicios = await Servicios.findByPk( id );
         if (!servicios){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un servicio con el id ' + id
             })
         }
 
@@ -81,7 +84,7 @@ export const putServicios = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
 export const deleteServicios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -91,11 +94,11 @@ export const deleteServicios = async( req: Request , res: Response ) => {
         const servicios = await Servicios.findByPk( id );
         if (!servicios){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un servicio con el id ' + id
             })
         }
 
-       // await usuario.destroy ();
+       // await usuario.destroy (); elimina el elemento totalmente 
        await servicios.update({ fk_status: 6 });
         res.json( servicios );
         
@@ -111,6 +114,7 @@ export const deleteServicios = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de servicios
 export const updateEstatusServicios = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

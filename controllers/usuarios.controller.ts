@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Usuarios from '../models/usuarios.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getUsuarios = async( req: Request , res: Response ) => {
 
     const usuarios = await Usuarios.findAll();
@@ -8,6 +9,8 @@ export const getUsuarios = async( req: Request , res: Response ) => {
     res.json({ usuarios });
 }
 
+
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID
 export const getUsuarioById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -23,6 +26,7 @@ export const getUsuarioById = async( req: Request , res: Response ) => {
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos accesorios
 export const postUsuario = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +56,7 @@ export const postUsuario = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos USUARIOS
 export const putUsuario = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -80,6 +85,8 @@ export const putUsuario = async( req: Request , res: Response ) => {
    
 }
 
+
+//Función para borrar un elemento a la tabla de nuestra base de datos usuarios (Solo se dehabilita)
 export const deleteUsuario = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -107,7 +114,7 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
     }
 }
 
-
+//Función para habilitar y deshabilitar el estatus de usuarios
 export const updateEstatusUsuarios = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

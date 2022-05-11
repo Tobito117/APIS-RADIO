@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusModelos = exports.deleteModelos = exports.putModelos = exports.postModelos = exports.getModelosById = exports.getModelos = void 0;
 const modelos_model_1 = __importDefault(require("../models/modelos.model"));
+//Función para obtener todos los elementos de una tabla
 const getModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const modelos = yield modelos_model_1.default.findAll();
     res.json({ modelos });
 });
 exports.getModelos = getModelos;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getModelosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const modelos = yield modelos_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getModelosById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe modelo en la base de datos"
         });
     }
 });
 exports.getModelosById = getModelosById;
+//Función para agregar un elemento a la tabla de nuestra base de datos modelos
 const postModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.postModelos = postModelos;
+//Función para actualizar un elemento a la tabla de nuestra base de datos modelos
 const putModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const modelos = yield modelos_model_1.default.findByPk(id);
         if (!modelos) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un modelo con el id ' + id
             });
         }
         yield modelos.update(body);
@@ -77,13 +81,14 @@ const putModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.putModelos = putModelos;
+//Función para borrar un elemento a la tabla de nuestra base de datos modelos (Solo se dehabilita)
 const deleteModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const modelos = yield modelos_model_1.default.findByPk(id);
         if (!modelos) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un modelo con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteModelos = deleteModelos;
+//Función para habilitar y deshabilitar el estatus de modelos
 const updateEstatusModelos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -105,7 +111,7 @@ const updateEstatusModelos = (req, res) => __awaiter(void 0, void 0, void 0, fun
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idmodelo no es un valor válido'
         });
     }
     const modelos = yield modelos_model_1.default.findByPk(id);

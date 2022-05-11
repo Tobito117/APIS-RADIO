@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Puestos from '../models/puestos.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getPuestos = async( req: Request , res: Response ) => {
 
     const puestos = await Puestos.findAll();
@@ -8,6 +9,7 @@ export const getPuestos = async( req: Request , res: Response ) => {
     res.json({ puestos });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getPuestosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getPuestosById = async( req: Request , res: Response ) => {
         res.json(puestos)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe puesto en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos puestos
 export const postPuestos = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postPuestos = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos puestos
 export const putPuestos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putPuestos = async( req: Request , res: Response ) => {
         const puestos = await Puestos.findByPk( id );
         if (!puestos){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un puesto con el id ' + id
             })
         }
 
@@ -80,6 +84,7 @@ export const putPuestos = async( req: Request , res: Response ) => {
    
 }
 
+//Función para borrar un elemento a la tabla de nuestra base de datos puestos (Solo se dehabilita)
 export const deletePuestos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -89,7 +94,7 @@ export const deletePuestos = async( req: Request , res: Response ) => {
         const puestos = await Puestos.findByPk( id );
         if (!puestos){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un puesto con el id ' + id
             })
         }
 
@@ -109,6 +114,7 @@ export const deletePuestos = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de puestos
 export const updateEstatusPuestos = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

@@ -29,7 +29,7 @@ const getAccesoriosById = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe accesorio en la base de datos"
         });
     }
 });
@@ -60,6 +60,7 @@ const postAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.postAccesorios = postAccesorios;
+//Función para aztualizar un elemento a la tabla de nuestra base de datos accesorios
 const putAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -67,7 +68,7 @@ const putAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const accesorios = yield accesorios_model_1.default.findByPk(id);
         if (!accesorios) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un Accesorio con el id ' + id
             });
         }
         yield accesorios.update(body);
@@ -81,13 +82,14 @@ const putAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.putAccesorios = putAccesorios;
+//Función para borrar un elemento a la tabla de nuestra base de datos accesorios
 const deleteAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const accesorios = yield accesorios_model_1.default.findByPk(id);
         if (!accesorios) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un accesorio con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -102,6 +104,7 @@ const deleteAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.deleteAccesorios = deleteAccesorios;
+//Función para habilitar y deshabilitar el estatus de Accesorios 
 const updateEstatusAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -109,7 +112,7 @@ const updateEstatusAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, 
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idAccesorio no es un valor válido'
         });
     }
     const accesorios = yield accesorios_model_1.default.findByPk(id);

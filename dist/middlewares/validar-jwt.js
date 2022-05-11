@@ -40,7 +40,7 @@ const validarJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
                 msg: "Token no válido - usuario con estado_ false"
             });
         }
-        req.user = user;
+        req.user = user; //AQUI SE EXTRAE DE LA CARPETA @TYPES EN EL ARCHIVO INDEX.D.TS, se hizo una interface manual
         console.log(user);
         next();
     }

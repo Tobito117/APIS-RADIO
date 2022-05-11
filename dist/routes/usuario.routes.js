@@ -10,6 +10,7 @@ router.get('/:id', usuario_controller_1.getUsuarioById);
 router.post('/', usuario_controller_1.postUsuario);
 router.put('/:id', usuario_controller_1.putUsuario);
 router.delete('/:id', [validar_jwt_1.validarJWT, validar_role_1.esAdminRole], usuario_controller_1.deleteUsuario);
+router.put('/status/:id', usuario_controller_1.updateEstatusUsuario);
 router.post('/validar', /*[
     check('username','El Usuario es obligatori').isEmail()]*/ usuario_controller_1.validarUsuarioPrueba);
 exports.default = router;

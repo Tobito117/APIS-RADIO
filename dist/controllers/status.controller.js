@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteStatus = exports.putStatus = exports.postStatus = exports.getStatusById = exports.getStatus = void 0;
 const status_model_1 = __importDefault(require("../models/status.model"));
+//Función para obtener todos los elementos de una tabla
 const getStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const status = yield status_model_1.default.findAll();
     res.json({ status });
 });
 exports.getStatus = getStatus;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getStatusById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const status = yield status_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getStatusById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe status en la base de datos"
         });
     }
 });
 exports.getStatusById = getStatusById;
+//Función para agregar un elemento a la tabla de nuestra base de datos staus
 const postStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.postStatus = postStatus;
+//Función para actualizar un elemento a la tabla de nuestra base de datos status
 const putStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const status = yield status_model_1.default.findByPk(id);
         if (!status) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un status con el id ' + id
             });
         }
         yield status.update(body);
@@ -77,13 +81,14 @@ const putStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.putStatus = putStatus;
+//Función para borrar un elemento a la tabla de nuestra base de datos status (Solo se dehabilita)
 const deleteStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const status = yield status_model_1.default.findByPk(id);
         if (!status) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un status con el id ' + id
             });
         }
         // await usuario.destroy ();

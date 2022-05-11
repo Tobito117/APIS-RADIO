@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusAsig_Accesorios = exports.deleteAsig_Accesorios = exports.putAsig_Accesorios = exports.postAsig_Accesorios = exports.getAsig_AccesoriosById = exports.getAsig_Accesorios = void 0;
 const asig_accesorios_model_1 = __importDefault(require("../models/asig_accesorios.model"));
+//Función para obtener todos los elementos de una tabla
 const getAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const asig_accesorios = yield asig_accesorios_model_1.default.findAll();
     res.json({ asig_accesorios });
 });
 exports.getAsig_Accesorios = getAsig_Accesorios;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getAsig_AccesoriosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const asig_accesorios = yield asig_accesorios_model_1.default.findByPk(id);
@@ -27,13 +29,15 @@ const getAsig_AccesoriosById = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe asig_accesorio en la base de datos"
         });
     }
 });
 exports.getAsig_AccesoriosById = getAsig_AccesoriosById;
+// Función para agregar un elemento a la tabla de nuestra base de datos asig_accesorios
 const postAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
+    //era un metodo de sequelize para buscar el correo y verificar que no se registre dos veces el mismo correo
     try {
         // const existeEmail = await Usuarios.findOne({
         //     where: {
@@ -56,6 +60,7 @@ const postAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.postAsig_Accesorios = postAsig_Accesorios;
+//Función para actualizar un elemento a la tabla de nuestra base de datos accesorios
 const putAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +68,7 @@ const putAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const asig_accesorios = yield asig_accesorios_model_1.default.findByPk(id);
         if (!asig_accesorios) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un asi_accesorio con el id ' + id
             });
         }
         yield asig_accesorios.update(body);
@@ -77,13 +82,14 @@ const putAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.putAsig_Accesorios = putAsig_Accesorios;
+//Función para borrar un elemento a la tabla de nuestra base de datos asig_accesorios
 const deleteAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const asig_accesorios = yield asig_accesorios_model_1.default.findByPk(id);
         if (!asig_accesorios) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un asig_accesorio con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +104,7 @@ const deleteAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.deleteAsig_Accesorios = deleteAsig_Accesorios;
+//Función para habilitar y deshabilitar el estatus de Asig_accesorios 
 const updateEstatusAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -105,7 +112,7 @@ const updateEstatusAsig_Accesorios = (req, res) => __awaiter(void 0, void 0, voi
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idasi_accesorios no es un valor válido'
         });
     }
     const asig_accesorios = yield asig_accesorios_model_1.default.findByPk(id);

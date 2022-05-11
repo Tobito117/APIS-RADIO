@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
 const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
+//Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuarios_model_1.default.findAll();
     res.json({ usuarios });
 });
 exports.getUsuarios = getUsuarios;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID
 const getUsuarioById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const usuario = yield usuarios_model_1.default.findByPk(id);
@@ -32,6 +34,7 @@ const getUsuarioById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getUsuarioById = getUsuarioById;
+//Función para agregar un elemento a la tabla de nuestra base de datos accesorios
 const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.postUsuario = postUsuario;
+//Función para actualizar un elemento a la tabla de nuestra base de datos USUARIOS
 const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -77,6 +81,7 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.putUsuario = putUsuario;
+//Función para borrar un elemento a la tabla de nuestra base de datos usuarios (Solo se dehabilita)
 const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
@@ -98,6 +103,7 @@ const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteUsuario = deleteUsuario;
+//Función para habilitar y deshabilitar el estatus de usuarios
 const updateEstatusUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

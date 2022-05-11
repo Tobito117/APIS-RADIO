@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Vehiculos from '../models/vehiculos.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getVehiculos = async( req: Request , res: Response ) => {
 
     const vehiculos = await Vehiculos.findAll();
@@ -8,6 +9,7 @@ export const getVehiculos = async( req: Request , res: Response ) => {
     res.json({ vehiculos });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getVehiculosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getVehiculosById = async( req: Request , res: Response ) => {
         res.json(vehiculos)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe Vehiculo en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos Vehiculos
 export const postVehiculos = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postVehiculos = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos Vehiculo
 export const putVehiculos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -80,6 +84,7 @@ export const putVehiculos = async( req: Request , res: Response ) => {
    
 }
 
+//Función para borrar un elemento a la tabla de nuestra base de datos Vehiculos (Solo se dehabilita)
 export const deleteVehiculos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -89,7 +94,7 @@ export const deleteVehiculos = async( req: Request , res: Response ) => {
         const vehiculos = await Vehiculos.findByPk( id );
         if (!vehiculos){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un vehiculo con el id ' + id
             })
         }
 
@@ -107,7 +112,7 @@ export const deleteVehiculos = async( req: Request , res: Response ) => {
     }
 }
 
-
+//Función para habilitar y deshabilitar el estatus de Vehiculo 
 export const updateEstatusVehiculos = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

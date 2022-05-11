@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusCorporaciones = exports.deleteCorporaciones = exports.putCorporaciones = exports.postCorporaciones = exports.getCorporacionesById = exports.getCorporaciones = void 0;
 const corporaciones_model_1 = __importDefault(require("../models/corporaciones.model"));
+//Función para obtener todos los elementos de una tabla
 const getCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const corporaciones = yield corporaciones_model_1.default.findAll();
     res.json({ corporaciones });
 });
 exports.getCorporaciones = getCorporaciones;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getCorporacionesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const corporaciones = yield corporaciones_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getCorporacionesById = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe corporacion en la base de datos"
         });
     }
 });
 exports.getCorporacionesById = getCorporacionesById;
+// Función para agregar un elemento a la tabla de nuestra base de datos corporaciones
 const postCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.postCorporaciones = postCorporaciones;
+//Función para actualizar un elemento a la tabla de nuestra base de datos corporaciones
 const putCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, functio
         const corporaciones = yield corporaciones_model_1.default.findByPk(id);
         if (!corporaciones) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una corporacion con el id ' + id
             });
         }
         yield corporaciones.update(body);
@@ -77,13 +81,14 @@ const putCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.putCorporaciones = putCorporaciones;
+//Función para borrar un elemento a la tabla de nuestra base de datos corporaciones (Solo se dehabilita)
 const deleteCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const corporaciones = yield corporaciones_model_1.default.findByPk(id);
         if (!corporaciones) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una corporacion con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.deleteCorporaciones = deleteCorporaciones;
+//Función para habilitar y deshabilitar el estatus de corporaciones
 const updateEstatusCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -105,7 +111,7 @@ const updateEstatusCorporaciones = (req, res) => __awaiter(void 0, void 0, void 
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idCorporaciones no es un valor válido'
         });
     }
     const corporaciones = yield corporaciones_model_1.default.findByPk(id);

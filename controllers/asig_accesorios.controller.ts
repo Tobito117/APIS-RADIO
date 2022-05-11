@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Asig_Accesorios from '../models/asig_accesorios.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getAsig_Accesorios = async( req: Request , res: Response ) => {
 
     const asig_accesorios = await Asig_Accesorios.findAll();
@@ -8,6 +9,7 @@ export const getAsig_Accesorios = async( req: Request , res: Response ) => {
     res.json({ asig_accesorios });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getAsig_AccesoriosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,16 +19,18 @@ export const getAsig_AccesoriosById = async( req: Request , res: Response ) => {
         res.json(asig_accesorios)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe asig_accesorio en la base de datos"
         });
     } 
 
 }
 
+// Función para agregar un elemento a la tabla de nuestra base de datos asig_accesorios
 export const postAsig_Accesorios = async( req: Request , res: Response ) => {
 
     const { body } = req;
 
+    //era un metodo de sequelize para buscar el correo y verificar que no se registre dos veces el mismo correo
     try {
         // const existeEmail = await Usuarios.findOne({
         //     where: {
@@ -52,6 +56,7 @@ export const postAsig_Accesorios = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos accesorios
 export const putAsig_Accesorios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +67,7 @@ export const putAsig_Accesorios = async( req: Request , res: Response ) => {
         const asig_accesorios = await Asig_Accesorios.findByPk( id );
         if (!asig_accesorios){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un asi_accesorio con el id ' + id
             })
         }
 
@@ -80,7 +85,7 @@ export const putAsig_Accesorios = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos asig_accesorios
 export const deleteAsig_Accesorios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,7 +95,7 @@ export const deleteAsig_Accesorios = async( req: Request , res: Response ) => {
         const asig_accesorios = await Asig_Accesorios.findByPk( id );
         if (!asig_accesorios){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un asig_accesorio con el id ' + id
             })
         }
 
@@ -110,6 +115,7 @@ export const deleteAsig_Accesorios = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de Asig_accesorios 
 export const updateEstatusAsig_Accesorios = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
@@ -120,7 +126,7 @@ export const updateEstatusAsig_Accesorios = async (req: Request, res: Response) 
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idasi_accesorios no es un valor válido'
       });
     }
     

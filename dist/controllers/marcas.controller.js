@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusMarcas = exports.deleteMarcas = exports.putMarcas = exports.postMarcas = exports.getMarcasById = exports.getMarcas = void 0;
 const marcas_model_1 = __importDefault(require("../models/marcas.model"));
+//Función para obtener todos los elementos de una tabla
 const getMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const marcas = yield marcas_model_1.default.findAll();
     res.json({ marcas });
 });
 exports.getMarcas = getMarcas;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getMarcasById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const marcas = yield marcas_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getMarcasById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe marcas en la base de datos"
         });
     }
 });
 exports.getMarcasById = getMarcasById;
+//Función para agregar un elemento a la tabla de nuestra base de datos marcas
 const postMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.postMarcas = postMarcas;
+//Función para actualizar un elemento a la tabla de nuestra base de datos marcas
 const putMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const marcas = yield marcas_model_1.default.findByPk(id);
         if (!marcas) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe marcas con el id ' + id
             });
         }
         yield marcas.update(body);
@@ -83,7 +87,7 @@ const deleteMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const marcas = yield marcas_model_1.default.findByPk(id);
         if (!marcas) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una marca con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -105,7 +109,7 @@ const updateEstatusMarcas = (req, res) => __awaiter(void 0, void 0, void 0, func
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idMarcas no es un valor válido'
         });
     }
     const marcas = yield marcas_model_1.default.findByPk(id);

@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusRecursosCompras = exports.deleteRecursosCompras = exports.putRecursosCompras = exports.postRecursosCompras = exports.getRecursosComprasById = exports.getRecursosCompras = void 0;
 const recursos_compras_model_1 = __importDefault(require("../models/recursos-compras.model"));
+//Función para obtener todos los elementos de una tabla
 const getRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const recursoscompras = yield recursos_compras_model_1.default.findAll();
     res.json({ recursoscompras });
 });
 exports.getRecursosCompras = getRecursosCompras;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getRecursosComprasById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const recursoscompras = yield recursos_compras_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getRecursosComprasById = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe recursos-compras en la base de datos"
         });
     }
 });
 exports.getRecursosComprasById = getRecursosComprasById;
+//Función para agregar un elemento a la tabla de nuestra base de datos recursos-compras
 const postRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.postRecursosCompras = postRecursosCompras;
+//Función para actualizar un elemento a la tabla de nuestra base de datos recursos-compras
 const putRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const recursoscompras = yield recursos_compras_model_1.default.findByPk(id);
         if (!recursoscompras) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un recurso-compra con el id ' + id
             });
         }
         yield recursoscompras.update(body);
@@ -77,16 +81,17 @@ const putRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.putRecursosCompras = putRecursosCompras;
+//Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
 const deleteRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const recursoscompras = yield recursos_compras_model_1.default.findByPk(id);
         if (!recursoscompras) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un recurso-compra con el id ' + id
             });
         }
-        // await usuario.destroy ();
+        // await usuario.destroy (); //elimnina el elemento por completo
         yield recursoscompras.update({ fk_status: 6 });
         res.json(recursoscompras);
     }
@@ -98,6 +103,7 @@ const deleteRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.deleteRecursosCompras = deleteRecursosCompras;
+//Función para habilitar y deshabilitar el estatus de recursos-compras 
 const updateEstatusRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

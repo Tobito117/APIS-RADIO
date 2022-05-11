@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusRadios = exports.deleteRadios = exports.putRadios = exports.postRadios = exports.getRadiosById = exports.getRadios = void 0;
 const radios_model_1 = __importDefault(require("../models/radios.model"));
+//Función para obtener todos los elementos de una tabla
 const getRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const radios = yield radios_model_1.default.findAll();
     res.json({ radios });
 });
 exports.getRadios = getRadios;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getRadiosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const radios = yield radios_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getRadiosById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe radio en la base de datos"
         });
     }
 });
 exports.getRadiosById = getRadiosById;
+//Función para agregar un elemento a la tabla de nuestra base de datos radios
 const postRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.postRadios = postRadios;
+//Función para actualizar un elemento a la tabla de nuestra base de datos radio
 const putRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const radios = yield radios_model_1.default.findByPk(id);
         if (!radios) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un radio con el id ' + id
             });
         }
         yield radios.update(body);
@@ -77,13 +81,14 @@ const putRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.putRadios = putRadios;
+//Función para borrar un elemento a la tabla de nuestra base de datos radios (Solo se dehabilita)
 const deleteRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const radios = yield radios_model_1.default.findByPk(id);
         if (!radios) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un radio con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.deleteRadios = deleteRadios;
+//Función para habilitar y deshabilitar el estatus de radios
 const updateEstatusRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -105,7 +111,7 @@ const updateEstatusRadios = (req, res) => __awaiter(void 0, void 0, void 0, func
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idradio no es un valor válido'
         });
     }
     const radios = yield radios_model_1.default.findByPk(id);

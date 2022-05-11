@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Marcas from '../models/marcas.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getMarcas = async( req: Request , res: Response ) => {
 
     const marcas = await Marcas.findAll();
@@ -8,6 +9,7 @@ export const getMarcas = async( req: Request , res: Response ) => {
     res.json({ marcas });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getMarcasById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getMarcasById = async( req: Request , res: Response ) => {
         res.json(marcas)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe marcas en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos marcas
 export const postMarcas = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postMarcas = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos marcas
 export const putMarcas = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putMarcas = async( req: Request , res: Response ) => {
         const marcas = await Marcas.findByPk( id );
         if (!marcas){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe marcas con el id ' + id
             })
         }
 
@@ -89,7 +93,7 @@ export const deleteMarcas = async( req: Request , res: Response ) => {
         const marcas = await Marcas.findByPk( id );
         if (!marcas){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una marca con el id ' + id
             })
         }
 
@@ -119,7 +123,7 @@ export const updateEstatusMarcas = async (req: Request, res: Response) => {
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idMarcas no es un valor válido'
       });
     }
     

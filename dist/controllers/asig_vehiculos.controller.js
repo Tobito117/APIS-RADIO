@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusAsig_Vehiculos = exports.deleteAsig_Vehiculos = exports.putAsig_Vehiculos = exports.postAsig_Vehiculos = exports.getAsig_VehiculosById = exports.getAsig_Vehiculos = void 0;
 const asig_vehiculos_model_1 = __importDefault(require("../models/asig_vehiculos.model"));
+//Función para obtener todos los elementos de una tabla
 const getAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const asig_vehiculos = yield asig_vehiculos_model_1.default.findAll();
     res.json({ asig_vehiculos });
 });
 exports.getAsig_Vehiculos = getAsig_Vehiculos;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getAsig_VehiculosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const asig_vehiculos = yield asig_vehiculos_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getAsig_VehiculosById = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe asig_vehiculos en la base de datos"
         });
     }
 });
 exports.getAsig_VehiculosById = getAsig_VehiculosById;
+// Función para agregar un elemento a la tabla de nuestra base de datos asig_vehiculos
 const postAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.postAsig_Vehiculos = postAsig_Vehiculos;
+//Función para actualizar un elemento a la tabla de nuestra base de datos asig_vehiculos
 const putAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const asig_vehiculos = yield asig_vehiculos_model_1.default.findByPk(id);
         if (!asig_vehiculos) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una asig_vehiculos con el id ' + id
             });
         }
         yield asig_vehiculos.update(body);
@@ -77,13 +81,14 @@ const putAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.putAsig_Vehiculos = putAsig_Vehiculos;
+//Función para borrar un elemento a la tabla de nuestra base de datos asig_vehiculos (Solo se dehabilita)
 const deleteAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const asig_vehiculos = yield asig_vehiculos_model_1.default.findByPk(id);
         if (!asig_vehiculos) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una asig_vehiculo con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.deleteAsig_Vehiculos = deleteAsig_Vehiculos;
+//Función para habilitar y deshabilitar el estatus de asig_vehiculos
 const updateEstatusAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -105,7 +111,7 @@ const updateEstatusAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idasig_vehiculos no es un valor válido'
         });
     }
     const asig_vehiculos = yield asig_vehiculos_model_1.default.findByPk(id);

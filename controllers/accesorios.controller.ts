@@ -19,7 +19,7 @@ export const getAccesoriosById = async( req: Request , res: Response ) => {
         res.json(accesorios)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe accesorio en la base de datos"
         });
     } 
 
@@ -85,7 +85,7 @@ export const putAccesorios = async( req: Request , res: Response ) => {
    
 }
 
-//
+//Función para borrar un elemento a la tabla de nuestra base de datos accesorios
 export const deleteAccesorios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -95,7 +95,7 @@ export const deleteAccesorios = async( req: Request , res: Response ) => {
         const accesorios = await Accesorios.findByPk( id );
         if (!accesorios){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un accesorio con el id ' + id
             })
         }
 
@@ -115,6 +115,7 @@ export const deleteAccesorios = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de Accesorios 
 export const updateEstatusAccesorios = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
@@ -125,7 +126,7 @@ export const updateEstatusAccesorios = async (req: Request, res: Response) => {
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idAccesorio no es un valor válido'
       });
     }
     

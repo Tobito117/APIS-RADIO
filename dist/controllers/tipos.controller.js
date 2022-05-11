@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusPuestos = exports.deleteTipos = exports.putTipos = exports.postTipos = exports.getTiposById = exports.getTipos = void 0;
 const tipos_model_1 = __importDefault(require("../models/tipos.model"));
+//Función para obtener todos los elementos de una tabla
 const getTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tipos = yield tipos_model_1.default.findAll();
     res.json({ tipos });
 });
 exports.getTipos = getTipos;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getTiposById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const tipos = yield tipos_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getTiposById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe IdTipo en la base de datos"
         });
     }
 });
 exports.getTiposById = getTiposById;
+//Función para agregar un elemento a la tabla de nuestra base de datos accesorios
 const postTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.postTipos = postTipos;
+//Función para actualizar un elemento a la tabla de nuestra base de datos Tipos
 const putTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const tipos = yield tipos_model_1.default.findByPk(id);
         if (!tipos) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un tipo con el id ' + id
             });
         }
         yield tipos.update(body);
@@ -77,13 +81,14 @@ const putTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.putTipos = putTipos;
+//Función para borrar un elemento a la tabla de nuestra base de datos tipos (Solo se dehabilita)
 const deleteTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const tipos = yield tipos_model_1.default.findByPk(id);
         if (!tipos) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un tipo con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.deleteTipos = deleteTipos;
+//Función para habilitar y deshabilitar el estatus de Tipos
 const updateEstatusPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

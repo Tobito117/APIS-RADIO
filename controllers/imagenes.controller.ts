@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Imagenes from '../models/imagenes.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getImagenes = async( req: Request , res: Response ) => {
 
     const imagenes = await Imagenes.findAll();
@@ -8,6 +9,7 @@ export const getImagenes = async( req: Request , res: Response ) => {
     res.json({ imagenes });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getImagenesById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getImagenesById = async( req: Request , res: Response ) => {
         res.json(imagenes)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe Imagen en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos imagenes
 export const postImagenes = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postImagenes = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos imagenes
 export const putImagenes = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putImagenes = async( req: Request , res: Response ) => {
         const imagenes = await Imagenes.findByPk( id );
         if (!imagenes){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una Imagen con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putImagenes = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos imagenes (Solo se dehabilita)
 export const deleteImagenes = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,7 +94,7 @@ export const deleteImagenes = async( req: Request , res: Response ) => {
         const imagenes = await Imagenes.findByPk( id );
         if (!imagenes){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una Imagen con el id ' + id
             })
         }
 
@@ -110,6 +114,7 @@ export const deleteImagenes = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de Imagenes 
 export const updateEstatusImagenes = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
@@ -120,7 +125,7 @@ export const updateEstatusImagenes = async (req: Request, res: Response) => {
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idImagen no es un valor válido'
       });
     }
     

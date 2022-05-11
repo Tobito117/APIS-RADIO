@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Tipos from '../models/tipos.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getTipos = async( req: Request , res: Response ) => {
 
     const tipos = await Tipos.findAll();
@@ -8,6 +9,7 @@ export const getTipos = async( req: Request , res: Response ) => {
     res.json({ tipos });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getTiposById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,11 +19,12 @@ export const getTiposById = async( req: Request , res: Response ) => {
         res.json(tipos)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe IdTipo en la base de datos"
         });
     } 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos accesorios
 export const postTipos = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -51,6 +54,7 @@ export const postTipos = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos Tipos
 export const putTipos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -61,7 +65,7 @@ export const putTipos = async( req: Request , res: Response ) => {
         const tipos = await Tipos.findByPk( id );
         if (!tipos){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un tipo con el id ' + id
             })
         }
 
@@ -79,6 +83,7 @@ export const putTipos = async( req: Request , res: Response ) => {
    
 }
 
+//Función para borrar un elemento a la tabla de nuestra base de datos tipos (Solo se dehabilita)
 export const deleteTipos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -88,7 +93,7 @@ export const deleteTipos = async( req: Request , res: Response ) => {
         const tipos = await Tipos.findByPk( id );
         if (!tipos){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un tipo con el id ' + id
             })
         }
 
@@ -108,6 +113,7 @@ export const deleteTipos = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de Tipos
 export const updateEstatusPuestos = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

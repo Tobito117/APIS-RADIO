@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusConfigReportes = exports.deleteConfigReportes = exports.putConfigReportes = exports.postConfigReportes = exports.getConfigReportesById = exports.getConfigReportes = void 0;
 const configreportes_model_1 = __importDefault(require("../models/configreportes.model"));
+//Función para obtener todos los elementos de una tabla
 const getConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const configreportes = yield configreportes_model_1.default.findAll();
     res.json({ configreportes });
 });
 exports.getConfigReportes = getConfigReportes;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getConfigReportesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const configreportes = yield configreportes_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getConfigReportesById = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe configreportes en la base de datos"
         });
     }
 });
 exports.getConfigReportesById = getConfigReportesById;
+// Función para agregar un elemento a la tabla de nuestra base de datos configreportes
 const postConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.postConfigReportes = postConfigReportes;
+//Función para actualizar un elemento a la tabla de nuestra base de datos configreportes
 const putConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const configreportes = yield configreportes_model_1.default.findByPk(id);
         if (!configreportes) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una configreportes con el id ' + id
             });
         }
         yield configreportes.update(body);
@@ -77,16 +81,17 @@ const putConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.putConfigReportes = putConfigReportes;
+//Función para borrar un elemento a la tabla de nuestra base de datos configreportes (Solo se dehabilita)
 const deleteConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const configreportes = yield configreportes_model_1.default.findByPk(id);
         if (!configreportes) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una configreportes con el id ' + id
             });
         }
-        // await usuario.destroy ();
+        // await usuario.destroy (); //elimina elemento verdadero de la base de datos
         yield configreportes.update({ fk_status: 6 });
         res.json(configreportes);
     }
@@ -98,6 +103,7 @@ const deleteConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.deleteConfigReportes = deleteConfigReportes;
+//Función para habilitar y deshabilitar el estatus de configreportes
 const updateEstatusConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

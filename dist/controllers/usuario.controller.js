@@ -12,14 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validarUsuarioPrueba = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
+exports.validarUsuarioPrueba = exports.updateEstatusUsuario = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
 const usuario_model_1 = __importDefault(require("../models/usuario.model"));
 const generar_jwt_1 = require("../helpers/generar-jwt");
+//Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuario_model_1.default.findAll();
     res.json({ usuarios });
 });
 exports.getUsuarios = getUsuarios;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getUsuarioById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const usuario = yield usuario_model_1.default.findByPk(id);
@@ -33,6 +35,7 @@ const getUsuarioById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getUsuarioById = getUsuarioById;
+//Función para agregar un elemento a la tabla de nuestra base de datos usuario
 const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -57,6 +60,7 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.postUsuario = postUsuario;
+//Función para actualizar un elemento a la tabla de nuestra base de datos usuario
 const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -78,6 +82,7 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.putUsuario = putUsuario;
+//Función para borrar un elemento a la tabla de nuestra base de datos usuarios (Solo se dehabilita)
 const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
@@ -100,7 +105,56 @@ const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteUsuario = deleteUsuario;
+//Función para habilitar y deshabilitar el estatus de status
+const updateEstatusUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    const fk_status = req.query.fk_status;
+    if (isNaN(id)) {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El iduser no es un valor válido'
+        });
+    }
+    const user = yield usuario_model_1.default.findByPk(id);
+    if (!user) {
+        return res.status(404).json({
+            data: null,
+            success: false,
+            message: 'No existe registro con el id ' + id
+        });
+    }
+    if (fk_status == undefined) {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El Valor del estatus es requerido (true o false)'
+        });
+    }
+    //Habilitar o deshabilitar un registro (Update estatus)
+    if (fk_status == 'true') {
+        //Si el estatus viene con valor 'true' deshabilitada el registro
+        user.update({ status: 6 });
+    }
+    else if (fk_status == 'false') {
+        user.update({ status: 1 });
+    }
+    else {
+        return res.status(400).json({
+            data: null,
+            success: false,
+            message: 'El valor del estatus no es valido (true o false)'
+        });
+    }
+    res.json({
+        data: user,
+        success: true,
+        message: 'Estatus actualizado'
+    });
+});
+exports.updateEstatusUsuario = updateEstatusUsuario;
 //GENERAR JWT PRUEBAAAA
+//VALIDAMOS QUE EL USUARIO EXISTA, EL USERNAME EXISTA Y ESTE ACTIVO
 const validarUsuarioPrueba = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Corporaciones from '../models/corporaciones.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getCorporaciones = async( req: Request , res: Response ) => {
 
     const corporaciones = await Corporaciones.findAll();
@@ -8,6 +9,7 @@ export const getCorporaciones = async( req: Request , res: Response ) => {
     res.json({ corporaciones });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getCorporacionesById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getCorporacionesById = async( req: Request , res: Response ) => {
         res.json(corporaciones)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe corporacion en la base de datos"
         });
     } 
 
 }
 
+// Función para agregar un elemento a la tabla de nuestra base de datos corporaciones
 export const postCorporaciones = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postCorporaciones = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos corporaciones
 export const putCorporaciones = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putCorporaciones = async( req: Request , res: Response ) => {
         const corporaciones = await Corporaciones.findByPk( id );
         if (!corporaciones){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una corporacion con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putCorporaciones = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos corporaciones (Solo se dehabilita)
 export const deleteCorporaciones = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,7 +94,7 @@ export const deleteCorporaciones = async( req: Request , res: Response ) => {
         const corporaciones = await Corporaciones.findByPk( id );
         if (!corporaciones){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una corporacion con el id ' + id
             })
         }
 
@@ -110,6 +114,7 @@ export const deleteCorporaciones = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de corporaciones
 export const updateEstatusCorporaciones = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
@@ -120,7 +125,7 @@ export const updateEstatusCorporaciones = async (req: Request, res: Response) =>
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idCorporaciones no es un valor válido'
       });
     }
     

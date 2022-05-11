@@ -40,7 +40,7 @@ export const  validarJWT = async ( req: Request, res: Response, next: NextFuncti
             }); 
         }
 
-        req.user = user;
+        req.user = user; //AQUI SE EXTRAE DE LA CARPETA @TYPES EN EL ARCHIVO INDEX.D.TS, se hizo una interface manual
 
         console.log(user);
 

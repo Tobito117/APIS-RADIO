@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Documentos from '../models/documentos.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getDocumentos = async( req: Request , res: Response ) => {
 
     const documentos = await Documentos.findAll();
@@ -8,6 +9,7 @@ export const getDocumentos = async( req: Request , res: Response ) => {
     res.json({ documentos });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getDocumentosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -23,6 +25,7 @@ export const getDocumentosById = async( req: Request , res: Response ) => {
 
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 export const postDocumentos = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postDocumentos = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 export const putDocumentos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putDocumentos = async( req: Request , res: Response ) => {
         const documentos = await Documentos.findByPk( id );
         if (!documentos){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un Documento con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putDocumentos = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos documentos (Solo se dehabilita)
 export const deleteDocumentos = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,7 +94,7 @@ export const deleteDocumentos = async( req: Request , res: Response ) => {
         const documentos = await Documentos.findByPk( id );
         if (!documentos){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un documento con el id ' + id
             })
         }
 
@@ -110,6 +114,7 @@ export const deleteDocumentos = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de Accesorios 
 export const updateEstatusDocumentos = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
@@ -120,7 +125,7 @@ export const updateEstatusDocumentos = async (req: Request, res: Response) => {
       return res.status(400).json({
         data: null,
         success: false,
-        message: 'El idZonasRegiones no es un valor válido'
+        message: 'El idDocumento no es un valor válido'
       });
     }
     

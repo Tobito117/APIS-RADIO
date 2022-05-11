@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ZonasRegiones from '../models/zonasregiones.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getZonasRegiones = async( req: Request , res: Response ) => {
 
     const zonasregiones = await ZonasRegiones.findAll();
@@ -8,6 +9,7 @@ export const getZonasRegiones = async( req: Request , res: Response ) => {
     res.json({ zonasregiones });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getZonasRegionesById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getZonasRegionesById = async( req: Request , res: Response ) => {
         res.json(zonasregiones)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe zonasregiones en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos zonasregiones
 export const postZonasRegiones = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postZonasRegiones = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos zonasregiones
 export const putZonasRegiones = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putZonasRegiones = async( req: Request , res: Response ) => {
         const zonasregiones = await ZonasRegiones.findByPk( id );
         if (!zonasregiones){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una zonasregion con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putZonasRegiones = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos zonasregiones (Solo se dehabilita)
 export const deleteZonasRegiones = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,7 +94,7 @@ export const deleteZonasRegiones = async( req: Request , res: Response ) => {
         const zonasregiones = await ZonasRegiones.findByPk( id );
         if (!zonasregiones){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un zonasregiones con el id ' + id
             })
         }
 
@@ -110,6 +114,7 @@ export const deleteZonasRegiones = async( req: Request , res: Response ) => {
  
 }
 
+//Función para habilitar y deshabilitar el estatus de zonasregiones
 export const updateEstatusZonasRegiones = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

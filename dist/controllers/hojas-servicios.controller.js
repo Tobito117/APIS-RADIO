@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusHojasServicios = exports.deleteHojasServicios = exports.putHojasServicios = exports.postHojasServicios = exports.getHojasServiciosById = exports.getHojasServicios = void 0;
 const hojas_servicios_model_1 = __importDefault(require("../models/hojas-servicios.model"));
+//Función para obtener todos los elementos de una tabla
 const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const hojasservicios = yield hojas_servicios_model_1.default.findAll();
     res.json({ hojasservicios });
 });
 exports.getHojasServicios = getHojasServicios;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getHojasServiciosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const hojasservicios = yield hojas_servicios_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getHojasServiciosById = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe hoja-servicio en la base de datos"
         });
     }
 });
 exports.getHojasServiciosById = getHojasServiciosById;
+//Función para agregar un elemento a la tabla de nuestra base de datos hoja-servicio
 const postHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.postHojasServicios = postHojasServicios;
+//Función para actualizar un elemento a la tabla de nuestra base de datos hoja-servicios
 const putHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const hojasservicios = yield hojas_servicios_model_1.default.findByPk(id);
         if (!hojasservicios) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe una hoja-servicios con el id ' + id
             });
         }
         yield hojasservicios.update(body);
@@ -77,16 +81,17 @@ const putHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.putHojasServicios = putHojasServicios;
+//Función para borrar un elemento a la tabla de nuestra base de datos asig_usuarios (Solo se dehabilita)
 const deleteHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const hojasservicios = yield hojas_servicios_model_1.default.findByPk(id);
         if (!hojasservicios) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe una hoja-servicios con el id ' + id
             });
         }
-        // await usuario.destroy ();
+        // await usuario.destroy (); //se elimina el elemento total de la base de datos
         yield hojasservicios.update({ fk_status: 6 });
         res.json(hojasservicios);
     }
@@ -98,6 +103,7 @@ const deleteHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.deleteHojasServicios = deleteHojasServicios;
+//Función para habilitar y deshabilitar el estatus de hojas-servicios
 const updateEstatusHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

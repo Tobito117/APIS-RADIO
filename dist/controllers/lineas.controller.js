@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusLineas = exports.deleteLineas = exports.putLineas = exports.postLineas = exports.getLineasById = exports.getLineas = void 0;
 const lineas_model_1 = __importDefault(require("../models/lineas.model"));
+//Función para obtener todos los elementos de una tabla
 const getLineas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const lineas = yield lineas_model_1.default.findAll();
     res.json({ lineas });
 });
 exports.getLineas = getLineas;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getLineasById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const lineas = yield lineas_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getLineasById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe lineas en la base de datos"
         });
     }
 });
 exports.getLineasById = getLineasById;
+//Función para agregar un elemento a la tabla de nuestra base de datos lineas
 const postLineas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postLineas = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.postLineas = postLineas;
+//Función para actualizar un elemento a la tabla de nuestra base de datos lineas
 const putLineas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -77,13 +81,14 @@ const putLineas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.putLineas = putLineas;
+//Función para borrar un elemento a la tabla de nuestra base de datos lineas (Solo se dehabilita)
 const deleteLineas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const lineas = yield lineas_model_1.default.findByPk(id);
         if (!lineas) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe lineas con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -113,7 +118,7 @@ const updateEstatusLineas = (req, res) => __awaiter(void 0, void 0, void 0, func
         return res.status(404).json({
             data: null,
             success: false,
-            message: 'No existe registro con el id ' + id
+            message: 'No existe lineas con el id ' + id
         });
     }
     if (fk_status == undefined) {

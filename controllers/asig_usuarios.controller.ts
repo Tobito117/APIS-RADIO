@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Asig_Usuarios from '../models/asig_usuarios.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getAsig_Usuarios = async( req: Request , res: Response ) => {
 
     const asig_usuarios = await Asig_Usuarios.findAll();
@@ -8,6 +9,7 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
     res.json({ asig_usuarios });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getAsig_UsuariosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -23,6 +25,7 @@ export const getAsig_UsuariosById = async( req: Request , res: Response ) => {
 
 }
 
+// Función para agregar un elemento a la tabla de nuestra base de datos asig_usuarios
 export const postAsig_Usuarios = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postAsig_Usuarios = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos asig_usuarios
 export const putAsig_Usuarios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putAsig_Usuarios = async( req: Request , res: Response ) => {
         const asig_usuarios = await Asig_Usuarios.findByPk( id );
         if (!asig_usuarios){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un asig_usuarios con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putAsig_Usuarios = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos asig_usuarios (Solo se dehabilita)
 export const deleteAsig_Usuarios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,11 +94,11 @@ export const deleteAsig_Usuarios = async( req: Request , res: Response ) => {
         const asig_usuarios = await Asig_Usuarios.findByPk( id );
         if (!asig_usuarios){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un asig_usuario con el id ' + id
             })
         }
 
-       // await usuario.destroy ();
+       // await usuario.destroy (); //metodo real para borrar el registro
        await asig_usuarios.update({ fk_status: 6 });
         res.json( asig_usuarios );
         
@@ -110,6 +114,8 @@ export const deleteAsig_Usuarios = async( req: Request , res: Response ) => {
  
 }
 
+
+//Función para habilitar y deshabilitar el estatus de asig_usuarios
 export const updateEstatusAsig_Usuarios = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);

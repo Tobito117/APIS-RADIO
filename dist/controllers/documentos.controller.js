@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.postDocumentos = exports.getDocumentosById = exports.getDocumentos = void 0;
 const documentos_model_1 = __importDefault(require("../models/documentos.model"));
+//Función para obtener todos los elementos de una tabla
 const getDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const documentos = yield documentos_model_1.default.findAll();
     res.json({ documentos });
 });
 exports.getDocumentos = getDocumentos;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getDocumentosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const documentos = yield documentos_model_1.default.findByPk(id);
@@ -32,6 +34,7 @@ const getDocumentosById = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getDocumentosById = getDocumentosById;
+//Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.postDocumentos = postDocumentos;
+//Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 const putDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const documentos = yield documentos_model_1.default.findByPk(id);
         if (!documentos) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un Documento con el id ' + id
             });
         }
         yield documentos.update(body);
@@ -77,13 +81,14 @@ const putDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.putDocumentos = putDocumentos;
+//Función para borrar un elemento a la tabla de nuestra base de datos documentos (Solo se dehabilita)
 const deleteDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const documentos = yield documentos_model_1.default.findByPk(id);
         if (!documentos) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un documento con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.deleteDocumentos = deleteDocumentos;
+//Función para habilitar y deshabilitar el estatus de Accesorios 
 const updateEstatusDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;
@@ -105,7 +111,7 @@ const updateEstatusDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, 
         return res.status(400).json({
             data: null,
             success: false,
-            message: 'El idZonasRegiones no es un valor válido'
+            message: 'El idDocumento no es un valor válido'
         });
     }
     const documentos = yield documentos_model_1.default.findByPk(id);

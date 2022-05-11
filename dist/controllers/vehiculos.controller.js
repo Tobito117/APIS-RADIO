@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusVehiculos = exports.deleteVehiculos = exports.putVehiculos = exports.postVehiculos = exports.getVehiculosById = exports.getVehiculos = void 0;
 const vehiculos_model_1 = __importDefault(require("../models/vehiculos.model"));
+//Función para obtener todos los elementos de una tabla
 const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const vehiculos = yield vehiculos_model_1.default.findAll();
     res.json({ vehiculos });
 });
 exports.getVehiculos = getVehiculos;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getVehiculosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const vehiculos = yield vehiculos_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getVehiculosById = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe Vehiculo en la base de datos"
         });
     }
 });
 exports.getVehiculosById = getVehiculosById;
+//Función para agregar un elemento a la tabla de nuestra base de datos Vehiculos
 const postVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.postVehiculos = postVehiculos;
+//Función para actualizar un elemento a la tabla de nuestra base de datos Vehiculo
 const putVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -77,13 +81,14 @@ const putVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.putVehiculos = putVehiculos;
+//Función para borrar un elemento a la tabla de nuestra base de datos Vehiculos (Solo se dehabilita)
 const deleteVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const vehiculos = yield vehiculos_model_1.default.findByPk(id);
         if (!vehiculos) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un vehiculo con el id ' + id
             });
         }
         // await usuario.destroy ();
@@ -98,6 +103,7 @@ const deleteVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.deleteVehiculos = deleteVehiculos;
+//Función para habilitar y deshabilitar el estatus de Vehiculo 
 const updateEstatusVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

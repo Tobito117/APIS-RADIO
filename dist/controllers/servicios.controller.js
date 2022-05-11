@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusServicios = exports.deleteServicios = exports.putServicios = exports.postServicios = exports.getServiciosById = exports.getServicios = void 0;
 const servicios_model_1 = __importDefault(require("../models/servicios.model"));
+//Función para obtener todos los elementos de una tabla
 const getServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const servicios = yield servicios_model_1.default.findAll();
     res.json({ servicios });
 });
 exports.getServicios = getServicios;
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getServiciosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const servicios = yield servicios_model_1.default.findByPk(id);
@@ -27,11 +29,12 @@ const getServiciosById = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     else {
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe servicio en la base de datos"
         });
     }
 });
 exports.getServiciosById = getServiciosById;
+//Función para agregar un elemento a la tabla de nuestra base de datos recursos-compras
 const postServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
@@ -56,6 +59,7 @@ const postServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.postServicios = postServicios;
+//Función para actualizar un elemento a la tabla de nuestra base de datos accesorios
 const putServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
@@ -63,7 +67,7 @@ const putServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const servicios = yield servicios_model_1.default.findByPk(id);
         if (!servicios) {
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un servicio con el id ' + id
             });
         }
         yield servicios.update(body);
@@ -77,16 +81,17 @@ const putServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.putServicios = putServicios;
+//Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
 const deleteServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const servicios = yield servicios_model_1.default.findByPk(id);
         if (!servicios) {
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un servicio con el id ' + id
             });
         }
-        // await usuario.destroy ();
+        // await usuario.destroy (); elimina el elemento totalmente 
         yield servicios.update({ fk_status: 6 });
         res.json(servicios);
     }
@@ -98,6 +103,7 @@ const deleteServicios = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.deleteServicios = deleteServicios;
+//Función para habilitar y deshabilitar el estatus de servicios
 const updateEstatusServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
     const fk_status = req.query.fk_status;

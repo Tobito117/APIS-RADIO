@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import RecursosCompras from '../models/recursos-compras.model';
 
+//Función para obtener todos los elementos de una tabla
 export const getRecursosCompras = async( req: Request , res: Response ) => {
 
     const recursoscompras = await RecursosCompras.findAll();
@@ -8,6 +9,7 @@ export const getRecursosCompras = async( req: Request , res: Response ) => {
     res.json({ recursoscompras });
 }
 
+//Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getRecursosComprasById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -17,12 +19,13 @@ export const getRecursosComprasById = async( req: Request , res: Response ) => {
         res.json(recursoscompras)
     }else{
         res.status(404).json({
-            msg: "No existe Usuario en la base de datos"
+            msg: "No existe recursos-compras en la base de datos"
         });
     } 
 
 }
 
+//Función para agregar un elemento a la tabla de nuestra base de datos recursos-compras
 export const postRecursosCompras = async( req: Request , res: Response ) => {
 
     const { body } = req;
@@ -52,6 +55,7 @@ export const postRecursosCompras = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para actualizar un elemento a la tabla de nuestra base de datos recursos-compras
 export const putRecursosCompras = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -62,7 +66,7 @@ export const putRecursosCompras = async( req: Request , res: Response ) => {
         const recursoscompras = await RecursosCompras.findByPk( id );
         if (!recursoscompras){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un recurso-compra con el id ' + id
             })
         }
 
@@ -80,7 +84,7 @@ export const putRecursosCompras = async( req: Request , res: Response ) => {
    
 }
 
-
+//Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
 export const deleteRecursosCompras = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -90,11 +94,11 @@ export const deleteRecursosCompras = async( req: Request , res: Response ) => {
         const recursoscompras = await RecursosCompras.findByPk( id );
         if (!recursoscompras){
             return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
+                msg: 'No existe un recurso-compra con el id ' + id
             })
         }
 
-       // await usuario.destroy ();
+       // await usuario.destroy (); //elimnina el elemento por completo
        await recursoscompras.update({ fk_status: 6 });
         res.json( recursoscompras );
         
@@ -110,7 +114,7 @@ export const deleteRecursosCompras = async( req: Request , res: Response ) => {
  
 }
 
-
+//Función para habilitar y deshabilitar el estatus de recursos-compras 
 export const updateEstatusRecursosCompras = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
