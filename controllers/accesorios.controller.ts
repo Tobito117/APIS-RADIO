@@ -56,6 +56,7 @@ export const postAccesorios = async( req: Request , res: Response ) => {
     }
 }
 
+//Función para aztualizar un elemento a la tabla de nuestra base de datos accesorios
 export const putAccesorios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
@@ -66,7 +67,7 @@ export const putAccesorios = async( req: Request , res: Response ) => {
         const accesorios = await Accesorios.findByPk( id );
         if (!accesorios){
             return res.status(404).json({
-                msg: 'No existe un Vehiculo con el id ' + id
+                msg: 'No existe un Accesorio con el id ' + id
             })
         }
 
@@ -84,7 +85,7 @@ export const putAccesorios = async( req: Request , res: Response ) => {
    
 }
 
-
+//
 export const deleteAccesorios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
