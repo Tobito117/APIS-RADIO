@@ -6,18 +6,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const ZonasRegiones = connection_1.default.define('zonasregiones', {
-    id_zona_region: {
+    idzonasregiones: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true
     },
-    nombre: {
+    nombreZonasRegiones: {
         type: sequelize_1.DataTypes.STRING
     },
-    descripcion: {
+    descripcionZonasRegiones: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_status: {
-        type: sequelize_1.DataTypes.INTEGER
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

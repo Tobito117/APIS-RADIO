@@ -1,25 +1,29 @@
 import { Request, Response } from "express";
-import Status from '../models/status.model';
+import Sue from '../models/situacion_ubicacion_estatus.model';
 
 //Función para obtener todos los elementos de una tabla
 export const getStatus = async( req: Request , res: Response ) => {
 
-    const status = await Status.findAll();
+    const status = await Sue.findAll();
 
-    res.json({ status });
+    res.json({ 
+        Datos: status,
+        estatus: true,
+        messagge: 'Datos Obtenidos Correctamente'
+     });
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getStatusById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
-    const status = await Status.findByPk( id );
+    const status = await Sue.findByPk( id );
 
     if(status){
         res.json(status)
     }else{
         res.status(404).json({
-            msg: "No existe status en la base de datos"
+            msg: "No existe situacion_ubicacion en la base de datos"
         });
     } 
 
@@ -43,7 +47,7 @@ export const postStatus = async( req: Request , res: Response ) => {
         //     });
         // }
 
-        const status = await Status.create(body);
+        const status = await Sue.create(body);
         await status.save();
 
         res.json(status);
@@ -63,10 +67,10 @@ export const putStatus = async( req: Request , res: Response ) => {
 
     try {
 
-        const status = await Status.findByPk( id );
+        const status = await Sue.findByPk( id );
         if (!status){
             return res.status(404).json({
-                msg: 'No existe un status con el id ' + id
+                msg: 'No existe un situacion_ubicacion con el id ' + id
             })
         }
 
@@ -91,15 +95,15 @@ export const deleteStatus = async( req: Request , res: Response ) => {
     
     try {
 
-        const status = await Status.findByPk( id );
+        const status = await Sue.findByPk( id );
         if (!status){
             return res.status(404).json({
-                msg: 'No existe un status con el id ' + id
+                msg: 'No existe un situacion_ubicacion con el id ' + id
             })
         }
 
        // await usuario.destroy ();
-        await status.update({ status: 0 });
+        await status.update({ nombreStatus: 'Cancelado' });
         res.json( status );
         
     } catch (error) {

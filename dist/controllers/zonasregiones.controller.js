@@ -132,10 +132,10 @@ const updateEstatusZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        zonasregiones.update({ fk_status: 6 });
+        zonasregiones.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        zonasregiones.update({ fk_status: 1 });
+        zonasregiones.update({ estatus: true });
     }
     else {
         return res.status(400).json({

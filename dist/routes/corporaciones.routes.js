@@ -7,7 +7,7 @@ router.get('/', corporaciones_controller_1.getCorporaciones);
 router.get('/:id', corporaciones_controller_1.getCorporacionesById);
 router.post('/', corporaciones_controller_1.postCorporaciones);
 router.put('/:id', corporaciones_controller_1.putCorporaciones);
-router.delete('/:id', corporaciones_controller_1.deleteCorporaciones);
+//  router.delete('/:id',     deleteCorporaciones );
 router.put('/status/:id', corporaciones_controller_1.updateEstatusCorporaciones);
 exports.default = router;
 //# sourceMappingURL=corporaciones.routes.js.map

@@ -7,15 +7,12 @@ import userRoutes from '../routes/usuario.routes';
 import usuariosRoutes from '../routes/usuarios.routes';
 import vehiculosRoutes from '../routes/vehiculos.routes';
 import zonasregionesRoutes from '../routes/zonasregiones.routes';
-import tipos_tiposRoutes from '../routes/tipos_tipos.routes';
-import statusRoutes from '../routes/status.routes';
+import sueRoutes from '../routes/situacion_ubicacion_estatus.routes';
 import tiposRoutes from '../routes/tipos.routes';
 import serviciosRoutes from '../routes/servicios.routes';
 import recursoscomprasRoutes from '../routes/recursos-compras.routes';
 import puestosRoutes from '../routes/puestos.routes';
-import ModelosRoutes from '../routes/modelos.routes';
 import marcasRoutes from  '../routes/marcas.routes';
-import lineasRoutes from '../routes/lineas.routes';
 import imagenesRoutes from '../routes/imagenes.routes';
 import hojasserviciosRoutes from '../routes/hojas-servicios.routes';
 import documentosRoutes from '../routes/documentos.routes';
@@ -36,15 +33,12 @@ export class Server {
         usuarios: '/api/v0/usuarios',
         vehiculos: '/api/v0/vehiculos',
         zonasregiones: '/api/v0/zonasregiones',
-        tipos_tipos: '/api/v0/tipos_tipos',
-        status: '/api/v0/status',
+        sue: '/api/v0/sue',
         tipos: '/api/v0/tipos',
         servicios: '/api/v0/servicios',
         recursos_compras: '/api/v0/recursoscompras',
         puestos: '/api/v0/puestos',
-        modelos: '/api/v0/modelos',
         marcas: '/api/v0/marcas',
-        lineas: '/api/v0/lineas',
         imagenes: '/api/v0/imagenes',
         hojasservicios: '/api/v0/hojasservicios',
         documentos: '/api/v0/documentos',
@@ -102,15 +96,12 @@ export class Server {
         this.app.use ( this.baseUrl.usuarios, usuariosRoutes);
         this.app.use ( this.baseUrl.vehiculos, vehiculosRoutes);
         this.app.use (this.baseUrl.zonasregiones, zonasregionesRoutes);
-        this.app.use (this.baseUrl.tipos_tipos, tipos_tiposRoutes);
-        this.app.use (this.baseUrl.status, statusRoutes);
+        this.app.use (this.baseUrl.sue, sueRoutes);
         this.app.use (this.baseUrl.tipos, tiposRoutes);
         this.app.use (this.baseUrl.servicios, serviciosRoutes);
         this.app.use (this.baseUrl.recursos_compras, recursoscomprasRoutes);
         this.app.use (this.baseUrl.puestos, puestosRoutes);
-        this.app.use(this.baseUrl.modelos, ModelosRoutes);
         this.app.use( this.baseUrl.marcas, marcasRoutes);
-        this.app.use (this.baseUrl.lineas, lineasRoutes);
         this.app.use ( this.baseUrl.imagenes, imagenesRoutes);
         this.app.use ( this.baseUrl.hojasservicios, hojasserviciosRoutes);
         this.app.use (this.baseUrl.documentos, documentosRoutes);

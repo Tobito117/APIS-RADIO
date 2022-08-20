@@ -2,18 +2,18 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const ZonasRegiones = db.define('zonasregiones', {
-    id_zona_region: {
+    idzonasregiones: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-    nombre: {
+    nombreZonasRegiones: {
         type: DataTypes.STRING
     },
-    descripcion: {
+    descripcionZonasRegiones: {
         type: DataTypes.STRING
       },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

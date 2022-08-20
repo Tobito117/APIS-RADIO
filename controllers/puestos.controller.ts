@@ -4,19 +4,46 @@ import Puestos from '../models/puestos.model';
 //Función para obtener todos los elementos de una tabla
 export const getPuestos = async( req: Request , res: Response ) => {
 
-    const puestos = await Puestos.findAll();
+     //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+     const puestos: any = await Puestos.sequelize?.query("SELECT puestos.idpuesto, puestos.nombre, corporaciones.nombreCorporacion, puestos.estatus FROM puestos INNER JOIN corporaciones ON puestos.idpuesto = corporaciones.idcorporaciones", {
+        replacements: [],
+        model: Puestos,
+        mapToModel: true
+    });
 
-    res.json({ puestos });
+    res.json({
+        Datos: puestos,
+        success: true,
+        messagge: "Datos Obtenidos Correctamente" 
+    });
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getPuestosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
-    const puestos = await Puestos.findByPk( id );
+        //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+        const puestos: any = await Puestos.sequelize?.query("SELECT puestos.idpuesto, puestos.nombre, corporaciones.nombreCorporacion, puestos.estatus FROM puestos INNER JOIN corporaciones ON puestos.idpuesto = corporaciones.idcorporaciones where idpuesto = ?", {
+            replacements: [ id ],
+            model: Puestos,
+            mapToModel: true
+        });
 
-    if(puestos){
-        res.json(puestos)
+        let idp
+   
+        for(let i of puestos){
+    
+          idp = i.dataValues.idpuesto
+    
+        }
+        console.log(idp);
+
+    if(idp ){
+        res.json({
+            Datos: puestos,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente" 
+        });
     }else{
         res.status(404).json({
             msg: "No existe puesto en la base de datos"
@@ -46,7 +73,11 @@ export const postPuestos = async( req: Request , res: Response ) => {
         const puestos = await Puestos.create(body);
         await puestos.save();
 
-        res.json(puestos);
+        res.json({
+            Datos: puestos,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente" 
+        });
         
     } catch (error) {
         res.status(500).json({
@@ -85,34 +116,34 @@ export const putPuestos = async( req: Request , res: Response ) => {
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos puestos (Solo se dehabilita)
-export const deletePuestos = async( req: Request , res: Response ) => {
+// export const deletePuestos = async( req: Request , res: Response ) => {
 
-    const { id } = req.params;
+//     const { id } = req.params;
     
-    try {
+//     try {
 
-        const puestos = await Puestos.findByPk( id );
-        if (!puestos){
-            return res.status(404).json({
-                msg: 'No existe un puesto con el id ' + id
-            })
-        }
+//         const puestos = await Puestos.findByPk( id );
+//         if (!puestos){
+//             return res.status(404).json({
+//                 msg: 'No existe un puesto con el id ' + id
+//             })
+//         }
 
-       // await usuario.destroy ();
-       await puestos.update({ fk_status: 6 });
-        res.json( puestos );
+//        // await usuario.destroy ();
+//        await puestos.update({ fk_status: 6 });
+//         res.json( puestos );
         
-    } catch (error) {
+//     } catch (error) {
 
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        })
+//         console.log(error);
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
         
-    }
+//     }
 
  
-}
+// }
 
 //Función para habilitar y deshabilitar el estatus de puestos
 export const updateEstatusPuestos = async (req: Request, res: Response) => {
@@ -154,11 +185,11 @@ export const updateEstatusPuestos = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      puestos.update({ fk_status: 6 })
+      puestos.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      puestos.update({ fk_status: 1})
+      puestos.update({ estatus: true})
   }
   else
   {

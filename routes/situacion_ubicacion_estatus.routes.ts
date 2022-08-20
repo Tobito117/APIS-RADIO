@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getStatus, getStatusById, postStatus, putStatus, deleteStatus } from "../controllers/status.controller";
+import { getStatus, getStatusById, postStatus, putStatus, deleteStatus } from "../controllers/situacion_ubicacion_estatus.controller";
 const router = Router();
 
  router.get('/',           getStatus);

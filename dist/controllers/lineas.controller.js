@@ -14,16 +14,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusLineas = exports.deleteLineas = exports.putLineas = exports.postLineas = exports.getLineasById = exports.getLineas = void 0;
 const lineas_model_1 = __importDefault(require("../models/lineas.model"));
+const { QueryTypes } = require('sequelize');
 //Función para obtener todos los elementos de una tabla
 const getLineas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const lineas = yield lineas_model_1.default.findAll();
-    res.json({ lineas });
+    var _a;
+    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const lineas = yield ((_a = lineas_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT lineas.id_linea, lineas.nombreL, marcas.nombreM, status.nombreStatus FROM lineas INNER JOIN marcas ON lineas.fk_marca = marcas.id_marca INNER JOIN status ON lineas.fk_status = status.id_status", {
+        replacements: [],
+        model: lineas_model_1.default,
+        mapToModel: true
+    }));
+    let idp, nombre;
+    for (let i of lineas) {
+        idp = i.dataValues.id_linea;
+        nombre = i.dataValues.nombreL;
+    }
+    console.log(lineas[idp].dataValues.nombreL);
+    res.json({
+        Datos: lineas,
+        success: true,
+        messgge: "Datos Obtenidos Correctamente"
+    });
 });
 exports.getLineas = getLineas;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getLineasById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
     const { id } = req.params;
-    const lineas = yield lineas_model_1.default.findByPk(id);
+    // const lineas = await Lineas.findByPk(id);
+    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const lineas = yield ((_b = lineas_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT lineas.id_linea, lineas.nombreL, marcas.nombreM, status.nombreStatus FROM lineas INNER JOIN marcas ON lineas.fk_marca = marcas.id_marca INNER JOIN status ON lineas.fk_status = status.id_status where id_linea = ?", {
+        replacements: [id],
+        model: lineas_model_1.default,
+        mapToModel: true
+    }));
+    let idp, nombre;
+    for (let i of lineas) {
+        idp = i.dataValues.id_linea;
+        nombre = i.dataValues.nombreL;
+    }
+    console.log(idp, nombre);
     if (lineas) {
         res.json(lineas);
     }

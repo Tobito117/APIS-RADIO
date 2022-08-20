@@ -17,7 +17,11 @@ const situacion_ubicacion_estatus_model_1 = __importDefault(require("../models/s
 //Función para obtener todos los elementos de una tabla
 const getStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const status = yield situacion_ubicacion_estatus_model_1.default.findAll();
-    res.json({ status });
+    res.json({
+        Datos: status,
+        estatus: true,
+        messagge: 'Datos Obtenidos Correctamente'
+    });
 });
 exports.getStatus = getStatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -29,7 +33,7 @@ const getStatusById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     else {
         res.status(404).json({
-            msg: "No existe status en la base de datos"
+            msg: "No existe situacion_ubicacion en la base de datos"
         });
     }
 });
@@ -67,7 +71,7 @@ const putStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const status = yield situacion_ubicacion_estatus_model_1.default.findByPk(id);
         if (!status) {
             return res.status(404).json({
-                msg: 'No existe un status con el id ' + id
+                msg: 'No existe un situacion_ubicacion con el id ' + id
             });
         }
         yield status.update(body);
@@ -88,11 +92,11 @@ const deleteStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const status = yield situacion_ubicacion_estatus_model_1.default.findByPk(id);
         if (!status) {
             return res.status(404).json({
-                msg: 'No existe un status con el id ' + id
+                msg: 'No existe un situacion_ubicacion con el id ' + id
             });
         }
         // await usuario.destroy ();
-        yield status.update({ status: 0 });
+        yield status.update({ nombreStatus: 'Cancelado' });
         res.json(status);
     }
     catch (error) {
@@ -155,4 +159,4 @@ exports.deleteStatus = deleteStatus;
 //       message: 'Estatus actualizado'
 //   })
 // }
-//# sourceMappingURL=status.controller.js.map
+//# sourceMappingURL=situacion_ubicacion_estatus.controller.js.map

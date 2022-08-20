@@ -10,7 +10,7 @@ const Marcas = connection_1.default.define('marcas', {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true
     },
-    nombre: {
+    nombreM: {
         type: sequelize_1.DataTypes.STRING
     },
     fk_tipo: {

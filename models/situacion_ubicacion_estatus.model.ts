@@ -1,22 +1,13 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
-const Tipos_Tipos = db.define('tipos_tipos', {
-    id_tipo_tipo: {
+const Sue = db.define('situacion_ubicacion_estatus', {
+    id_sue: {
         type: DataTypes.INTEGER,
         primaryKey: true
-      },
-    nombre: {
-        type: DataTypes.STRING
     },
-    descripcion: {
+    nombreStatus: {
         type: DataTypes.STRING
-      },
-    fk_tipo: {
-        type: DataTypes.INTEGER
-    },
-    fk_status: {
-        type: DataTypes.INTEGER
     },
     createdAt: {
         type: DataTypes.DATE
@@ -24,6 +15,10 @@ const Tipos_Tipos = db.define('tipos_tipos', {
     updatedAt: {
         type: DataTypes.DATE
     }
-});
+},{
+    tableName: 'situacion_ubicacion_estatus'
+}
+);
 
-export default Tipos_Tipos;
+
+export default Sue;

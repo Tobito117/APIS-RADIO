@@ -85,34 +85,34 @@ export const putServicios = async( req: Request , res: Response ) => {
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
-export const deleteServicios = async( req: Request , res: Response ) => {
+// export const deleteServicios = async( req: Request , res: Response ) => {
 
-    const { id } = req.params;
+//     const { id } = req.params;
     
-    try {
+//     try {
 
-        const servicios = await Servicios.findByPk( id );
-        if (!servicios){
-            return res.status(404).json({
-                msg: 'No existe un servicio con el id ' + id
-            })
-        }
+//         const servicios = await Servicios.findByPk( id );
+//         if (!servicios){
+//             return res.status(404).json({
+//                 msg: 'No existe un servicio con el id ' + id
+//             })
+//         }
 
-       // await usuario.destroy (); elimina el elemento totalmente 
-       await servicios.update({ fk_status: 6 });
-        res.json( servicios );
+//        // await usuario.destroy (); elimina el elemento totalmente 
+//        await servicios.update({ fk_status: 6 });
+//         res.json( servicios );
         
-    } catch (error) {
+//     } catch (error) {
 
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        })
+//         console.log(error);
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
         
-    }
+//     }
 
  
-}
+// }
 
 //Función para habilitar y deshabilitar el estatus de servicios
 export const updateEstatusServicios = async (req: Request, res: Response) => {
@@ -154,11 +154,11 @@ export const updateEstatusServicios = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      servicios.update({ fk_status: 6 })
+      servicios.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      servicios.update({ fk_status: 1})
+      servicios.update({ estatus: true})
   }
   else
   {

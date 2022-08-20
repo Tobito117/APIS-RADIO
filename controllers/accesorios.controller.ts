@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Accesorios from '../models/accesorios.model';
 
-//Función para obtener todos los elementos de una tabla
+//Función para obtener todos los elementos de unafkewnfkmewn
 export const getAccesorios = async( req: Request , res: Response ) => {
 
     const accesorios = await Accesorios.findAll();

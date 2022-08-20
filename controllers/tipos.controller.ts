@@ -6,7 +6,11 @@ export const getTipos = async( req: Request , res: Response ) => {
 
     const tipos = await Tipos.findAll();
 
-    res.json({ tipos });
+    res.json({ 
+        Datos: tipos,
+        success: true,
+        messagge: "Datos Obtenidos Correctamente"
+    });
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -84,34 +88,34 @@ export const putTipos = async( req: Request , res: Response ) => {
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos tipos (Solo se dehabilita)
-export const deleteTipos = async( req: Request , res: Response ) => {
+// export const deleteTipos = async( req: Request , res: Response ) => {
 
-    const { id } = req.params;
+//     const { id } = req.params;
     
-    try {
+//     try {
 
-        const tipos = await Tipos.findByPk( id );
-        if (!tipos){
-            return res.status(404).json({
-                msg: 'No existe un tipo con el id ' + id
-            })
-        }
+//         const tipos = await Tipos.findByPk( id );
+//         if (!tipos){
+//             return res.status(404).json({
+//                 msg: 'No existe un tipo con el id ' + id
+//             })
+//         }
 
-       // await usuario.destroy ();
-       await tipos.update({ fk_status: 6 });
-        res.json( tipos );
+//        // await usuario.destroy ();
+//        await tipos.update({ fk_status: 6 });
+//         res.json( tipos );
         
-    } catch (error) {
+//     } catch (error) {
 
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        })
+//         console.log(error);
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
         
-    }
+//     }
 
  
-}
+// }
 
 //Función para habilitar y deshabilitar el estatus de Tipos
 export const updateEstatusPuestos = async (req: Request, res: Response) => {
@@ -153,11 +157,11 @@ export const updateEstatusPuestos = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      tipos.update({ fk_status: 6 })
+      tipos.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      tipos.update({ fk_status: 1})
+      tipos.update({ estatus: true})
   }
   else
   {

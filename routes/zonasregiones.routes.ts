@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getZonasRegiones, getZonasRegionesById, postZonasRegiones, putZonasRegiones, deleteZonasRegiones, updateEstatusZonasRegiones } from "../controllers/zonasregiones.controller";
+import { getZonasRegiones, getZonasRegionesById, postZonasRegiones, putZonasRegiones, /*deleteZonasRegiones,*/ updateEstatusZonasRegiones } from "../controllers/zonasregiones.controller";
 
 const router = Router();
 
@@ -7,7 +7,7 @@ const router = Router();
  router.get('/:id',        getZonasRegionesById   );
  router.post('/',          postZonasRegiones   );
  router.put('/:id',        putZonasRegiones   );
- router.delete('/:id',     deleteZonasRegiones );
+//  router.delete('/:id',     deleteZonasRegiones );
  router.put('/status/:id', updateEstatusZonasRegiones);
 
 export default router;

@@ -104,7 +104,7 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
        const UsuarioAutenticado = req.user;
 
 
-       await usuario.update({ status: false });
+       await usuario.update({ estatus: false });
         res.json({ usuario, UsuarioAutenticado });
         
     } catch (error) {
@@ -195,10 +195,12 @@ export const validarUsuarioPrueba = async ( req: Request, res: Response) => {
         const existeUsuario: any = await User.findOne({
             where: {
                 username: body.username,
-                password_hash : body.password_hash
+                password : body.password
 
             }
         });
+
+        console.log(existeUsuario.dataValues.idusers);
 
         //Verificar si el email existe
         if(!existeUsuario){
@@ -208,14 +210,14 @@ export const validarUsuarioPrueba = async ( req: Request, res: Response) => {
         }
 
         //si el usuario está activo
-        if (!existeUsuario.dataValues.status){
+        if (!existeUsuario.dataValues.estatus){
             return res.status(400).json({
                 msg: 'Usuario / Passwordno son correctos - estado: inactivo'
             })
         }
 
         //Genenerar JWT 
-        const token = await generarJWT( existeUsuario.dataValues.id)
+        const token = await generarJWT( existeUsuario.dataValues.idusers)
 
 
         res.json({

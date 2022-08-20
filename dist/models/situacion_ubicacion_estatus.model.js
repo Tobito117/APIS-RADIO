@@ -5,25 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
-const Tipos = connection_1.default.define('tipos', {
-    idtipos: {
+const Sue = connection_1.default.define('situacion_ubicacion_estatus', {
+    id_sue: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true
     },
-    nombreTipo: {
+    nombreStatus: {
         type: sequelize_1.DataTypes.STRING
-    },
-    descripcionTipo: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    subNombre: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    subDescripcion: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    estatus: {
-        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE
@@ -31,6 +19,8 @@ const Tipos = connection_1.default.define('tipos', {
     updatedAt: {
         type: sequelize_1.DataTypes.DATE
     }
+}, {
+    tableName: 'situacion_ubicacion_estatus'
 });
-exports.default = Tipos;
-//# sourceMappingURL=tipos.model.js.map
+exports.default = Sue;
+//# sourceMappingURL=situacion_ubicacion_estatus.model.js.map

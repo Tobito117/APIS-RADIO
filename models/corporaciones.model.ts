@@ -2,18 +2,18 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Corporaciones = db.define('corporaciones', {
-    id_corporacion: {
+    idcorporaciones: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-    nombre: {
+    nombreCorporacion: {
         type: DataTypes.STRING
     },
-    siglas: {
+    siglasCorporacion: {
         type: DataTypes.STRING
       },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

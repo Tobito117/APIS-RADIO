@@ -2,18 +2,24 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Tipos = db.define('tipos', {
-    id_tipo: {
+    idtipos: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-    nombre: {
+    nombreTipo: {
         type: DataTypes.STRING
     },
-    descripcion: {
+    descripcionTipo: {
         type: DataTypes.STRING
       },
-    fk_status: {
-        type: DataTypes.INTEGER
+    subNombre: {
+        type: DataTypes.STRING
+      },
+    subDescripcion: {
+        type: DataTypes.STRING
+      },
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

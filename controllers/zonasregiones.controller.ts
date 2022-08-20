@@ -154,11 +154,11 @@ export const updateEstatusZonasRegiones = async (req: Request, res: Response) =>
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      zonasregiones.update({ fk_status: 6 })
+      zonasregiones.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      zonasregiones.update({ fk_status: 1})
+      zonasregiones.update({ estatus: true})
   }
   else
   {

@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusAccesorios = exports.deleteAccesorios = exports.putAccesorios = exports.postAccesorios = exports.getAccesoriosById = exports.getAccesorios = void 0;
 const accesorios_model_1 = __importDefault(require("../models/accesorios.model"));
-//Función para obtener todos los elementos de una tabla
+//Función para obtener todos los elementos de unafkewnfkmewn
 const getAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const accesorios = yield accesorios_model_1.default.findAll();
     res.json({ accesorios });

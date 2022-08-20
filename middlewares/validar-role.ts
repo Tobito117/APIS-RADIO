@@ -5,13 +5,13 @@ export const esAdminRole = (req: Request, res: Response, next: NextFunction) => 
 
     if(!req.user){
         return res.status(500).json({
-            msg: 'Se quiere verificat el role sin validar el token primero'
+            msg: 'Se quiere verificar el role sin validar el token primero'
         });
     }
 
-    const { superadmin, username } = req.user;
+    const { roles_idrol, username } = req.user;
 
-    if ( superadmin !== 1){
+    if ( roles_idrol !== 1){
         return res.status(401).json({
             msg: ` ${username} no es administrador - no puede hacer eso`
         })

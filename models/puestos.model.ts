@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Puestos = db.define('puestos', {
-    id_puesto: {
+    idpuesto: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
@@ -12,8 +12,8 @@ const Puestos = db.define('puestos', {
     fk_corporacion: {
         type: DataTypes.INTEGER
       },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

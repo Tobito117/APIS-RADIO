@@ -2,18 +2,18 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Servicios = db.define('servicios', {
-    id_servicio: {
+    idservicios: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-    nombre: {
+    nombreServicios: {
         type: DataTypes.STRING
     },
     descripcion: {
         type: DataTypes.STRING
       },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

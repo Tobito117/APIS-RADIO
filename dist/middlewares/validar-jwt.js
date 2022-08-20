@@ -28,6 +28,7 @@ const validarJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     try {
         const { id } = jsonwebtoken_1.default.verify(token, process.env.SECRETORPRIVATEKEY);
         const user = yield usuario_model_1.default.findByPk(id);
+        console.log(user);
         //verificar si el usuario no existe en la base de datos
         if (!user) {
             return res.status(401).json({
@@ -35,7 +36,7 @@ const validarJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             });
         }
         //Verificar si el usuario esta en estado true
-        if (!user.dataValues.status) {
+        if (!user.dataValues.estatus) {
             return res.status(401).json({
                 msg: "Token no válido - usuario con estado_ false"
             });

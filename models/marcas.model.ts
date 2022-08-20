@@ -6,7 +6,7 @@ const Marcas = db.define('marcas', {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-    nombre: {
+    nombreM: {
         type: DataTypes.STRING
     },
     fk_tipo: {
@@ -22,5 +22,7 @@ const Marcas = db.define('marcas', {
         type: DataTypes.DATE
     }
 });
+
+
 
 export default Marcas;

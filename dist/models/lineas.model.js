@@ -10,7 +10,7 @@ const Lineas = connection_1.default.define('lineas', {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true
     },
-    nombre: {
+    nombreL: {
         type: sequelize_1.DataTypes.STRING
     },
     fk_marca: {

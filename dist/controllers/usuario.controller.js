@@ -94,7 +94,7 @@ const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         }
         // await usuario.destroy ();
         const UsuarioAutenticado = req.user;
-        yield usuario.update({ status: false });
+        yield usuario.update({ estatus: false });
         res.json({ usuario, UsuarioAutenticado });
     }
     catch (error) {
@@ -162,9 +162,10 @@ const validarUsuarioPrueba = (req, res) => __awaiter(void 0, void 0, void 0, fun
         const existeUsuario = yield usuario_model_1.default.findOne({
             where: {
                 username: body.username,
-                password_hash: body.password_hash
+                password: body.password
             }
         });
+        console.log(existeUsuario.dataValues.idusers);
         //Verificar si el email existe
         if (!existeUsuario) {
             return res.status(400).json({
@@ -172,13 +173,13 @@ const validarUsuarioPrueba = (req, res) => __awaiter(void 0, void 0, void 0, fun
             });
         }
         //si el usuario está activo
-        if (!existeUsuario.dataValues.status) {
+        if (!existeUsuario.dataValues.estatus) {
             return res.status(400).json({
                 msg: 'Usuario / Passwordno son correctos - estado: inactivo'
             });
         }
         //Genenerar JWT 
-        const token = yield (0, generar_jwt_1.generarJWT)(existeUsuario.dataValues.id);
+        const token = yield (0, generar_jwt_1.generarJWT)(existeUsuario.dataValues.idusers);
         res.json({
             existeUsuario,
             token

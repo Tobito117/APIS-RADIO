@@ -1,8 +1,8 @@
 import {   Model,DataTypes } from 'sequelize';
 import db from '../db/connection';
 
-const User = db.define('User', {
-    id: {
+const User = db.define('users', {
+    idusers: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         // get(){
@@ -13,38 +13,17 @@ const User = db.define('User', {
     username: {
         type: DataTypes.STRING
     },
-    auth_key: {
-        type: DataTypes.STRING
-    },
-    password_hash: {
-        type: DataTypes.STRING
-    },
-    confirmation_token: {
-        type: DataTypes.STRING
-    },
-    status: {
-        type: DataTypes.INTEGER
-    },
-    superadmin: {
-        type: DataTypes.SMALLINT
-    },
-    created_at: {
-        type: DataTypes.INTEGER
-    },
-    updated_at: {
-        type: DataTypes.INTEGER
-    },
-    registration_ip: {
-        type: DataTypes.STRING
-    },
-    bind_to_ip: {
+    password: {
         type: DataTypes.STRING
     },
     email: {
         type: DataTypes.STRING
-    }, 
-    email_confirmed: {
-        type: DataTypes.SMALLINT
+    },
+    roles_idrol: {
+        type: DataTypes.INTEGER
+    },
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

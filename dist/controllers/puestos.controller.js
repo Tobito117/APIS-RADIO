@@ -12,20 +12,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusPuestos = exports.deletePuestos = exports.putPuestos = exports.postPuestos = exports.getPuestosById = exports.getPuestos = void 0;
+exports.updateEstatusPuestos = exports.putPuestos = exports.postPuestos = exports.getPuestosById = exports.getPuestos = void 0;
 const puestos_model_1 = __importDefault(require("../models/puestos.model"));
 //Función para obtener todos los elementos de una tabla
 const getPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const puestos = yield puestos_model_1.default.findAll();
-    res.json({ puestos });
+    var _a;
+    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const puestos = yield ((_a = puestos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT puestos.idpuesto, puestos.nombre, corporaciones.nombreCorporacion, puestos.estatus FROM puestos INNER JOIN corporaciones ON puestos.idpuesto = corporaciones.idcorporaciones", {
+        replacements: [],
+        model: puestos_model_1.default,
+        mapToModel: true
+    }));
+    res.json({
+        Datos: puestos,
+        success: true,
+        messagge: "Datos Obtenidos Correctamente"
+    });
 });
 exports.getPuestos = getPuestos;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getPuestosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
     const { id } = req.params;
-    const puestos = yield puestos_model_1.default.findByPk(id);
-    if (puestos) {
-        res.json(puestos);
+    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const puestos = yield ((_b = puestos_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT puestos.idpuesto, puestos.nombre, corporaciones.nombreCorporacion, puestos.estatus FROM puestos INNER JOIN corporaciones ON puestos.idpuesto = corporaciones.idcorporaciones where idpuesto = ?", {
+        replacements: [id],
+        model: puestos_model_1.default,
+        mapToModel: true
+    }));
+    let idp;
+    for (let i of puestos) {
+        idp = i.dataValues.idpuesto;
+    }
+    console.log(idp);
+    if (idp) {
+        res.json({
+            Datos: puestos,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente"
+        });
     }
     else {
         res.status(404).json({
@@ -50,7 +75,11 @@ const postPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         // }
         const puestos = yield puestos_model_1.default.create(body);
         yield puestos.save();
-        res.json(puestos);
+        res.json({
+            Datos: puestos,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente"
+        });
     }
     catch (error) {
         res.status(500).json({
@@ -82,27 +111,25 @@ const putPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.putPuestos = putPuestos;
 //Función para borrar un elemento a la tabla de nuestra base de datos puestos (Solo se dehabilita)
-const deletePuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    try {
-        const puestos = yield puestos_model_1.default.findByPk(id);
-        if (!puestos) {
-            return res.status(404).json({
-                msg: 'No existe un puesto con el id ' + id
-            });
-        }
-        // await usuario.destroy ();
-        yield puestos.update({ fk_status: 6 });
-        res.json(puestos);
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        });
-    }
-});
-exports.deletePuestos = deletePuestos;
+// export const deletePuestos = async( req: Request , res: Response ) => {
+//     const { id } = req.params;
+//     try {
+//         const puestos = await Puestos.findByPk( id );
+//         if (!puestos){
+//             return res.status(404).json({
+//                 msg: 'No existe un puesto con el id ' + id
+//             })
+//         }
+//        // await usuario.destroy ();
+//        await puestos.update({ fk_status: 6 });
+//         res.json( puestos );
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
+//     }
+// }
 //Función para habilitar y deshabilitar el estatus de puestos
 const updateEstatusPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
@@ -132,10 +159,10 @@ const updateEstatusPuestos = (req, res) => __awaiter(void 0, void 0, void 0, fun
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        puestos.update({ fk_status: 6 });
+        puestos.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        puestos.update({ fk_status: 1 });
+        puestos.update({ estatus: true });
     }
     else {
         return res.status(400).json({

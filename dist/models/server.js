@@ -21,15 +21,12 @@ const usuario_routes_1 = __importDefault(require("../routes/usuario.routes"));
 const usuarios_routes_1 = __importDefault(require("../routes/usuarios.routes"));
 const vehiculos_routes_1 = __importDefault(require("../routes/vehiculos.routes"));
 const zonasregiones_routes_1 = __importDefault(require("../routes/zonasregiones.routes"));
-const tipos_tipos_routes_1 = __importDefault(require("../routes/tipos_tipos.routes"));
-const status_routes_1 = __importDefault(require("../routes/status.routes"));
+const situacion_ubicacion_estatus_routes_1 = __importDefault(require("../routes/situacion_ubicacion_estatus.routes"));
 const tipos_routes_1 = __importDefault(require("../routes/tipos.routes"));
 const servicios_routes_1 = __importDefault(require("../routes/servicios.routes"));
 const recursos_compras_routes_1 = __importDefault(require("../routes/recursos-compras.routes"));
 const puestos_routes_1 = __importDefault(require("../routes/puestos.routes"));
-const modelos_routes_1 = __importDefault(require("../routes/modelos.routes"));
 const marcas_routes_1 = __importDefault(require("../routes/marcas.routes"));
-const lineas_routes_1 = __importDefault(require("../routes/lineas.routes"));
 const imagenes_routes_1 = __importDefault(require("../routes/imagenes.routes"));
 const hojas_servicios_routes_1 = __importDefault(require("../routes/hojas-servicios.routes"));
 const documentos_routes_1 = __importDefault(require("../routes/documentos.routes"));
@@ -47,15 +44,12 @@ class Server {
             usuarios: '/api/v0/usuarios',
             vehiculos: '/api/v0/vehiculos',
             zonasregiones: '/api/v0/zonasregiones',
-            tipos_tipos: '/api/v0/tipos_tipos',
-            status: '/api/v0/status',
+            sue: '/api/v0/sue',
             tipos: '/api/v0/tipos',
             servicios: '/api/v0/servicios',
             recursos_compras: '/api/v0/recursoscompras',
             puestos: '/api/v0/puestos',
-            modelos: '/api/v0/modelos',
             marcas: '/api/v0/marcas',
-            lineas: '/api/v0/lineas',
             imagenes: '/api/v0/imagenes',
             hojasservicios: '/api/v0/hojasservicios',
             documentos: '/api/v0/documentos',
@@ -100,15 +94,12 @@ class Server {
         this.app.use(this.baseUrl.usuarios, usuarios_routes_1.default);
         this.app.use(this.baseUrl.vehiculos, vehiculos_routes_1.default);
         this.app.use(this.baseUrl.zonasregiones, zonasregiones_routes_1.default);
-        this.app.use(this.baseUrl.tipos_tipos, tipos_tipos_routes_1.default);
-        this.app.use(this.baseUrl.status, status_routes_1.default);
+        this.app.use(this.baseUrl.sue, situacion_ubicacion_estatus_routes_1.default);
         this.app.use(this.baseUrl.tipos, tipos_routes_1.default);
         this.app.use(this.baseUrl.servicios, servicios_routes_1.default);
         this.app.use(this.baseUrl.recursos_compras, recursos_compras_routes_1.default);
         this.app.use(this.baseUrl.puestos, puestos_routes_1.default);
-        this.app.use(this.baseUrl.modelos, modelos_routes_1.default);
         this.app.use(this.baseUrl.marcas, marcas_routes_1.default);
-        this.app.use(this.baseUrl.lineas, lineas_routes_1.default);
         this.app.use(this.baseUrl.imagenes, imagenes_routes_1.default);
         this.app.use(this.baseUrl.hojasservicios, hojas_servicios_routes_1.default);
         this.app.use(this.baseUrl.documentos, documentos_routes_1.default);

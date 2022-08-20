@@ -85,34 +85,34 @@ export const putCorporaciones = async( req: Request , res: Response ) => {
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos corporaciones (Solo se dehabilita)
-export const deleteCorporaciones = async( req: Request , res: Response ) => {
+// export const deleteCorporaciones = async( req: Request , res: Response ) => {
 
-    const { id } = req.params;
+//     const { id } = req.params;
     
-    try {
+//     try {
 
-        const corporaciones = await Corporaciones.findByPk( id );
-        if (!corporaciones){
-            return res.status(404).json({
-                msg: 'No existe una corporacion con el id ' + id
-            })
-        }
+//         const corporaciones = await Corporaciones.findByPk( id );
+//         if (!corporaciones){
+//             return res.status(404).json({
+//                 msg: 'No existe una corporacion con el id ' + id
+//             })
+//         }
 
-       // await usuario.destroy ();
-       await corporaciones.update({ fk_status: 6 });
-        res.json( corporaciones );
+//        // await usuario.destroy ();
+//        await corporaciones.update({ fk_status: 6 });
+//         res.json( corporaciones );
         
-    } catch (error) {
+//     } catch (error) {
 
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        })
+//         console.log(error);
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
         
-    }
+//     }
 
  
-}
+// }
 
 //Función para habilitar y deshabilitar el estatus de corporaciones
 export const updateEstatusCorporaciones = async (req: Request, res: Response) => {
@@ -154,11 +154,11 @@ export const updateEstatusCorporaciones = async (req: Request, res: Response) =>
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      corporaciones.update({ fk_status: 6 })
+      corporaciones.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      corporaciones.update({ fk_status: 1})
+      corporaciones.update({ estatus: true })
   }
   else
   {

@@ -1,16 +1,16 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
-const RecursosCompras = db.define('recursoscompras', {
-    id_recurso_compra: {
+const RecursosCompras = db.define('recursocompras', {
+    idrecursoCompras: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-    nombre: {
+    nombreRecursoCompra: {
         type: DataTypes.STRING
     },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

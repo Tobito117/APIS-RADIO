@@ -21,6 +21,7 @@ export const  validarJWT = async ( req: Request, res: Response, next: NextFuncti
         const { id } : any  = jwt.verify( token, process.env.SECRETORPRIVATEKEY as string);
 
         const user: any = await User.findByPk( id );   
+        console.log(user);
 
 
         //verificar si el usuario no existe en la base de datos
@@ -34,7 +35,7 @@ export const  validarJWT = async ( req: Request, res: Response, next: NextFuncti
         
         //Verificar si el usuario esta en estado true
 
-         if(!user.dataValues.status){
+         if(!user.dataValues.estatus){
             return res.status(401).json({
                 msg: "Token no válido - usuario con estado_ false"
             }); 
