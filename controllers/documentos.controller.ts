@@ -197,7 +197,7 @@ export const postDocumentos = async( req: Request , res: Response ) => {
 
       try {
 
-        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos');
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
           const nombre = await subirArchivo(req, req.files, undefined, 'archivos' );
           res.json({ nombre });
         

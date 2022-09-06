@@ -161,7 +161,7 @@ const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return;
     }
     try {
-        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos');
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
         const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'archivos');
         res.json({ nombre });
     }
