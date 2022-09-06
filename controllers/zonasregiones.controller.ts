@@ -6,7 +6,7 @@ export const getZonasRegiones = async( req: Request , res: Response ) => {
 
     const zonasregiones = await ZonasRegiones.findAll();
 
-    res.json({ zonasregiones });
+    res.json( zonasregiones );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

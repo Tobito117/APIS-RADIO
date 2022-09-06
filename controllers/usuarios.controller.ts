@@ -6,7 +6,11 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 
     const usuarios = await Usuarios.findAll();
 
-    res.json({ usuarios });
+    res.json( { 
+        Datos: usuarios,
+        mesg: "Datos Obtenidos Correctamente",
+        estatus: true 
+    });
 }
 
 

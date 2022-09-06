@@ -2,9 +2,12 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Vehiculos = db.define('vehiculos', {
-    id_vehiculo: {
+    idvehiculo: {
         type: DataTypes.INTEGER,
         primaryKey: true
+      },
+    nombreVehiculo: {
+        type: DataTypes.STRING
       },
     placa: {
         type: DataTypes.STRING
@@ -12,17 +15,14 @@ const Vehiculos = db.define('vehiculos', {
     color: {
         type: DataTypes.STRING
       },
-    fk_tipovehiculo: {
+    anio: {
+        type: DataTypes.STRING
+    },
+    marcas_idmarcas: {
         type: DataTypes.INTEGER
     },
-    fk_linea: {
-        type: DataTypes.INTEGER
-    },
-    fk_modelo: {
-        type: DataTypes.INTEGER
-    },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

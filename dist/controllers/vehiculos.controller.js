@@ -17,7 +17,7 @@ const vehiculos_model_1 = __importDefault(require("../models/vehiculos.model"));
 //Función para obtener todos los elementos de una tabla
 const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const vehiculos = yield vehiculos_model_1.default.findAll();
-    res.json({ vehiculos });
+    res.json(vehiculos);
 });
 exports.getVehiculos = getVehiculos;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

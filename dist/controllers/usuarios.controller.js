@@ -17,7 +17,11 @@ const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuarios_model_1.default.findAll();
-    res.json({ usuarios });
+    res.json({
+        Datos: usuarios,
+        mesg: "Datos Obtenidos Correctamente",
+        estatus: true
+    });
 });
 exports.getUsuarios = getUsuarios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID

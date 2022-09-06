@@ -7,7 +7,7 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 
     const usuarios = await User.findAll();
 
-    res.json({ usuarios });
+    res.json(usuarios );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

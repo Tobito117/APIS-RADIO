@@ -6,9 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const Vehiculos = connection_1.default.define('vehiculos', {
-    id_vehiculo: {
+    idvehiculo: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true
+    },
+    nombreVehiculo: {
+        type: sequelize_1.DataTypes.STRING
     },
     placa: {
         type: sequelize_1.DataTypes.STRING
@@ -16,17 +19,14 @@ const Vehiculos = connection_1.default.define('vehiculos', {
     color: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_tipovehiculo: {
+    anio: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    marcas_idmarcas: {
         type: sequelize_1.DataTypes.INTEGER
     },
-    fk_linea: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_modelo: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_status: {
-        type: sequelize_1.DataTypes.INTEGER
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

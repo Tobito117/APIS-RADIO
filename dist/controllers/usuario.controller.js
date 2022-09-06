@@ -18,7 +18,7 @@ const generar_jwt_1 = require("../helpers/generar-jwt");
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuario_model_1.default.findAll();
-    res.json({ usuarios });
+    res.json(usuarios);
 });
 exports.getUsuarios = getUsuarios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

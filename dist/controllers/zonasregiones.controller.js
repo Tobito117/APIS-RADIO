@@ -17,7 +17,7 @@ const zonasregiones_model_1 = __importDefault(require("../models/zonasregiones.m
 //Función para obtener todos los elementos de una tabla
 const getZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const zonasregiones = yield zonasregiones_model_1.default.findAll();
-    res.json({ zonasregiones });
+    res.json(zonasregiones);
 });
 exports.getZonasRegiones = getZonasRegiones;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
