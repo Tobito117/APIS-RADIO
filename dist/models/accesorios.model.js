@@ -6,17 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const Accesorios = connection_1.default.define('accesorios', {
-    id_accesorio: {
+    idaccesorios: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     num_serie: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_tipo_accesorio: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_linea: {
+    marcas_idMarcas: {
         type: sequelize_1.DataTypes.INTEGER
     },
     inventario_interno: {
@@ -25,23 +23,20 @@ const Accesorios = connection_1.default.define('accesorios', {
     inventario_segpub: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_recurso_compra: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
     contrato_compra: {
         type: sequelize_1.DataTypes.STRING
     },
     observaciones: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_status_ubicacion: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
     fecha_recepcion: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_status: {
+    fk_sue: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

@@ -17,7 +17,11 @@ const accesorios_model_1 = __importDefault(require("../models/accesorios.model")
 //Función para obtener todos los elementos de unafkewnfkmewn
 const getAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const accesorios = yield accesorios_model_1.default.findAll();
-    res.json({ accesorios });
+    res.json({
+        Datos: accesorios,
+        messagge: "Datos Obtenidos Correctamente",
+        estatus: true
+    });
 });
 exports.getAccesorios = getAccesorios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

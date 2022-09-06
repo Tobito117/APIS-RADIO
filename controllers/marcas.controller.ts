@@ -6,7 +6,11 @@ export const getMarcas = async( req: Request , res: Response ) => {
 
     const marcas = await Marcas.findAll();
 
-    res.json({ marcas });
+    res.json({
+        Datos: marcas,
+        mesagge: "Datos Obtenidos Correctamente",
+        estatus: true
+     });
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -152,11 +156,11 @@ export const updateEstatusMarcas = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      marcas.update({ fk_status: 6 })
+      marcas.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      marcas.update({ fk_status: 1})
+      marcas.update({ estatus: true})
   }
   else
   {

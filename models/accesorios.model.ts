@@ -2,27 +2,22 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Accesorios = db.define('accesorios', {
-    id_accesorio: {
+    idaccesorios: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
-    num_serie: {
+    num_serie: {     
         type: DataTypes.STRING
     },
-    fk_tipo_accesorio: {
+    marcas_idMarcas: {
         type: DataTypes.INTEGER
       },
-    fk_linea: {
-        type: DataTypes.INTEGER
-    },
     inventario_interno: {
         type: DataTypes.STRING
     },
     inventario_segpub: {
         type: DataTypes.STRING
-    },
-    fk_recurso_compra: {
-        type: DataTypes.INTEGER
     },
     contrato_compra: {
         type: DataTypes.STRING
@@ -30,14 +25,14 @@ const Accesorios = db.define('accesorios', {
     observaciones: {
         type: DataTypes.STRING
     },
-    fk_status_ubicacion: {
-        type: DataTypes.INTEGER
-    },
     fecha_recepcion: {
         type: DataTypes.DATE
     },
-    fk_status: {
+    fk_sue: {
         type: DataTypes.INTEGER
+    },
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

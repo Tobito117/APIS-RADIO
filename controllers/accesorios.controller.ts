@@ -6,7 +6,11 @@ export const getAccesorios = async( req: Request , res: Response ) => {
 
     const accesorios = await Accesorios.findAll();
 
-    res.json({ accesorios });
+    res.json({ 
+        Datos: accesorios, 
+        messagge: "Datos Obtenidos Correctamente",
+        estatus: true 
+    });
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Usuarios = db.define('usuarios', {
-    id_usuario: {
+    idusuarios: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
@@ -21,9 +21,6 @@ const Usuarios = db.define('usuarios', {
     clave_elector: {
         type: DataTypes.STRING
     },
-    fk_puesto: {
-        type: DataTypes.INTEGER
-    },
     imagen_ine: {
         type: DataTypes.STRING
     },
@@ -33,8 +30,8 @@ const Usuarios = db.define('usuarios', {
     titulo: {
         type: DataTypes.STRING
     },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

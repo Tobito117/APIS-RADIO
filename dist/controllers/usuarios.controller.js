@@ -12,12 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
+exports.updateEstatusUsuarios = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
 const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuarios_model_1.default.findAll();
-    res.json({ usuarios });
+    res.json({
+        Datos: usuarios,
+        message: "Datos Obtenidos Correctamente",
+        estatus: true
+    });
 });
 exports.getUsuarios = getUsuarios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID
@@ -82,27 +86,25 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.putUsuario = putUsuario;
 //Función para borrar un elemento a la tabla de nuestra base de datos usuarios (Solo se dehabilita)
-const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    try {
-        const usuario = yield usuarios_model_1.default.findByPk(id);
-        if (!usuario) {
-            return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
-            });
-        }
-        // await usuario.destroy ();
-        yield usuario.update({ fk_status: 6 });
-        res.json(usuario);
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        });
-    }
-});
-exports.deleteUsuario = deleteUsuario;
+// export const deleteUsuario = async( req: Request , res: Response ) => {
+//     const { id } = req.params;
+//     try {
+//         const usuario = await Usuarios.findByPk( id );
+//         if (!usuario){
+//             return res.status(404).json({
+//                 msg: 'No existe un usuario con el id ' + id
+//             })
+//         }
+//        // await usuario.destroy ();
+//        await usuario.update({ fk_status: 6 });
+//         res.json( usuario );
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
+//     }
+// }
 //Función para habilitar y deshabilitar el estatus de usuarios
 const updateEstatusUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
@@ -132,10 +134,10 @@ const updateEstatusUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, fu
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        usuarios.update({ fk_status: 6 });
+        usuarios.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        usuarios.update({ fk_status: 1 });
+        usuarios.update({ estatus: true });
     }
     else {
         return res.status(400).json({

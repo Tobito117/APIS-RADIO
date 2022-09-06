@@ -159,11 +159,11 @@ export const updateEstatusUsuario = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      user.update({ status: 6 })
+      user.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      user.update({ status: 1})
+      user.update({ estatus: true})
   }
   else
   {

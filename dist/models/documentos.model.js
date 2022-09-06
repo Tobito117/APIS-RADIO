@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const Documentos = connection_1.default.define('documentos', {
-    id_documentos: {
+    iddocumentos: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true
     },
@@ -28,14 +28,11 @@ const Documentos = connection_1.default.define('documentos', {
     tamanio: {
         type: sequelize_1.DataTypes.STRING
     },
-    status: {
-        type: sequelize_1.DataTypes.TINYINT
-    },
     descripcion: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_asignacion: {
-        type: sequelize_1.DataTypes.INTEGER
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

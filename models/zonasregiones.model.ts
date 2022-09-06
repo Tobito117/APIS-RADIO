@@ -4,7 +4,8 @@ import db from '../db/connection';
 const ZonasRegiones = db.define('zonasregiones', {
     idzonasregiones: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     nombreZonasRegiones: {
         type: DataTypes.STRING

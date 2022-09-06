@@ -2,18 +2,18 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Marcas = db.define('marcas', {
-    id_marca: {
+    idmarcas: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-    nombreM: {
+    nombreMarcas: {
         type: DataTypes.STRING
     },
-    fk_tipo: {
-        type: DataTypes.INTEGER
+    nombreModelos: {
+        type: DataTypes.STRING
       },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE
@@ -22,7 +22,4 @@ const Marcas = db.define('marcas', {
         type: DataTypes.DATE
     }
 });
-
-
-
 export default Marcas;

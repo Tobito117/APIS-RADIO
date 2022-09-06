@@ -16,20 +16,44 @@ exports.updateEstatusVehiculos = exports.deleteVehiculos = exports.putVehiculos 
 const vehiculos_model_1 = __importDefault(require("../models/vehiculos.model"));
 //Función para obtener todos los elementos de una tabla
 const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const vehiculos = yield vehiculos_model_1.default.findAll();
-    res.json({ vehiculos });
+    var _a;
+    // const vehiculos: any = await Vehiculos.findAll();
+    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const vehiculos = yield ((_a = vehiculos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT vehiculos.idvehiculo, vehiculos.nombreVehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio, marcas.nombreMarcas, vehiculos.estatus FROM vehiculos INNER JOIN marcas ON vehiculos.idvehiculo = marcas.idmarcas", {
+        replacements: [],
+        model: vehiculos_model_1.default,
+        mapToModel: true
+    }));
+    res.json(vehiculos);
+    console.log(vehiculos);
 });
 exports.getVehiculos = getVehiculos;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getVehiculosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
     const { id } = req.params;
-    const vehiculos = yield vehiculos_model_1.default.findByPk(id);
-    if (vehiculos) {
-        res.json(vehiculos);
+    // const vehiculos = await Vehiculos.findByPk( id );
+    const vehiculos = yield ((_b = vehiculos_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT vehiculos.idvehiculo, vehiculos.nombreVehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio, marcas.nombreMarcas, vehiculos.estatus FROM vehiculos INNER JOIN marcas ON vehiculos.idvehiculo = marcas.idmarcas WHERE idvehiculo = ?", {
+        replacements: [id],
+        model: vehiculos_model_1.default,
+        mapToModel: true
+    }));
+    // console.log(vehiculos)
+    let idvehiculo;
+    for (let i of vehiculos) {
+        idvehiculo = i.dataValues.idvehiculo;
+    }
+    console.log(idvehiculo);
+    if (idvehiculo) {
+        res.json({
+            Datos: vehiculos,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente"
+        });
     }
     else {
         res.status(404).json({
-            msg: "No existe Vehiculo en la base de datos"
+            msg: "No existe puesto en la base de datos"
         });
     }
 });
@@ -132,10 +156,10 @@ const updateEstatusVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, f
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        vehiculos.update({ fk_status: 6 });
+        vehiculos.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        vehiculos.update({ fk_status: 1 });
+        vehiculos.update({ estatus: true });
     }
     else {
         return res.status(400).json({

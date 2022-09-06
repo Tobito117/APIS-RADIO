@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Corporaciones = db.define('corporaciones', {
     idcorporaciones: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     nombreCorporacion: {
         type: DataTypes.STRING

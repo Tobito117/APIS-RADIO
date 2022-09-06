@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Radios = db.define('radios', {
     id_radio: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     fk_tipoequipo: {
         type: DataTypes.INTEGER

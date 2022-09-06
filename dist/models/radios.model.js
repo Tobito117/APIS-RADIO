@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const Radios = connection_1.default.define('radios', {
     id_radio: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     fk_tipoequipo: {
         type: sequelize_1.DataTypes.INTEGER

@@ -9,6 +9,7 @@ const User = connection_1.default.define('users', {
     idusers: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
         // get(){
         //     const rawValue = this.getDataValue('id');
         //     return rawValue? rawValue.toUpperCase(): null;

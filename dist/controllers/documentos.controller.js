@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.postDocumentos = exports.getDocumentosById = exports.getDocumentos = void 0;
+exports.postDocumentos = exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.getDocumentosById = exports.getDocumentos = void 0;
 const documentos_model_1 = __importDefault(require("../models/documentos.model"));
+const subir_archivo_1 = require("../helpers/subir-archivo");
 //Función para obtener todos los elementos de una tabla
 const getDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const documentos = yield documentos_model_1.default.findAll();
@@ -35,50 +36,51 @@ const getDocumentosById = (req, res) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.getDocumentosById = getDocumentosById;
 //Función para actualizar un elemento a la tabla de nuestra base de datos documentos
-const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { body } = req;
-    try {
-        // const existeEmail = await Usuarios.findOne({
-        //     where: {
-        //         email: body.email
-        //     }
-        // })
-        // if (existeEmail){
-        //     return res.status(400).json({
-        //         msg: 'Ya existe un usuario con el email ' + body.email
-        //     });
-        // }
-        const documentos = yield documentos_model_1.default.create(body);
-        yield documentos.save();
-        res.json(documentos);
-    }
-    catch (error) {
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        });
-    }
-});
-exports.postDocumentos = postDocumentos;
+// export const postDocumentos = async( req: Request , res: Response ) => {
+//     const { body } = req;
+//     try {
+//         // const existeEmail = await Usuarios.findOne({
+//         //     where: {
+//         //         email: body.email
+//         //     }
+//         // })
+//         // if (existeEmail){
+//         //     return res.status(400).json({
+//         //         msg: 'Ya existe un usuario con el email ' + body.email
+//         //     });
+//         // }
+//         const documentos = await Documentos.create(body);
+//         await documentos.save();
+//         res.json(documentos);
+//     } catch (error) {
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
+//     }
+// }
 //Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 const putDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // const { id } = req.params;
+    // const { body } =  req;
+    // try {
+    //     const documentos = await Documentos.findByPk( id );
+    //     if (!documentos){
+    //         return res.status(404).json({
+    //             msg: 'No existe un Documento con el id ' + id
+    //         })
+    //     }
+    //     await documentos.update ( body );
+    //     res.json( documentos );
+    // } catch (error) {
+    //     console.log(error);
+    //     res.status(500).json({
+    //         msg: 'Hable con el Administrador'
+    //     })
+    // }
     const { id } = req.params;
-    const { body } = req;
-    try {
-        const documentos = yield documentos_model_1.default.findByPk(id);
-        if (!documentos) {
-            return res.status(404).json({
-                msg: 'No existe un Documento con el id ' + id
-            });
-        }
-        yield documentos.update(body);
-        res.json(documentos);
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        });
-    }
+    res.json({
+        id: id
+    });
 });
 exports.putDocumentos = putDocumentos;
 //Función para borrar un elemento a la tabla de nuestra base de datos documentos (Solo se dehabilita)
@@ -151,4 +153,21 @@ const updateEstatusDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, 
     });
 });
 exports.updateEstatusDocumentos = updateEstatusDocumentos;
+//Cargar Archivo 
+const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    if (!req.files || Object.keys(req.files).length === 0 || !((_a = req.files) === null || _a === void 0 ? void 0 : _a.archivo)) {
+        res.status(400).json({ msg: 'No hay archivos que subir' });
+        return;
+    }
+    try {
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos');
+        const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'archivos');
+        res.json({ nombre });
+    }
+    catch (msg) {
+        res.status(400).json({ msg });
+    }
+});
+exports.postDocumentos = postDocumentos;
 //# sourceMappingURL=documentos.controller.js.map

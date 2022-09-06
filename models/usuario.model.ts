@@ -5,6 +5,7 @@ const User = db.define('users', {
     idusers: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
         // get(){
         //     const rawValue = this.getDataValue('id');
         //     return rawValue? rawValue.toUpperCase(): null;

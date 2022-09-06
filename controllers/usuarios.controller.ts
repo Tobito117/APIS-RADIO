@@ -6,7 +6,11 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 
     const usuarios = await Usuarios.findAll();
 
-    res.json({ usuarios });
+    res.json({ 
+        Datos: usuarios,
+        message: "Datos Obtenidos Correctamente",
+        estatus: true
+    });
 }
 
 
@@ -87,32 +91,32 @@ export const putUsuario = async( req: Request , res: Response ) => {
 
 
 //Función para borrar un elemento a la tabla de nuestra base de datos usuarios (Solo se dehabilita)
-export const deleteUsuario = async( req: Request , res: Response ) => {
+// export const deleteUsuario = async( req: Request , res: Response ) => {
 
-    const { id } = req.params;
+//     const { id } = req.params;
     
-    try {
+//     try {
 
-        const usuario = await Usuarios.findByPk( id );
-        if (!usuario){
-            return res.status(404).json({
-                msg: 'No existe un usuario con el id ' + id
-            })
-        }
+//         const usuario = await Usuarios.findByPk( id );
+//         if (!usuario){
+//             return res.status(404).json({
+//                 msg: 'No existe un usuario con el id ' + id
+//             })
+//         }
 
-       // await usuario.destroy ();
-       await usuario.update({ fk_status: 6 });
-        res.json( usuario );
+//        // await usuario.destroy ();
+//        await usuario.update({ fk_status: 6 });
+//         res.json( usuario );
         
-    } catch (error) {
+//     } catch (error) {
 
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        })
+//         console.log(error);
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
         
-    }
-}
+//     }
+// }
 
 //Función para habilitar y deshabilitar el estatus de usuarios
 export const updateEstatusUsuarios = async (req: Request, res: Response) => {
@@ -154,11 +158,11 @@ export const updateEstatusUsuarios = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      usuarios.update({ fk_status: 6 })
+      usuarios.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      usuarios.update({ fk_status: 1})
+      usuarios.update({ estatus: true})
   }
   else
   {

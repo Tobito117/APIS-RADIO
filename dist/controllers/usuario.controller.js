@@ -134,10 +134,10 @@ const updateEstatusUsuario = (req, res) => __awaiter(void 0, void 0, void 0, fun
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        user.update({ status: 6 });
+        user.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        user.update({ status: 1 });
+        user.update({ estatus: true });
     }
     else {
         return res.status(400).json({

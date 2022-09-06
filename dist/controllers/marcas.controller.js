@@ -17,7 +17,11 @@ const marcas_model_1 = __importDefault(require("../models/marcas.model"));
 //Función para obtener todos los elementos de una tabla
 const getMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const marcas = yield marcas_model_1.default.findAll();
-    res.json({ marcas });
+    res.json({
+        Datos: marcas,
+        mesagge: "Datos Obtenidos Correctamente",
+        estatus: true
+    });
 });
 exports.getMarcas = getMarcas;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -130,10 +134,10 @@ const updateEstatusMarcas = (req, res) => __awaiter(void 0, void 0, void 0, func
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        marcas.update({ fk_status: 6 });
+        marcas.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        marcas.update({ fk_status: 1 });
+        marcas.update({ estatus: true });
     }
     else {
         return res.status(400).json({

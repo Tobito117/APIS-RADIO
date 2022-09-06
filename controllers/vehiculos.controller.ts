@@ -4,24 +4,56 @@ import Vehiculos from '../models/vehiculos.model';
 //Función para obtener todos los elementos de una tabla
 export const getVehiculos = async( req: Request , res: Response ) => {
 
-    const vehiculos = await Vehiculos.findAll();
+    // const vehiculos: any = await Vehiculos.findAll();
+        //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+        const vehiculos: any = await Vehiculos.sequelize?.query("SELECT vehiculos.idvehiculo, vehiculos.nombreVehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio, marcas.nombreMarcas, vehiculos.estatus FROM vehiculos INNER JOIN marcas ON vehiculos.idvehiculo = marcas.idmarcas", {
+            replacements: [],
+            model: Vehiculos,
+            mapToModel: true
+        });
+  
 
-    res.json({ vehiculos });
+    res.json(
+        vehiculos
+    );
+
+    console.log(vehiculos);
+
+    
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getVehiculosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
-    const vehiculos = await Vehiculos.findByPk( id );
+    // const vehiculos = await Vehiculos.findByPk( id );
+    const vehiculos: any = await Vehiculos.sequelize?.query("SELECT vehiculos.idvehiculo, vehiculos.nombreVehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio, marcas.nombreMarcas, vehiculos.estatus FROM vehiculos INNER JOIN marcas ON vehiculos.idvehiculo = marcas.idmarcas WHERE idvehiculo = ?", {
+        replacements: [ id ],
+        model: Vehiculos,
+        mapToModel: true
+    });
 
-    if(vehiculos){
-        res.json(vehiculos)
-    }else{
-        res.status(404).json({
-            msg: "No existe Vehiculo en la base de datos"
-        });
-    } 
+    // console.log(vehiculos)
+    let idvehiculo
+   
+    for(let i of vehiculos){
+
+      idvehiculo = i.dataValues.idvehiculo
+
+    }
+    console.log(idvehiculo);
+
+if(idvehiculo ){
+    res.json({
+        Datos: vehiculos,
+        success: true,
+        messagge: "Datos Obtenidos Correctamente" 
+    });
+}else{
+    res.status(404).json({
+        msg: "No existe puesto en la base de datos"
+    });
+} 
 
 }
 
@@ -152,11 +184,11 @@ export const updateEstatusVehiculos = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      vehiculos.update({ fk_status: 6 })
+      vehiculos.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      vehiculos.update({ fk_status: 1})
+      vehiculos.update({ estatus: true})
   }
   else
   {

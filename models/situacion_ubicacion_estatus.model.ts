@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Sue = db.define('situacion_ubicacion_estatus', {
     id_sue: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     nombreStatus: {
         type: DataTypes.STRING

@@ -6,24 +6,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const Imagenes = connection_1.default.define('imagenes', {
-    id_imagen: {
+    idimagen: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true
     },
     ruta: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_asignacion: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_tipoasignacion: {
-        type: sequelize_1.DataTypes.INTEGER
+    asignacion: {
+        type: sequelize_1.DataTypes.STRING
     },
     fecha_creacion: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_status: {
+    tipos_idtipos: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE
