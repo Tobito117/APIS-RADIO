@@ -6,25 +6,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const Asig_Vehiculos = connection_1.default.define('asig_vehiculos', {
-    id_asigveh: {
+    idasig_tipo: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    fecha_asigveh: {
+    fecha_asig: {
         type: sequelize_1.DataTypes.DATE
     },
-    fecha_canveh: {
+    fecha_can: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_vehiculo: {
+    vehiculos_idvehiculo: {
         type: sequelize_1.DataTypes.INTEGER
     },
-    fk_radio: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_status: {
-        type: sequelize_1.DataTypes.INTEGER
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

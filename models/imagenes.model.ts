@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Imagenes = db.define('imagenes', {
     idimagen: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
     ruta: {
         type: DataTypes.STRING

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const ConfigReportes = connection_1.default.define('configreportes', {
-    id_config_repo: {
+    idconfigReportes: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -53,14 +53,11 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     fecha_final: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_status: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
     fecha_creacion: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_user: {
-        type: sequelize_1.DataTypes.INTEGER
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

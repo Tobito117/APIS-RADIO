@@ -2,24 +2,21 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const HojasServicios = db.define('hojaservicios', {
-    id_hoja_servicio: {
+    idhojaservicios: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-    fecha_servicio: {
-        type: DataTypes.DATE
-    },
     fk_usuario: {
         type: DataTypes.INTEGER
-      },
-    fk_servicio: {
+    },
+    fk_idservicios: {
         type: DataTypes.INTEGER
       },
-    fk_radio: {
+    fk_idradios: {
         type: DataTypes.INTEGER
       },
-    fk_accesorio: {
+    fk_idaccesorios: {
         type: DataTypes.INTEGER
       },
     descripcion: {
@@ -30,9 +27,6 @@ const HojasServicios = db.define('hojaservicios', {
       },
     fecha_entrega: {
         type: DataTypes.DATE
-      },
-    hora_entrega: {
-        type: DataTypes.TIME
       },
     fk_supervisortec: {
         type: DataTypes.INTEGER
@@ -46,8 +40,8 @@ const HojasServicios = db.define('hojaservicios', {
     fk_tecnico_entrega: {
         type: DataTypes.INTEGER
       },    
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

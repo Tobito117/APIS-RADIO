@@ -4,24 +4,53 @@ import Radios from '../models/radios.model';
 //Función para obtener todos los elementos de una tabla
 export const getRadios = async( req: Request , res: Response ) => {
 
-    const radios = await Radios.findAll();
-
-    res.json({ radios });
+    // const radios = await Radios.findAll();
+        //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+        const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, tipos.nombreTipo, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas JOIN tipos ON radios.idradios = tipos.idtipos INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue", {
+            replacements: [],
+            model: Radios,
+            mapToModel: true
+        });
+    
+        res.json({
+            Datos: radios,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente" 
+        });
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getRadiosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
-    const radios = await Radios.findByPk( id );
+   //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, tipos.nombreTipo, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas JOIN tipos ON radios.idradios = tipos.idtipos INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue where idradios = ?", {
+        replacements: [id],
+        model: Radios,
+        mapToModel: true
+    });
 
-    if(radios){
-        res.json(radios)
+        let idradio
+   
+        for(let i of radios){
+    
+          idradio = i.dataValues.idradios
+          console.log(idradio)
+        }
+        
+
+    if(idradio ){
+        res.json({
+            Datos: radios,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente" 
+        });
     }else{
         res.status(404).json({
-            msg: "No existe radio en la base de datos"
+            msg: "No existe Radio en la base de datos"
         });
     } 
+
 
 }
 

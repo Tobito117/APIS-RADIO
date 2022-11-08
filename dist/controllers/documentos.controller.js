@@ -12,7 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postDocumentos = exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.getDocumentosById = exports.getDocumentos = void 0;
+exports.mostrarImange = exports.postDocumentos = exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.getDocumentosById = exports.getDocumentos = void 0;
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const documentos_model_1 = __importDefault(require("../models/documentos.model"));
 const subir_archivo_1 = require("../helpers/subir-archivo");
 //Función para obtener todos los elementos de una tabla
@@ -37,26 +39,26 @@ const getDocumentosById = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.getDocumentosById = getDocumentosById;
 //Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 // export const postDocumentos = async( req: Request , res: Response ) => {
-//     const { body } = req;
-//     try {
-//         // const existeEmail = await Usuarios.findOne({
-//         //     where: {
-//         //         email: body.email
-//         //     }
-//         // })
-//         // if (existeEmail){
-//         //     return res.status(400).json({
-//         //         msg: 'Ya existe un usuario con el email ' + body.email
-//         //     });
-//         // }
-//         const documentos = await Documentos.create(body);
-//         await documentos.save();
-//         res.json(documentos);
-//     } catch (error) {
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
-//     }
+// const { body } = req;
+// try {
+//     // const existeEmail = await Usuarios.findOne({
+//     //     where: {
+//     //         email: body.email
+//     //     }
+//     // })
+//     // if (existeEmail){
+//     //     return res.status(400).json({
+//     //         msg: 'Ya existe un usuario con el email ' + body.email
+//     //     });
+//     // }
+//     const documentos = await Documentos.create(body);
+//     await documentos.save();
+//     res.json(documentos);
+// } catch (error) {
+//     res.status(500).json({
+//         msg: 'Hable con el Administrador'
+//     })
+// }
 // }
 //Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 const putDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -77,9 +79,35 @@ const putDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     //         msg: 'Hable con el Administrador'
     //     })
     // }
-    const { id } = req.params;
+    const { id, coleccion } = req.params;
+    let modelo;
+    switch (coleccion) {
+        case 'users':
+            modelo = yield documentos_model_1.default.findByPk(id);
+            if (!modelo) {
+                return res.status(400).json({
+                    msg: `No existe un documento con el id ${id}`
+                });
+            }
+            break;
+        default:
+            return res.status(500).json({ msg: 'se me olvido validar esto' });
+    }
+    //Limpiar imagenes privadas
+    if (modelo.nombre) {
+        // Hay que borrar la imagen del servidor
+        const pathImagen = path_1.default.join(__dirname, '../uploads/', coleccion, modelo.nombre);
+        // console.log(pathImagen);
+        if (fs_1.default.existsSync(pathImagen)) {
+            fs_1.default.unlinkSync(pathImagen);
+        }
+    }
+    const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, coleccion);
+    modelo.nombre = nombre;
+    yield modelo.save();
     res.json({
-        id: id
+        id: id,
+        coleccion: coleccion
     });
 });
 exports.putDocumentos = putDocumentos;
@@ -155,19 +183,50 @@ const updateEstatusDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, 
 exports.updateEstatusDocumentos = updateEstatusDocumentos;
 //Cargar Archivo 
 const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    if (!req.files || Object.keys(req.files).length === 0 || !((_a = req.files) === null || _a === void 0 ? void 0 : _a.archivo)) {
-        res.status(400).json({ msg: 'No hay archivos que subir' });
-        return;
-    }
     try {
         //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
-        const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'archivos');
-        res.json({ nombre });
+        const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'imgs');
+        console.log(nombre);
+        const prueba = {
+            nombre: nombre,
+            estatus: true
+        };
+        const documentos = yield documentos_model_1.default.create(prueba);
+        yield documentos.save();
+        res.json(documentos);
     }
     catch (msg) {
         res.status(400).json({ msg });
     }
 });
 exports.postDocumentos = postDocumentos;
+//Cargar Archivo 
+const mostrarImange = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, coleccion } = req.params;
+    let modelo;
+    switch (coleccion) {
+        case 'users':
+            modelo = yield documentos_model_1.default.findByPk(id);
+            if (!modelo) {
+                return res.status(400).json({
+                    msg: `No existe un documento con el id ${id}`
+                });
+            }
+            break;
+        default:
+            return res.status(500).json({ msg: 'se me olvido validar esto' });
+    }
+    //Limpiar imagenes privadas
+    if (modelo.nombre) {
+        // Hay que borrar la imagen del servidor
+        const pathImagen = path_1.default.join('../uploads/', coleccion, modelo.nombre);
+        if (fs_1.default.existsSync(pathImagen)) {
+            return res.sendFile(pathImagen);
+        }
+    }
+    const pathImagen = path_1.default.join(__dirname, '../assets/no-jefe.png');
+    res.sendFile(pathImagen);
+    // console.log(pathImagen);
+});
+exports.mostrarImange = mostrarImange;
 //# sourceMappingURL=documentos.controller.js.map

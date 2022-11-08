@@ -19,18 +19,18 @@ const Documentos = connection_1.default.define('documentos', {
     nombre: {
         type: sequelize_1.DataTypes.STRING
     },
-    ruta: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    tipo: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    tamanio: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    descripcion: {
-        type: sequelize_1.DataTypes.STRING
-    },
+    // ruta: {
+    //     type: DataTypes.STRING
+    // },
+    // tipo: {
+    //     type: DataTypes.STRING
+    // },
+    // tamanio: {
+    //     type: DataTypes.STRING
+    // },
+    // descripcion: {
+    //     type: DataTypes.STRING
+    // },
     estatus: {
         type: sequelize_1.DataTypes.BOOLEAN
     },

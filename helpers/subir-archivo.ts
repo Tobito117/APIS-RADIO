@@ -29,4 +29,4 @@ export const subirArchivo = async ( req: Request, files: any, extensionesValidas
         })
 
     });
-}
+} 
