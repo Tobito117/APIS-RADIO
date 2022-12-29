@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
+import fileUpload from 'express-fileupload';
+import path from 'path';
 import Documentos from '../models/documentos.model';
+import { v4 as uuidv4 } from 'uuid';
+import { subirArchivo } from "../helpers/subir-archivo";
 
 //Función para obtener todos los elementos de una tabla
 export const getDocumentos = async( req: Request , res: Response ) => {
@@ -26,61 +30,67 @@ export const getDocumentosById = async( req: Request , res: Response ) => {
 }
 
 //Función para actualizar un elemento a la tabla de nuestra base de datos documentos
-export const postDocumentos = async( req: Request , res: Response ) => {
+// export const postDocumentos = async( req: Request , res: Response ) => {
 
-    const { body } = req;
+//     const { body } = req;
 
-    try {
-        // const existeEmail = await Usuarios.findOne({
-        //     where: {
-        //         email: body.email
-        //     }
-        // })
+//     try {
+//         // const existeEmail = await Usuarios.findOne({
+//         //     where: {
+//         //         email: body.email
+//         //     }
+//         // })
 
-        // if (existeEmail){
-        //     return res.status(400).json({
-        //         msg: 'Ya existe un usuario con el email ' + body.email
-        //     });
-        // }
+//         // if (existeEmail){
+//         //     return res.status(400).json({
+//         //         msg: 'Ya existe un usuario con el email ' + body.email
+//         //     });
+//         // }
 
-        const documentos = await Documentos.create(body);
-        await documentos.save();
+//         const documentos = await Documentos.create(body);
+//         await documentos.save();
 
-        res.json(documentos);
+//         res.json(documentos);
         
-    } catch (error) {
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        })
-    }
-}
+//     } catch (error) {
+//         res.status(500).json({
+//             msg: 'Hable con el Administrador'
+//         })
+//     }
+// }
 
 //Función para actualizar un elemento a la tabla de nuestra base de datos documentos
 export const putDocumentos = async( req: Request , res: Response ) => {
 
+    // const { id } = req.params;
+    // const { body } =  req;
+
+    // try {
+
+    //     const documentos = await Documentos.findByPk( id );
+    //     if (!documentos){
+    //         return res.status(404).json({
+    //             msg: 'No existe un Documento con el id ' + id
+    //         })
+    //     }
+
+    //     await documentos.update ( body );
+    //     res.json( documentos );
+        
+    // } catch (error) {
+
+    //     console.log(error);
+    //     res.status(500).json({
+    //         msg: 'Hable con el Administrador'
+    //     })
+        
+    // }
+
     const { id } = req.params;
-    const { body } =  req;
 
-    try {
-
-        const documentos = await Documentos.findByPk( id );
-        if (!documentos){
-            return res.status(404).json({
-                msg: 'No existe un Documento con el id ' + id
-            })
-        }
-
-        await documentos.update ( body );
-        res.json( documentos );
-        
-    } catch (error) {
-
-        console.log(error);
-        res.status(500).json({
-            msg: 'Hable con el Administrador'
-        })
-        
-    }
+    res.json({
+        id: id
+    })
    
 }
 
@@ -176,3 +186,26 @@ export const updateEstatusDocumentos = async (req: Request, res: Response) => {
   })
 
 }
+
+//Cargar Archivo 
+export const postDocumentos = async( req: Request , res: Response ) => {
+    
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files?.archivo) {
+        res.status(400).json({ msg: 'No hay archivos que subir' })
+        return
+      }
+
+      try {
+
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
+          const nombre = await subirArchivo(req, req.files, undefined, 'archivos' );
+          res.json({ nombre });
+        
+      } catch (msg) {
+        res.status(400).json({ msg });
+      }
+     
+      
+
+}
+

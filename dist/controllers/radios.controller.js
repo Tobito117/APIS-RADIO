@@ -17,7 +17,7 @@ const radios_model_1 = __importDefault(require("../models/radios.model"));
 //Función para obtener todos los elementos de una tabla
 const getRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const radios = yield radios_model_1.default.findAll();
-    res.json({ radios });
+    res.json(radios);
 });
 exports.getRadios = getRadios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -92,7 +92,21 @@ const deleteRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
         // await usuario.destroy ();
-        yield radios.update({ fk_status: 6 });
+        //await radios.update({ fk_status: 6 });
+        const estado = radios.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield radios.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield radios.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(radios);
     }
     catch (error) {

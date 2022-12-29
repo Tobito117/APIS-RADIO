@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const situacion_ubicacion_estatus_controller_1 = require("../controllers/situacion_ubicacion_estatus.controller");
 const router = (0, express_1.Router)();
+// Todas tienen que pasar por la validación del JWT
+//router.use( validarJWT );
 router.get('/', situacion_ubicacion_estatus_controller_1.getStatus);
 router.get('/:id', situacion_ubicacion_estatus_controller_1.getStatusById);
 router.post('/', situacion_ubicacion_estatus_controller_1.postStatus);

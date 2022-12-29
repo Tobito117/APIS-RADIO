@@ -16,6 +16,7 @@ exports.Server = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const connection_1 = __importDefault(require("../db/connection"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 //Rutas Llamadas
 const usuario_routes_1 = __importDefault(require("../routes/usuario.routes"));
 const usuarios_routes_1 = __importDefault(require("../routes/usuarios.routes"));
@@ -37,6 +38,7 @@ const asig_usuarios_routes_1 = __importDefault(require("../routes/asig_usuarios.
 const asig_accesorios_routes_1 = __importDefault(require("../routes/asig_accesorios.routes"));
 const accesorios_routes_1 = __importDefault(require("../routes/accesorios.routes"));
 const radios_routes_1 = __importDefault(require("../routes/radios.routes"));
+const roles_routes_1 = __importDefault(require("../routes/roles.routes"));
 class Server {
     constructor() {
         this.baseUrl = {
@@ -59,7 +61,8 @@ class Server {
             asig_usuarios: '/api/v0/asig_usuarios',
             asig_accesorios: '/api/v0/asig_accesorios',
             accesorios: '/api/v0/accesorios',
-            radios: '/api/v0/radios'
+            radios: '/api/v0/radios',
+            roles: '/api/v0/roles',
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
@@ -87,6 +90,13 @@ class Server {
         this.app.use(express_1.default.json());
         //Carpeta Publica
         this.app.use(express_1.default.static('public'));
+        //FileupLoad - Carga de Archivos
+        // Note that this option available for versions 1.0.0 and newer. 
+        this.app.use((0, express_fileupload_1.default)({
+            useTempFiles: true,
+            tempFileDir: '/tmp/',
+            createParentPath: true
+        }));
     }
     //Conectar Base de datos
     routes() {
@@ -110,6 +120,7 @@ class Server {
         this.app.use(this.baseUrl.asig_accesorios, asig_accesorios_routes_1.default);
         this.app.use(this.baseUrl.accesorios, accesorios_routes_1.default);
         this.app.use(this.baseUrl.radios, radios_routes_1.default);
+        this.app.use(this.baseUrl.roles, roles_routes_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

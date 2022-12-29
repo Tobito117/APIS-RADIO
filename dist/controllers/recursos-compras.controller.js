@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusRecursosCompras = exports.putRecursosCompras = exports.postRecursosCompras = exports.getRecursosComprasById = exports.getRecursosCompras = void 0;
+exports.updateEstatusRecursosCompras = exports.deleteRecursosCompras = exports.putRecursosCompras = exports.postRecursosCompras = exports.getRecursosComprasById = exports.getRecursosCompras = void 0;
 const recursos_compras_model_1 = __importDefault(require("../models/recursos-compras.model"));
 //Función para obtener todos los elementos de una tabla
 const getRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const recursoscompras = yield recursos_compras_model_1.default.findAll();
-    res.json({ recursoscompras });
+    res.json(recursoscompras);
 });
 exports.getRecursosCompras = getRecursosCompras;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -82,25 +82,41 @@ const putRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.putRecursosCompras = putRecursosCompras;
 //Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
-// export const deleteRecursosCompras = async( req: Request , res: Response ) => {
-//     const { id } = req.params;
-//     try {
-//         const recursoscompras = await RecursosCompras.findByPk( id );
-//         if (!recursoscompras){
-//             return res.status(404).json({
-//                 msg: 'No existe un recurso-compra con el id ' + id
-//             })
-//         }
-//        // await usuario.destroy (); //elimnina el elemento por completo
-//        await recursoscompras.update({ fk_status: 6 });
-//         res.json( recursoscompras );
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
-//     }
-// }
+const deleteRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const recursoscompras = yield recursos_compras_model_1.default.findByPk(id);
+        if (!recursoscompras) {
+            return res.status(404).json({
+                msg: 'No existe un recurso-compra con el id ' + id
+            });
+        }
+        // await usuario.destroy (); //elimnina el elemento por completo
+        //await recursoscompras.update({ fk_status: 6 });
+        const estado = recursoscompras.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield recursoscompras.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield recursoscompras.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
+        res.json(recursoscompras);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        });
+    }
+});
+exports.deleteRecursosCompras = deleteRecursosCompras;
 //Función para habilitar y deshabilitar el estatus de recursos-compras 
 const updateEstatusRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);

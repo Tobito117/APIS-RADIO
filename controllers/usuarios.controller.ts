@@ -6,13 +6,8 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 
     const usuarios = await Usuarios.findAll();
 
-    res.json( { 
-        Datos: usuarios,
-        mesg: "Datos Obtenidos Correctamente",
-        estatus: true 
-    });
+    res.json( usuarios);
 }
-
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID
 export const getUsuarioById = async( req: Request , res: Response ) => {
@@ -52,7 +47,7 @@ export const postUsuario = async( req: Request , res: Response ) => {
         await usuario.save();
 
         res.json(usuario);
-        
+
     } catch (error) {
         res.status(500).json({
             msg: 'Hable con el Administrador'
@@ -97,7 +92,7 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
     
     try {
 
-        const usuario = await Usuarios.findByPk( id );
+        const usuario : any = await Usuarios.findByPk( id );
         if (!usuario){
             return res.status(404).json({
                 msg: 'No existe un usuario con el id ' + id
@@ -105,7 +100,26 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
         }
 
        // await usuario.destroy ();
-       await usuario.update({ fk_status: 6 });
+       //await usuario.update({ fk_status: 6 });
+       const estado= usuario.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await usuario.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await usuario.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
         res.json( usuario );
         
     } catch (error) {
@@ -123,7 +137,7 @@ export const updateEstatusUsuarios = async (req: Request, res: Response) => {
 
     const  id  = Number(req.params.id);
     const fk_status = req.query.fk_status;
-  
+
     if (isNaN(id))
     {
       return res.status(400).json({
@@ -158,11 +172,11 @@ export const updateEstatusUsuarios = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      usuarios.update({ fk_status: 6 })
+      usuarios.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      usuarios.update({ fk_status: 1})
+      usuarios.update({ estatus: true})
   }
   else
   {
@@ -180,6 +194,3 @@ export const updateEstatusUsuarios = async (req: Request, res: Response) => {
   })
 
 }
-
-
-

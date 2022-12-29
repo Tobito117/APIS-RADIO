@@ -17,7 +17,7 @@ const marcas_model_1 = __importDefault(require("../models/marcas.model"));
 //Función para obtener todos los elementos de una tabla
 const getMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const marcas = yield marcas_model_1.default.findAll();
-    res.json({ marcas });
+    res.json(marcas);
 });
 exports.getMarcas = getMarcas;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -91,7 +91,21 @@ const deleteMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
         // await usuario.destroy ();
-        yield marcas.update({ fk_status: 6 });
+        //await marcas.update({ fk_status: 6 });
+        const estado = marcas.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield marcas.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield marcas.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(marcas);
     }
     catch (error) {
@@ -130,10 +144,10 @@ const updateEstatusMarcas = (req, res) => __awaiter(void 0, void 0, void 0, func
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        marcas.update({ fk_status: 6 });
+        marcas.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        marcas.update({ fk_status: 1 });
+        marcas.update({ estatus: true });
     }
     else {
         return res.status(400).json({

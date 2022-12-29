@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const HojasServicios = connection_1.default.define('hojaservicios', {
     id_hoja_servicio: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     fecha_servicio: {
         type: sequelize_1.DataTypes.DATE

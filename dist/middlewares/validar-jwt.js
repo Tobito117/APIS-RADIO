@@ -29,6 +29,7 @@ const validarJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         const { id } = jsonwebtoken_1.default.verify(token, process.env.SECRETORPRIVATEKEY);
         const user = yield usuario_model_1.default.findByPk(id);
         console.log(user);
+        req.id = id;
         //verificar si el usuario no existe en la base de datos
         if (!user) {
             return res.status(401).json({

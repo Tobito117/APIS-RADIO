@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import db from '../db/connection';
+import fileUpload from 'express-fileupload';
 
 //Rutas Llamadas
 import userRoutes from '../routes/usuario.routes';
@@ -22,7 +23,8 @@ import asig_vehiculosRoutes from '../routes/asig_vehiculos.routes';
 import asig_usuariosRoutes from '../routes/asig_usuarios.routes';
 import asig_accesoriosRoutes from '../routes/asig_accesorios.routes';
 import accesoriosRoutes from '../routes/accesorios.routes';
-import radiosRoutes from '../routes/radios.routes'
+import radiosRoutes from '../routes/radios.routes';
+import rolesRoutes from '../routes/roles.routes'
 
 export class Server {
 
@@ -48,17 +50,16 @@ export class Server {
         asig_usuarios: '/api/v0/asig_usuarios',
         asig_accesorios: '/api/v0/asig_accesorios',
         accesorios: '/api/v0/accesorios',
-        radios: '/api/v0/radios'
-
+        radios: '/api/v0/radios',
+        roles: '/api/v0/roles',
     }
-
     constructor(){
 
         this.app = express();
         this.port = process.env.PORT || '8000';
 
         //METODOS INCIALES
-        this.dbConnection();
+        this.dbConnection(); 
         this.middlewares();
 
         //Definir mi ruta
@@ -72,7 +73,7 @@ export class Server {
 
         } catch (error) {
             throw new Error( error = undefined );
-            
+
         }
     }
 
@@ -86,6 +87,14 @@ export class Server {
 
         //Carpeta Publica
         this.app.use( express.static('public'));
+
+        //FileupLoad - Carga de Archivos
+        // Note that this option available for versions 1.0.0 and newer. 
+        this.app.use(fileUpload({
+            useTempFiles: true,
+            tempFileDir: '/tmp/',
+            createParentPath: true
+        }));
 
     }
 
@@ -112,6 +121,7 @@ export class Server {
         this.app.use (this.baseUrl.asig_accesorios, asig_accesoriosRoutes);
         this.app.use (this.baseUrl.accesorios, accesoriosRoutes);
         this.app.use (this.baseUrl.radios, radiosRoutes);
+        this.app.use(this.baseUrl.roles, rolesRoutes);
     }
 
     listen(){

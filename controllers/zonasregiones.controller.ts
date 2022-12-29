@@ -72,16 +72,14 @@ export const putZonasRegiones = async( req: Request , res: Response ) => {
 
         await zonasregiones.update ( body );
         res.json( zonasregiones );
-        
+
     } catch (error) {
 
         console.log(error);
         res.status(500).json({
             msg: 'Hable con el Administrador'
         })
-        
     }
-   
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos zonasregiones (Solo se dehabilita)
@@ -91,15 +89,33 @@ export const deleteZonasRegiones = async( req: Request , res: Response ) => {
     
     try {
 
-        const zonasregiones = await ZonasRegiones.findByPk( id );
+        const zonasregiones : any = await ZonasRegiones.findByPk( id );
         if (!zonasregiones){
             return res.status(404).json({
                 msg: 'No existe un zonasregiones con el id ' + id
             })
         }
-
-       // await usuario.destroy ();
-       await zonasregiones.update({ fk_status: 6 });
+// await usuario.destroy ();
+       //await zonasregiones.update({estatus: 6 });
+        const estado= zonasregiones.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await zonasregiones.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await zonasregiones.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
         res.json( zonasregiones );
         
     } catch (error) {

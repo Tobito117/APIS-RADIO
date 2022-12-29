@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { getMarcas, getMarcasById, postMarcas, putMarcas, deleteMarcas, updateEstatusMarcas } from "../controllers/marcas.controller";
+import { validarJWT } from "../middlewares/validar-jwt";
 
 const router = Router();
+// Todas tienen que pasar por la validación del JWT
+//router.use( validarJWT );
 
  router.get('/',           getMarcas   );
  router.get('/:id',        getMarcasById   );

@@ -4,11 +4,12 @@ import db from '../db/connection';
 const Vehiculos = db.define('vehiculos', {
     idvehiculo: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     nombreVehiculo: {
         type: DataTypes.STRING
-      },
+    },
     placa: {
         type: DataTypes.STRING
     },
@@ -17,7 +18,7 @@ const Vehiculos = db.define('vehiculos', {
       },
     anio: {
         type: DataTypes.STRING
-    },
+      },
     marcas_idmarcas: {
         type: DataTypes.INTEGER
     },

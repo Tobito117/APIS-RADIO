@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const Servicios = connection_1.default.define('servicios', {
     idservicios: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     nombreServicios: {
         type: sequelize_1.DataTypes.STRING

@@ -7,7 +7,7 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 
     const usuarios = await User.findAll();
 
-    res.json(usuarios );
+    res.json( usuarios );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -22,8 +22,7 @@ export const getUsuarioById = async( req: Request , res: Response ) => {
         res.status(404).json({
             msg: "No existe Usuario en la base de datos"
         });
-    } 
-
+    }
 }
 
 //Función para agregar un elemento a la tabla de nuestra base de datos usuario
@@ -32,17 +31,17 @@ export const postUsuario = async( req: Request , res: Response ) => {
     const { body } = req;
 
     try {
-        const existeEmail = await User.findOne({
-            where: {
-                email: body.email
-            }
-        })
+        // const existeEmail = await User.findOne({
+        //     where: {
+        //         email: body.email
+        //     }
+        // })
 
-        if (existeEmail){
-            return res.status(400).json({
-                msg: 'Ya existe un usuario con el email ' + body.email
-            });
-        }
+        // if (existeEmail){
+        //     return res.status(400).json({
+        //         msg: 'Ya existe un usuario con el email ' + body.email
+        //     });
+        // }
 
         const usuario = await User.create(body);
         await usuario.save();
@@ -89,10 +88,10 @@ export const putUsuario = async( req: Request , res: Response ) => {
 export const deleteUsuario = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
-    
+
     try {
 
-        const usuario = await User.findByPk( id );
+        const usuario : any= await User.findByPk( id );
         if (!usuario){
             return res.status(404).json({
                 msg: 'No existe un usuario con el id ' + id
@@ -102,9 +101,85 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
        // await usuario.destroy ();
 
        const UsuarioAutenticado = req.user;
+         
+       const estado= usuario.estatus;
+        console.log('dfwwfeffg',estado);
+        
+       //await usuario.update({ estatus: false });
 
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await usuario.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await usuario.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
+        res.json({ usuario, UsuarioAutenticado });
+        
+    } catch (error) {
 
-       await usuario.update({ estatus: false });
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        })
+        
+    }
+
+}
+export const cambiarContraseña = async( req: Request , res: Response ) => {
+
+    const { id,} = req.params;
+    const { body } =  req;
+
+    try {
+
+        const usuario : any = await User.findByPk( id );
+        if (!usuario){
+            return res.status(404).json({
+                msg: 'No existe un usuario con el id ' + id
+            })
+        }
+
+       const UsuarioAutenticado = req.user;
+         
+       const contraseña= usuario.password;
+
+       if (contraseña !== body.bpassword)
+  {
+    return res.status(500).json({
+     
+      message: 'Contraseña Incorrecta '
+    });
+  }
+  if (body.password !== body.confirmNewPassword)
+  {
+    return res.status(500).json({
+     
+      message: 'La nueva contraseña no coincide'
+    });
+  }
+       if ( contraseña == body.bpassword && body.password == body.confirmNewPassword )
+       {
+        await usuario.update({ password: body.password})
+      }
+       else
+   {
+          return res.status(500).json({
+               
+                success: false,
+               message: 'error al actualizar contraseña'
+           })
+       }
         res.json({ usuario, UsuarioAutenticado });
         
     } catch (error) {
@@ -136,7 +211,6 @@ export const updateEstatusUsuario = async (req: Request, res: Response) => {
     
     const user = await User.findByPk(id);
 
-    
   if (!user)
   {
     return res.status(404).json({
@@ -159,11 +233,11 @@ export const updateEstatusUsuario = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      user.update({ status: 6 })
+      user.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      user.update({ status: 1})
+      user.update({ estatus: true})
   }
   else
   {
@@ -188,7 +262,6 @@ export const updateEstatusUsuario = async (req: Request, res: Response) => {
 export const validarUsuarioPrueba = async ( req: Request, res: Response) => {
 
     
-
     const { body } = req
     try {
         //verificar si el usuario existe
@@ -212,13 +285,12 @@ export const validarUsuarioPrueba = async ( req: Request, res: Response) => {
         //si el usuario está activo
         if (!existeUsuario.dataValues.estatus){
             return res.status(400).json({
-                msg: 'Usuario / Passwordno son correctos - estado: inactivo'
+                msg: 'Usuario / Password no son correctos - estado: inactivo'
             })
         }
 
         //Genenerar JWT 
         const token = await generarJWT( existeUsuario.dataValues.idusers)
-
 
         res.json({
             existeUsuario,
@@ -231,8 +303,28 @@ export const validarUsuarioPrueba = async ( req: Request, res: Response) => {
         res.status(500).json({
             msg: 'Hable con el Administrador'
         })
-        
+   
     }
+}
+
+ export const revalidarToken = async (req: Request, res : Response ) => {
+
+    const id = req.id;
+    
+    const existeUsuario: any = await User.findOne({
+        where: {
+            idusers: id
+        }
+    });
+    
+    // Generar JWT
+    const token = await generarJWT(existeUsuario.dataValues.idusers);
+    res.json({
+        ok: true,
+        idusers:existeUsuario.dataValues.idusers,
+        username:existeUsuario.dataValues.username,
+        token
+    })
 }
 
 // AQUI ERA ERA UNA FUNCION DE LLAVE PARA VALIDAR CIERTOS CAMPOS

@@ -22,7 +22,7 @@ export const  validarJWT = async ( req: Request, res: Response, next: NextFuncti
 
         const user: any = await User.findByPk( id );   
         console.log(user);
-
+req.id= id;
 
         //verificar si el usuario no existe en la base de datos
         if(!user){

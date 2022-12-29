@@ -17,7 +17,7 @@ const accesorios_model_1 = __importDefault(require("../models/accesorios.model")
 //Función para obtener todos los elementos de unafkewnfkmewn
 const getAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const accesorios = yield accesorios_model_1.default.findAll();
-    res.json({ accesorios });
+    res.json(accesorios);
 });
 exports.getAccesorios = getAccesorios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -93,7 +93,23 @@ const deleteAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, functio
             });
         }
         // await usuario.destroy ();
-        yield accesorios.update({ fk_status: 6 });
+        //await accesorios.update({ fk_status: 6 });
+        const estado = accesorios.estatus;
+        // await usuario.destroy ();
+        //await zonasregiones.update({estatus: 6 });
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield accesorios.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield accesorios.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(accesorios);
     }
     catch (error) {

@@ -12,16 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusPuestos = exports.putTipos = exports.postTipos = exports.getTiposById = exports.getTipos = void 0;
+exports.updateEstatusPuestos = exports.deleteTipos = exports.putTipos = exports.postTipos = exports.getTiposById = exports.getTipos = void 0;
 const tipos_model_1 = __importDefault(require("../models/tipos.model"));
 //Función para obtener todos los elementos de una tabla
 const getTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tipos = yield tipos_model_1.default.findAll();
-    res.json({
-        Datos: tipos,
-        success: true,
-        messagge: "Datos Obtenidos Correctamente"
-    });
+    res.json(tipos);
 });
 exports.getTipos = getTipos;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -86,25 +82,41 @@ const putTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.putTipos = putTipos;
 //Función para borrar un elemento a la tabla de nuestra base de datos tipos (Solo se dehabilita)
-// export const deleteTipos = async( req: Request , res: Response ) => {
-//     const { id } = req.params;
-//     try {
-//         const tipos = await Tipos.findByPk( id );
-//         if (!tipos){
-//             return res.status(404).json({
-//                 msg: 'No existe un tipo con el id ' + id
-//             })
-//         }
-//        // await usuario.destroy ();
-//        await tipos.update({ fk_status: 6 });
-//         res.json( tipos );
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
-//     }
-// }
+const deleteTipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const tipos = yield tipos_model_1.default.findByPk(id);
+        if (!tipos) {
+            return res.status(404).json({
+                msg: 'No existe un tipo con el id ' + id
+            });
+        }
+        // await usuario.destroy ();
+        //await tipos.update({ fk_status: 6 });
+        const estado = tipos.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield tipos.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield tipos.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
+        res.json(tipos);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        });
+    }
+});
+exports.deleteTipos = deleteTipos;
 //Función para habilitar y deshabilitar el estatus de Tipos
 const updateEstatusPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);

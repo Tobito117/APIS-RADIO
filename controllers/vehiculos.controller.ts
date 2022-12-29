@@ -91,7 +91,7 @@ export const deleteVehiculos = async( req: Request , res: Response ) => {
     
     try {
 
-        const vehiculos = await Vehiculos.findByPk( id );
+        const vehiculos : any = await Vehiculos.findByPk( id );
         if (!vehiculos){
             return res.status(404).json({
                 msg: 'No existe un vehiculo con el id ' + id
@@ -99,7 +99,25 @@ export const deleteVehiculos = async( req: Request , res: Response ) => {
         }
 
        // await usuario.destroy ();
-       await vehiculos.update({ fk_status: 6 });
+       //await vehiculos.update({ fk_status: 6 });
+       const estado= vehiculos.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await vehiculos.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await vehiculos.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
         res.json( vehiculos );
         
     } catch (error) {
@@ -174,4 +192,3 @@ export const updateEstatusVehiculos = async (req: Request, res: Response) => {
   })
 
 }
-

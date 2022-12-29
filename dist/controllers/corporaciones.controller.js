@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusCorporaciones = exports.putCorporaciones = exports.postCorporaciones = exports.getCorporacionesById = exports.getCorporaciones = void 0;
+exports.updateEstatusCorporaciones = exports.deleteCorporaciones = exports.putCorporaciones = exports.postCorporaciones = exports.getCorporacionesById = exports.getCorporaciones = void 0;
 const corporaciones_model_1 = __importDefault(require("../models/corporaciones.model"));
 //Función para obtener todos los elementos de una tabla
 const getCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const corporaciones = yield corporaciones_model_1.default.findAll();
-    res.json({ corporaciones });
+    res.json(corporaciones);
 });
 exports.getCorporaciones = getCorporaciones;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -82,25 +82,41 @@ const putCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.putCorporaciones = putCorporaciones;
 //Función para borrar un elemento a la tabla de nuestra base de datos corporaciones (Solo se dehabilita)
-// export const deleteCorporaciones = async( req: Request , res: Response ) => {
-//     const { id } = req.params;
-//     try {
-//         const corporaciones = await Corporaciones.findByPk( id );
-//         if (!corporaciones){
-//             return res.status(404).json({
-//                 msg: 'No existe una corporacion con el id ' + id
-//             })
-//         }
-//        // await usuario.destroy ();
-//        await corporaciones.update({ fk_status: 6 });
-//         res.json( corporaciones );
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
-//     }
-// }
+const deleteCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const corporaciones = yield corporaciones_model_1.default.findByPk(id);
+        if (!corporaciones) {
+            return res.status(404).json({
+                msg: 'No existe una corporacion con el id ' + id
+            });
+        }
+        // await usuario.destroy ();
+        //await corporaciones.update({ fk_status: 6 });
+        const estado = corporaciones.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield corporaciones.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield corporaciones.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
+        res.json(corporaciones);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        });
+    }
+});
+exports.deleteCorporaciones = deleteCorporaciones;
 //Función para habilitar y deshabilitar el estatus de corporaciones
 const updateEstatusCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);

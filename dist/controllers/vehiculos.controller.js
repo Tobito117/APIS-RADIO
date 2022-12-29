@@ -92,7 +92,21 @@ const deleteVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function
             });
         }
         // await usuario.destroy ();
-        yield vehiculos.update({ fk_status: 6 });
+        //await vehiculos.update({ fk_status: 6 });
+        const estado = vehiculos.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield vehiculos.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield vehiculos.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(vehiculos);
     }
     catch (error) {

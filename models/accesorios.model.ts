@@ -4,15 +4,13 @@ import db from '../db/connection';
 const Accesorios = db.define('accesorios', {
     idaccesorios: {
         type: DataTypes.INTEGER,
-        primaryKey: true
-      },
+        primaryKey: true,
+        autoIncrement: true,
+    },
     num_serie: {
         type: DataTypes.STRING
     },
-    fk_tipo_accesorio: {
-        type: DataTypes.INTEGER
-      },
-    fk_linea: {
+    marcas_idMarcas: {
         type: DataTypes.INTEGER
     },
     inventario_interno: {
@@ -21,30 +19,27 @@ const Accesorios = db.define('accesorios', {
     inventario_segpub: {
         type: DataTypes.STRING
     },
-    fk_recurso_compra: {
-        type: DataTypes.INTEGER
-    },
     contrato_compra: {
         type: DataTypes.STRING
     },
     observaciones: {
         type: DataTypes.STRING
     },
-    fk_status_ubicacion: {
-        type: DataTypes.INTEGER
-    },
     fecha_recepcion: {
         type: DataTypes.DATE
     },
-    fk_status: {
+    fk_sue: {
         type: DataTypes.INTEGER
+    },
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE
     },
     updatedAt: {
         type: DataTypes.DATE
-    }
+    },
 });
 
 export default Accesorios;

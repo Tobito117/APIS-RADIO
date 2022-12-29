@@ -4,7 +4,8 @@ import db from '../db/connection';
 const HojasServicios = db.define('hojaservicios', {
     id_hoja_servicio: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     fecha_servicio: {
         type: DataTypes.DATE

@@ -6,7 +6,7 @@ export const getRecursosCompras = async( req: Request , res: Response ) => {
 
     const recursoscompras = await RecursosCompras.findAll();
 
-    res.json({ recursoscompras });
+    res.json( recursoscompras );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -85,34 +85,53 @@ export const putRecursosCompras = async( req: Request , res: Response ) => {
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
-// export const deleteRecursosCompras = async( req: Request , res: Response ) => {
+export const deleteRecursosCompras = async( req: Request , res: Response ) => {
 
-//     const { id } = req.params;
+    const { id } = req.params;
     
-//     try {
+    try {
 
-//         const recursoscompras = await RecursosCompras.findByPk( id );
-//         if (!recursoscompras){
-//             return res.status(404).json({
-//                 msg: 'No existe un recurso-compra con el id ' + id
-//             })
-//         }
+        const recursoscompras : any = await RecursosCompras.findByPk( id );
+        if (!recursoscompras){
+            return res.status(404).json({
+                msg: 'No existe un recurso-compra con el id ' + id
+            })
+        }
 
-//        // await usuario.destroy (); //elimnina el elemento por completo
-//        await recursoscompras.update({ fk_status: 6 });
-//         res.json( recursoscompras );
+       // await usuario.destroy (); //elimnina el elemento por completo
+       //await recursoscompras.update({ fk_status: 6 });
+       const estado= recursoscompras.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await recursoscompras.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await recursoscompras.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
+        res.json( recursoscompras );
         
-//     } catch (error) {
+    } catch (error) {
 
-//         console.log(error);
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        })
         
-//     }
+    }
 
  
-// }
+}
 
 //Función para habilitar y deshabilitar el estatus de recursos-compras 
 export const updateEstatusRecursosCompras = async (req: Request, res: Response) => {

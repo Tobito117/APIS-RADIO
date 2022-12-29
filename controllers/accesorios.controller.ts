@@ -6,7 +6,7 @@ export const getAccesorios = async( req: Request , res: Response ) => {
 
     const accesorios = await Accesorios.findAll();
 
-    res.json({ accesorios });
+    res.json(accesorios,);
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -48,7 +48,7 @@ export const postAccesorios = async( req: Request , res: Response ) => {
         await accesorios.save();
 
         res.json(accesorios);
-        
+
     } catch (error) {
         res.status(500).json({
             msg: 'Hable con el Administrador'
@@ -92,7 +92,7 @@ export const deleteAccesorios = async( req: Request , res: Response ) => {
     
     try {
 
-        const accesorios = await Accesorios.findByPk( id );
+        const accesorios: any = await Accesorios.findByPk( id );
         if (!accesorios){
             return res.status(404).json({
                 msg: 'No existe un accesorio con el id ' + id
@@ -100,7 +100,27 @@ export const deleteAccesorios = async( req: Request , res: Response ) => {
         }
 
        // await usuario.destroy ();
-       await accesorios.update({ fk_status: 6 });
+       //await accesorios.update({ fk_status: 6 });
+       const estado= accesorios.estatus;
+       // await usuario.destroy ();
+       //await zonasregiones.update({estatus: 6 });
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await accesorios.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await accesorios.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
         res.json( accesorios );
         
     } catch (error) {

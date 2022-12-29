@@ -2,24 +2,24 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Imagenes = db.define('imagenes', {
-    id_imagen: {
+    idimagen: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
     ruta: {
         type: DataTypes.STRING
     },
-    fk_asignacion: {
-        type: DataTypes.INTEGER
+    asignacion: {
+        type: DataTypes.STRING
       },
-    fk_tipoasignacion: {
-        type: DataTypes.INTEGER
-    },
     fecha_creacion: {
         type: DataTypes.DATE
     },
-    fk_status: {
+    tipos_idtipos: {
         type: DataTypes.INTEGER
+    },
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

@@ -17,11 +17,7 @@ const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuarios_model_1.default.findAll();
-    res.json({
-        Datos: usuarios,
-        mesg: "Datos Obtenidos Correctamente",
-        estatus: true
-    });
+    res.json(usuarios);
 });
 exports.getUsuarios = getUsuarios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID
@@ -96,7 +92,21 @@ const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             });
         }
         // await usuario.destroy ();
-        yield usuario.update({ fk_status: 6 });
+        //await usuario.update({ fk_status: 6 });
+        const estado = usuario.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield usuario.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield usuario.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(usuario);
     }
     catch (error) {
@@ -136,10 +146,10 @@ const updateEstatusUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, fu
     //Habilitar o deshabilitar un registro (Update estatus)
     if (fk_status == 'true') {
         //Si el estatus viene con valor 'true' deshabilitada el registro
-        usuarios.update({ fk_status: 6 });
+        usuarios.update({ estatus: false });
     }
     else if (fk_status == 'false') {
-        usuarios.update({ fk_status: 1 });
+        usuarios.update({ estatus: true });
     }
     else {
         return res.status(400).json({

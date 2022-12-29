@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const Asig_Vehiculos = connection_1.default.define('asig_vehiculos', {
     id_asigveh: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     fecha_asigveh: {
         type: sequelize_1.DataTypes.DATE

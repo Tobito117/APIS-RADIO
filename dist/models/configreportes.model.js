@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const ConfigReportes = connection_1.default.define('configreportes', {
     id_config_repo: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     encabezado_carta: {
         type: sequelize_1.DataTypes.STRING

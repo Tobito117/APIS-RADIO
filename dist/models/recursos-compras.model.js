@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const RecursosCompras = connection_1.default.define('recursocompras', {
     idrecursoCompras: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     nombreRecursoCompra: {
         type: sequelize_1.DataTypes.STRING

@@ -4,7 +4,8 @@ import db from '../db/connection';
 const ConfigReportes = db.define('configreportes', {
     id_config_repo: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     encabezado_carta: {
         type: DataTypes.STRING

@@ -17,11 +17,7 @@ const situacion_ubicacion_estatus_model_1 = __importDefault(require("../models/s
 //Función para obtener todos los elementos de una tabla
 const getStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const status = yield situacion_ubicacion_estatus_model_1.default.findAll();
-    res.json({
-        Datos: status,
-        estatus: true,
-        messagge: 'Datos Obtenidos Correctamente'
-    });
+    res.json(status);
 });
 exports.getStatus = getStatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusServicios = exports.putServicios = exports.postServicios = exports.getServiciosById = exports.getServicios = void 0;
+exports.updateEstatusServicios = exports.deleteServicios = exports.putServicios = exports.postServicios = exports.getServiciosById = exports.getServicios = void 0;
 const servicios_model_1 = __importDefault(require("../models/servicios.model"));
 //Función para obtener todos los elementos de una tabla
 const getServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const servicios = yield servicios_model_1.default.findAll();
-    res.json({ servicios });
+    res.json(servicios);
 });
 exports.getServicios = getServicios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -82,25 +82,41 @@ const putServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.putServicios = putServicios;
 //Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
-// export const deleteServicios = async( req: Request , res: Response ) => {
-//     const { id } = req.params;
-//     try {
-//         const servicios = await Servicios.findByPk( id );
-//         if (!servicios){
-//             return res.status(404).json({
-//                 msg: 'No existe un servicio con el id ' + id
-//             })
-//         }
-//        // await usuario.destroy (); elimina el elemento totalmente 
-//        await servicios.update({ fk_status: 6 });
-//         res.json( servicios );
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
-//     }
-// }
+const deleteServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const servicios = yield servicios_model_1.default.findByPk(id);
+        if (!servicios) {
+            return res.status(404).json({
+                msg: 'No existe un servicio con el id ' + id
+            });
+        }
+        // await usuario.destroy (); elimina el elemento totalmente 
+        //await servicios.update({ fk_status: 6 });
+        const estado = servicios.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield servicios.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield servicios.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
+        res.json(servicios);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        });
+    }
+});
+exports.deleteServicios = deleteServicios;
 //Función para habilitar y deshabilitar el estatus de servicios
 const updateEstatusServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);

@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const Sue = connection_1.default.define('situacion_ubicacion_estatus', {
     id_sue: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     nombreStatus: {
         type: sequelize_1.DataTypes.STRING

@@ -6,7 +6,7 @@ export const getMarcas = async( req: Request , res: Response ) => {
 
     const marcas = await Marcas.findAll();
 
-    res.json({ marcas });
+    res.json( marcas);
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -86,11 +86,11 @@ export const putMarcas = async( req: Request , res: Response ) => {
 
 export const deleteMarcas = async( req: Request , res: Response ) => {
 
-    const { id } = req.params;
+    const { id } = req.params; 
     
     try {
 
-        const marcas = await Marcas.findByPk( id );
+        const marcas : any= await Marcas.findByPk( id );
         if (!marcas){
             return res.status(404).json({
                 msg: 'No existe una marca con el id ' + id
@@ -98,7 +98,26 @@ export const deleteMarcas = async( req: Request , res: Response ) => {
         }
 
        // await usuario.destroy ();
-       await marcas.update({ fk_status: 6 });
+       //await marcas.update({ fk_status: 6 });
+       const estado= marcas.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await marcas.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await marcas.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
         res.json( marcas );
         
     } catch (error) {
@@ -152,11 +171,11 @@ export const updateEstatusMarcas = async (req: Request, res: Response) => {
   if ( fk_status == 'true')
   {
       //Si el estatus viene con valor 'true' deshabilitada el registro
-      marcas.update({ fk_status: 6 })
+      marcas.update({ estatus: false })
   }
   else if (fk_status == 'false')
   {
-      marcas.update({ fk_status: 1})
+      marcas.update({ estatus: true})
   }
   else
   {

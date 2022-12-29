@@ -92,7 +92,21 @@ const deleteZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, func
             });
         }
         // await usuario.destroy ();
-        yield zonasregiones.update({ fk_status: 6 });
+        //await zonasregiones.update({estatus: 6 });
+        const estado = zonasregiones.estatus;
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield zonasregiones.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield zonasregiones.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(zonasregiones);
     }
     catch (error) {

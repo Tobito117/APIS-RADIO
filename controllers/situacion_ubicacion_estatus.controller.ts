@@ -6,11 +6,7 @@ export const getStatus = async( req: Request , res: Response ) => {
 
     const status = await Sue.findAll();
 
-    res.json({ 
-        Datos: status,
-        estatus: true,
-        messagge: 'Datos Obtenidos Correctamente'
-     });
+    res.json(status);
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

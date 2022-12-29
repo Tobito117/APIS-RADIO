@@ -6,7 +6,7 @@ export const getCorporaciones = async( req: Request , res: Response ) => {
 
     const corporaciones = await Corporaciones.findAll();
 
-    res.json({ corporaciones });
+    res.json( corporaciones );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -85,34 +85,53 @@ export const putCorporaciones = async( req: Request , res: Response ) => {
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos corporaciones (Solo se dehabilita)
-// export const deleteCorporaciones = async( req: Request , res: Response ) => {
+export const deleteCorporaciones = async( req: Request , res: Response ) => {
 
-//     const { id } = req.params;
+    const { id } = req.params;
     
-//     try {
+    try {
 
-//         const corporaciones = await Corporaciones.findByPk( id );
-//         if (!corporaciones){
-//             return res.status(404).json({
-//                 msg: 'No existe una corporacion con el id ' + id
-//             })
-//         }
+        const corporaciones: any = await Corporaciones.findByPk( id );
+        if (!corporaciones){
+            return res.status(404).json({
+                msg: 'No existe una corporacion con el id ' + id
+            })
+        }
 
-//        // await usuario.destroy ();
-//        await corporaciones.update({ fk_status: 6 });
-//         res.json( corporaciones );
+       // await usuario.destroy ();
+       //await corporaciones.update({ fk_status: 6 });
+       const estado= corporaciones.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await corporaciones.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await corporaciones.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
+        res.json( corporaciones );
         
-//     } catch (error) {
+    } catch (error) {
 
-//         console.log(error);
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        })
         
-//     }
+    }
 
  
-// }
+}
 
 //Función para habilitar y deshabilitar el estatus de corporaciones
 export const updateEstatusCorporaciones = async (req: Request, res: Response) => {

@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Documentos = db.define('documentos', {
-    id_documentos: {
+    iddocumentos: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
@@ -24,14 +24,11 @@ const Documentos = db.define('documentos', {
     tamanio: {
         type: DataTypes.STRING
     },
-    status: {
-        type: DataTypes.TINYINT
-    },
     descripcion: {
         type: DataTypes.STRING
     },
-    fk_asignacion: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

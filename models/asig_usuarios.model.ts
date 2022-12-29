@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Asig_Usuarios = db.define('asig_usuarios', {
     id_asigusu: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     fecha_asigusu: {
         type: DataTypes.DATE

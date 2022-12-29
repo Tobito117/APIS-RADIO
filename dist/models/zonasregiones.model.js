@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const ZonasRegiones = connection_1.default.define('zonasregiones', {
     idzonasregiones: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     nombreZonasRegiones: {
         type: sequelize_1.DataTypes.STRING

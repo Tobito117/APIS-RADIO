@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Asig_Vehiculos = db.define('asig_vehiculos', {
     id_asigveh: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     fecha_asigveh: {
         type: DataTypes.DATE

@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const usuarios_controller_1 = require("../controllers/usuarios.controller");
+const validar_jwt_1 = require("../middlewares/validar-jwt");
 const router = (0, express_1.Router)();
+// Todas tienen que pasar por la validación del JWT
+router.use(validar_jwt_1.validarJWT);
 router.get('/', usuarios_controller_1.getUsuarios);
 router.get('/:id', usuarios_controller_1.getUsuarioById);
 router.post('/', usuarios_controller_1.postUsuario);

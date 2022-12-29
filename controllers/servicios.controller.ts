@@ -6,7 +6,7 @@ export const getServicios = async( req: Request , res: Response ) => {
 
     const servicios = await Servicios.findAll();
 
-    res.json({ servicios });
+    res.json(servicios );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -81,38 +81,56 @@ export const putServicios = async( req: Request , res: Response ) => {
         })
         
     }
-   
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos recursos-compras (Solo se dehabilita)
-// export const deleteServicios = async( req: Request , res: Response ) => {
+export const deleteServicios = async( req: Request , res: Response ) => {
 
-//     const { id } = req.params;
+    const { id } = req.params;
     
-//     try {
+    try {
 
-//         const servicios = await Servicios.findByPk( id );
-//         if (!servicios){
-//             return res.status(404).json({
-//                 msg: 'No existe un servicio con el id ' + id
-//             })
-//         }
+        const servicios : any= await Servicios.findByPk( id );
+        if (!servicios){
+            return res.status(404).json({
+                msg: 'No existe un servicio con el id ' + id
+            })
+        }
 
-//        // await usuario.destroy (); elimina el elemento totalmente 
-//        await servicios.update({ fk_status: 6 });
-//         res.json( servicios );
+       // await usuario.destroy (); elimina el elemento totalmente 
+       //await servicios.update({ fk_status: 6 });
+       const estado= servicios.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await servicios.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await servicios.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
+        res.json( servicios );
         
-//     } catch (error) {
+    } catch (error) {
 
-//         console.log(error);
-//         res.status(500).json({
-//             msg: 'Hable con el Administrador'
-//         })
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        })
         
-//     }
+    }
 
  
-// }
+}
 
 //Función para habilitar y deshabilitar el estatus de servicios
 export const updateEstatusServicios = async (req: Request, res: Response) => {

@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const Radios = connection_1.default.define('radios', {
-    id_radio: {
+    idradios: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     fk_tipoequipo: {
         type: sequelize_1.DataTypes.INTEGER
@@ -43,14 +44,8 @@ const Radios = connection_1.default.define('radios', {
     fk_marca: {
         type: sequelize_1.DataTypes.INTEGER
     },
-    fk_linea: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
     fecha_actualizacion: {
         type: sequelize_1.DataTypes.DATE
-    },
-    fk_lugar_ubicacion: {
-        type: sequelize_1.DataTypes.INTEGER
     },
     fecha_asignacion: {
         type: sequelize_1.DataTypes.DATE
@@ -61,8 +56,11 @@ const Radios = connection_1.default.define('radios', {
     fecha_recepcion: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_status: {
+    fk_sue: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Tipos = db.define('tipos', {
     idtipos: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     nombreTipo: {
         type: DataTypes.STRING

@@ -6,7 +6,7 @@ export const getRadios = async( req: Request , res: Response ) => {
 
     const radios = await Radios.findAll();
 
-    res.json({ radios });
+    res.json( radios );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -91,7 +91,7 @@ export const deleteRadios = async( req: Request , res: Response ) => {
     
     try {
 
-        const radios = await Radios.findByPk( id );
+        const radios : any = await Radios.findByPk( id );
         if (!radios){
             return res.status(404).json({
                 msg: 'No existe un radio con el id ' + id
@@ -99,7 +99,26 @@ export const deleteRadios = async( req: Request , res: Response ) => {
         }
 
        // await usuario.destroy ();
-       await radios.update({ fk_status: 6 });
+       //await radios.update({ fk_status: 6 });
+       const estado= radios.estatus;
+       
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await radios.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await radios.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
         res.json( radios );
         
     } catch (error) {
