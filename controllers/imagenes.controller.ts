@@ -4,22 +4,50 @@ import Imagenes from '../models/imagenes.model';
 //Función para obtener todos los elementos de una tabla
 export const getImagenes = async( req: Request , res: Response ) => {
 
-    const imagenes = await Imagenes.findAll();
-
-    res.json({ imagenes });
+     // const radios = await Radios.findAll();
+        //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+        const radios: any = await Imagenes.sequelize?.query("SELECT imagenes.idimagen, imagenes.ruta, imagenes.asignacion, imagenes.fecha_creacion, tipos.nombreTipo, imagenes.estatus, imagenes.createdAt, imagenes.updatedAt FROM imagenes INNER JOIN tipos ON imagenes.idimagen = tipos.idtipos", {
+            replacements: [],
+            model: Imagenes,
+            mapToModel: true
+        });
+    
+        res.json({
+            Datos: radios,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente" 
+        });
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getImagenesById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
-    const imagenes = await Imagenes.findByPk( id );
+        //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+        const imagenes: any = await Imagenes.sequelize?.query("SELECT imagenes.idimagen, imagenes.ruta, imagenes.asignacion, imagenes.fecha_creacion, tipos.nombreTipo, imagenes.estatus, imagenes.createdAt, imagenes.updatedAt FROM imagenes INNER JOIN tipos ON imagenes.idimagen = tipos.idtipos where idimagen= ?", {
+            replacements: [ id ],
+            model: Imagenes,
+            mapToModel: true
+        });
 
-    if(imagenes){
-        res.json(imagenes)
+        let idimagenes
+   
+        for(let i of imagenes){
+    
+          idimagenes = i.dataValues.idimagen
+    
+        }
+        console.log(idimagenes);
+
+    if(idimagenes ){
+        res.json({
+            Datos: imagenes,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente" 
+        });
     }else{
         res.status(404).json({
-            msg: "No existe Imagen en la base de datos"
+            msg: "No existe imagen en la base de datos"
         });
     } 
 

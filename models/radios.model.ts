@@ -40,8 +40,14 @@ const Radios = db.define('radios', {
     fk_marca: {
         type: DataTypes.INTEGER
     },
+    fk_linea: {
+        type: DataTypes.INTEGER
+    },
     fecha_actualizacion: {
         type: DataTypes.DATE
+    },
+    fk_lugar_ubicacion: {
+        type: DataTypes.INTEGER
     },
     fecha_asignacion: {
         type: DataTypes.DATE
@@ -52,11 +58,8 @@ const Radios = db.define('radios', {
     fecha_recepcion: {
         type: DataTypes.DATE
     },
-    fk_sue: {
+    fk_status: {
         type: DataTypes.INTEGER
-    },
-    estatus: {
-        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

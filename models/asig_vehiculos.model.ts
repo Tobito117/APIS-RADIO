@@ -2,25 +2,22 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const Asig_Vehiculos = db.define('asig_vehiculos', {
-    id_asigveh: {
+    idasig_tipo: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-    fecha_asigveh: {
+    fecha_asig: {
         type: DataTypes.DATE
     },
-    fecha_canveh: {
+    fecha_can: {
         type: DataTypes.DATE
       },
-    fk_vehiculo: {
+    vehiculos_idvehiculo: {
         type: DataTypes.INTEGER
     },
-    fk_radio: {
-        type: DataTypes.INTEGER
-    },
-    fk_status: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

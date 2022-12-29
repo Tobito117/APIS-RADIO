@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 const ConfigReportes = db.define('configreportes', {
-    id_config_repo: {
+    idconfigReportes: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -49,14 +49,11 @@ const ConfigReportes = db.define('configreportes', {
     fecha_final: {
         type: DataTypes.DATE
     },
-    fk_status: {
-        type: DataTypes.INTEGER
-    },
     fecha_creacion: {
         type: DataTypes.DATE
     },
-    fk_user: {
-        type: DataTypes.INTEGER
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

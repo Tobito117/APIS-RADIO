@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const Imagenes = connection_1.default.define('imagenes', {
     idimagen: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     ruta: {
         type: sequelize_1.DataTypes.STRING

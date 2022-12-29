@@ -22,14 +22,29 @@ const getRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getRadios = getRadios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getRadiosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const { id } = req.params;
-    const radios = yield radios_model_1.default.findByPk(id);
-    if (radios) {
-        res.json(radios);
+    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const radios = yield ((_a = radios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, tipos.nombreTipo, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas JOIN tipos ON radios.idradios = tipos.idtipos INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue where idradios = ?", {
+        replacements: [id],
+        model: radios_model_1.default,
+        mapToModel: true
+    }));
+    let idradio;
+    for (let i of radios) {
+        idradio = i.dataValues.idradios;
+        console.log(idradio);
+    }
+    if (idradio) {
+        res.json({
+            Datos: radios,
+            success: true,
+            messagge: "Datos Obtenidos Correctamente"
+        });
     }
     else {
         res.status(404).json({
-            msg: "No existe radio en la base de datos"
+            msg: "No existe Radio en la base de datos"
         });
     }
 });

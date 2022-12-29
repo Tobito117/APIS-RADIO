@@ -44,8 +44,14 @@ const Radios = connection_1.default.define('radios', {
     fk_marca: {
         type: sequelize_1.DataTypes.INTEGER
     },
+    fk_linea: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
     fecha_actualizacion: {
         type: sequelize_1.DataTypes.DATE
+    },
+    fk_lugar_ubicacion: {
+        type: sequelize_1.DataTypes.INTEGER
     },
     fecha_asignacion: {
         type: sequelize_1.DataTypes.DATE
@@ -56,11 +62,8 @@ const Radios = connection_1.default.define('radios', {
     fecha_recepcion: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_sue: {
+    fk_status: {
         type: sequelize_1.DataTypes.INTEGER
-    },
-    estatus: {
-        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE

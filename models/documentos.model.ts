@@ -15,18 +15,18 @@ const Documentos = db.define('documentos', {
     nombre: {
         type: DataTypes.STRING
     },
-    ruta: {
-        type: DataTypes.STRING
-    },
-    tipo: {
-        type: DataTypes.STRING
-    },
-    tamanio: {
-        type: DataTypes.STRING
-    },
-    descripcion: {
-        type: DataTypes.STRING
-    },
+    // ruta: {
+    //     type: DataTypes.STRING
+    // },
+    // tipo: {
+    //     type: DataTypes.STRING
+    // },
+    // tamanio: {
+    //     type: DataTypes.STRING
+    // },
+    // descripcion: {
+    //     type: DataTypes.STRING
+    // },
     estatus: {
         type: DataTypes.BOOLEAN
     },
