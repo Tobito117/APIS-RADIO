@@ -6,13 +6,13 @@ const Radios = db.define('radios', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
-    fk_tipoequipo: {
+    },
+    tipo: {
         type: DataTypes.INTEGER
     },
     serie: {
         type: DataTypes.STRING
-      },
+    },
     logico: {
         type: DataTypes.STRING
     },
@@ -34,21 +34,14 @@ const Radios = db.define('radios', {
     rfsi: {
         type: DataTypes.STRING
     },
-    fk_tiporadio: {
-        type: DataTypes.INTEGER
-    },
     fk_marca: {
         type: DataTypes.INTEGER
     },
-    fk_linea: {
-        type: DataTypes.INTEGER
-    },
+    
     fecha_actualizacion: {
         type: DataTypes.DATE
     },
-    fk_lugar_ubicacion: {
-        type: DataTypes.INTEGER
-    },
+    
     fecha_asignacion: {
         type: DataTypes.DATE
     },
@@ -58,15 +51,19 @@ const Radios = db.define('radios', {
     fecha_recepcion: {
         type: DataTypes.DATE
     },
-    fk_status: {
+    fk_sue:{
         type: DataTypes.INTEGER
+    },
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE
     },
     updatedAt: {
         type: DataTypes.DATE
-    }
+    },
+   
 });
 
 export default Radios;

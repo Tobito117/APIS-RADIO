@@ -11,7 +11,7 @@ const Radios = connection_1.default.define('radios', {
         primaryKey: true,
         autoIncrement: true,
     },
-    fk_tipoequipo: {
+    tipo: {
         type: sequelize_1.DataTypes.INTEGER
     },
     serie: {
@@ -38,20 +38,11 @@ const Radios = connection_1.default.define('radios', {
     rfsi: {
         type: sequelize_1.DataTypes.STRING
     },
-    fk_tiporadio: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
     fk_marca: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_linea: {
         type: sequelize_1.DataTypes.INTEGER
     },
     fecha_actualizacion: {
         type: sequelize_1.DataTypes.DATE
-    },
-    fk_lugar_ubicacion: {
-        type: sequelize_1.DataTypes.INTEGER
     },
     fecha_asignacion: {
         type: sequelize_1.DataTypes.DATE
@@ -62,15 +53,18 @@ const Radios = connection_1.default.define('radios', {
     fecha_recepcion: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_status: {
+    fk_sue: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE
     },
     updatedAt: {
         type: sequelize_1.DataTypes.DATE
-    }
+    },
 });
 exports.default = Radios;
 //# sourceMappingURL=radios.model.js.map
