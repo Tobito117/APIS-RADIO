@@ -4,9 +4,19 @@ import Vehiculos from '../models/vehiculos.model';
 //Función para obtener todos los elementos de una tabla
 export const getVehiculos = async( req: Request , res: Response ) => {
 
-    const vehiculos = await Vehiculos.findAll();
+//    const vehiculos = await Vehiculos.findAll();
+//    res.json( vehiculos );
+const vehiculos: any = await Vehiculos.sequelize?.query("SELECT vehiculos.idvehiculo, vehiculos.nombreVehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio,vehiculos.marcas_idmarcas, marcas.nombreMarcas, vehiculos.estatus,vehiculos.createdAt, vehiculos.updatedAt FROM vehiculos INNER JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas", {
+    replacements: [],
+    model: Vehiculos,
+    mapToModel: true
+});
 
-    res.json( vehiculos );
+
+res.json(
+vehiculos
+);
+
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

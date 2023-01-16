@@ -5,9 +5,15 @@ import { generarJWT } from '../helpers/generar-jwt';
 //Función para obtener todos los elementos de una tabla
 export const getUsuarios = async( req: Request , res: Response ) => {
 
-    const usuarios = await User.findAll();
-
-    res.json( usuarios );
+//    const usuarios = await User.findAll();
+//
+//    res.json( usuarios ); 
+const usuarios: any = await User.sequelize?.query("SELECT  users.idusers, users.username, users.password, users.email,users.roles_idrol, roles.rol, users.estatus,users.createdAt, users.updatedAt FROM users INNER JOIN roles ON users.roles_idrol = roles.idrol", {
+    replacements: [],
+    model: User,
+    mapToModel: true
+});
+res.json(usuarios);
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

@@ -5,7 +5,7 @@ import Puestos from '../models/puestos.model';
 export const getPuestos = async( req: Request , res: Response ) => {
 
      //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-     const puestos: any = await Puestos.sequelize?.query("SELECT puestos.idpuesto, puestos.nombre, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.idpuesto = corporaciones.idcorporaciones", {
+     const puestos: any = await Puestos.sequelize?.query("SELECT puestos.idpuesto, puestos.nombre,puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones", {
         replacements: [],
         model: Puestos,
         mapToModel: true

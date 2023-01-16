@@ -16,7 +16,14 @@ exports.updateEstatusVehiculos = exports.deleteVehiculos = exports.putVehiculos 
 const vehiculos_model_1 = __importDefault(require("../models/vehiculos.model"));
 //Función para obtener todos los elementos de una tabla
 const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const vehiculos = yield vehiculos_model_1.default.findAll();
+    var _a;
+    //    const vehiculos = await Vehiculos.findAll();
+    //    res.json( vehiculos );
+    const vehiculos = yield ((_a = vehiculos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT vehiculos.idvehiculo, vehiculos.nombreVehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio,vehiculos.marcas_idmarcas, marcas.nombreMarcas, vehiculos.estatus,vehiculos.createdAt, vehiculos.updatedAt FROM vehiculos INNER JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas", {
+        replacements: [],
+        model: vehiculos_model_1.default,
+        mapToModel: true
+    }));
     res.json(vehiculos);
 });
 exports.getVehiculos = getVehiculos;

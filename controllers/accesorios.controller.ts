@@ -4,9 +4,14 @@ import Accesorios from '../models/accesorios.model';
 //Función para obtener todos los elementos de unafkewnfkmewn
 export const getAccesorios = async( req: Request , res: Response ) => {
 
-    const accesorios = await Accesorios.findAll();
-
-    res.json(accesorios,);
+//    const accesorios = await Accesorios.findAll();
+//    res.json(accesorios,);
+const accesorios: any = await Accesorios.sequelize?.query("SELECT accesorios.idaccesorios, accesorios.num_serie, accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt, accesorios.tipo FROM accesorios INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue ", {
+    replacements: [],
+    model: Accesorios,
+    mapToModel: true
+});
+res.json(accesorios);
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

@@ -17,7 +17,15 @@ const usuario_model_1 = __importDefault(require("../models/usuario.model"));
 const generar_jwt_1 = require("../helpers/generar-jwt");
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const usuarios = yield usuario_model_1.default.findAll();
+    var _a;
+    //    const usuarios = await User.findAll();
+    //
+    //    res.json( usuarios ); 
+    const usuarios = yield ((_a = usuario_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  users.idusers, users.username, users.password, users.email,users.roles_idrol, roles.rol, users.estatus,users.createdAt, users.updatedAt FROM users INNER JOIN roles ON users.roles_idrol = roles.idrol", {
+        replacements: [],
+        model: usuario_model_1.default,
+        mapToModel: true
+    }));
     res.json(usuarios);
 });
 exports.getUsuarios = getUsuarios;
