@@ -31,10 +31,10 @@ const ConfigReportes = db.define('configreportes', {
     articulo3: {
         type: DataTypes.TEXT
     },
-    fk_encargado_revision: {
+    revisor: {
         type: DataTypes.INTEGER
     },
-    fk_entrego: {
+    responsable_entrega: {
         type: DataTypes.INTEGER
     },
     pie_carta: {

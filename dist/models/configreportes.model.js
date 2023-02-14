@@ -35,10 +35,10 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     articulo3: {
         type: sequelize_1.DataTypes.TEXT
     },
-    fk_encargado_revision: {
+    revisor: {
         type: sequelize_1.DataTypes.INTEGER
     },
-    fk_entrego: {
+    responsable_entrega: {
         type: sequelize_1.DataTypes.INTEGER
     },
     pie_carta: {

@@ -13,9 +13,7 @@ const vehiculos: any = await Vehiculos.sequelize?.query("SELECT vehiculos.idvehi
 });
 
 
-res.json(
-vehiculos
-);
+res.json(vehiculos);
 
 }
 
