@@ -31,11 +31,11 @@ const ConfigReportes = db.define('configreportes', {
     articulo3: {
         type: DataTypes.TEXT
     },
-    fk_encargado_revision: {
-        type: DataTypes.INTEGER
+    revisor: {
+        type: DataTypes.STRING
     },
-    fk_entrego: {
-        type: DataTypes.INTEGER
+    responsable_entrega: {
+        type: DataTypes.STRING
     },
     pie_carta: {
         type: DataTypes.STRING
@@ -43,17 +43,17 @@ const ConfigReportes = db.define('configreportes', {
     pie_hservicio: {
         type: DataTypes.STRING
     },
-    fecha_inicial: {
-        type: DataTypes.DATE
-    },
-    fecha_final: {
-        type: DataTypes.DATE
-    },
     fecha_creacion: {
         type: DataTypes.DATE
     },
     estatus: {
         type: DataTypes.BOOLEAN
+    },
+    fecha_inicial: {
+        type: DataTypes.DATE
+    },
+    fecha_final: {
+        type: DataTypes.DATE
     },
     createdAt: {
         type: DataTypes.DATE

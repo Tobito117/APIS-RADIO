@@ -6,7 +6,7 @@ export const getConfigReportes = async( req: Request , res: Response ) => {
 
     const configreportes = await ConfigReportes.findAll();
 
-    res.json({ configreportes });
+    res.json( configreportes );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

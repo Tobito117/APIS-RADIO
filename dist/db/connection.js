@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const db = new sequelize_1.Sequelize('radiocomu', 'system', 'Aldebaran619*', {
-    host: '10.30.1.44',
+    host: 'localhost',
     dialect: 'mysql',
     // logging: false,
 });

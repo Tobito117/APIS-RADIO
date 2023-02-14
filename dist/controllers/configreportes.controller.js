@@ -17,7 +17,7 @@ const configreportes_model_1 = __importDefault(require("../models/configreportes
 //Función para obtener todos los elementos de una tabla
 const getConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const configreportes = yield configreportes_model_1.default.findAll();
-    res.json({ configreportes });
+    res.json(configreportes);
 });
 exports.getConfigReportes = getConfigReportes;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

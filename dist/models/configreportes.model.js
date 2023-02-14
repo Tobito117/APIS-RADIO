@@ -35,11 +35,11 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     articulo3: {
         type: sequelize_1.DataTypes.TEXT
     },
-    fk_encargado_revision: {
-        type: sequelize_1.DataTypes.INTEGER
+    revisor: {
+        type: sequelize_1.DataTypes.STRING
     },
-    fk_entrego: {
-        type: sequelize_1.DataTypes.INTEGER
+    responsable_entrega: {
+        type: sequelize_1.DataTypes.STRING
     },
     pie_carta: {
         type: sequelize_1.DataTypes.STRING
@@ -47,17 +47,17 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     pie_hservicio: {
         type: sequelize_1.DataTypes.STRING
     },
-    fecha_inicial: {
-        type: sequelize_1.DataTypes.DATE
-    },
-    fecha_final: {
-        type: sequelize_1.DataTypes.DATE
-    },
     fecha_creacion: {
         type: sequelize_1.DataTypes.DATE
     },
     estatus: {
         type: sequelize_1.DataTypes.BOOLEAN
+    },
+    fecha_inicial: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    fecha_final: {
+        type: sequelize_1.DataTypes.DATE
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE
