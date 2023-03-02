@@ -7,6 +7,9 @@ const HojasServicios = db.define('hojaservicios', {
         primaryKey: true,
         autoIncrement: true,
       },
+      fecha_servicio:{
+        type: DataTypes.DATE
+      },
     fk_usuario: {
         type: DataTypes.INTEGER
     },

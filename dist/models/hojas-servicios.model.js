@@ -11,6 +11,9 @@ const HojasServicios = connection_1.default.define('hojaservicios', {
         primaryKey: true,
         autoIncrement: true,
     },
+    fecha_servicio: {
+        type: sequelize_1.DataTypes.DATE
+    },
     fk_usuario: {
         type: sequelize_1.DataTypes.INTEGER
     },

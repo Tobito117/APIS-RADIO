@@ -1,12 +1,18 @@
 import { Request, Response } from "express";
-import Asig_Usuarios from '../models/asig_usuarios.model';
+import Asig_Usuarios from "../models/asig_usuario_radio.model";
+//import Asig_Usuarios from '../models/asig_usuario_radio.model';
 
 //Función para obtener todos los elementos de una tabla
 export const getAsig_Usuarios = async( req: Request , res: Response ) => {
 
-    const asig_usuarios = await Asig_Usuarios.findAll();
+   // const asig_usuarios = await Asig_Usuarios.findAll();
+   const asig_usuarios: any = await Asig_Usuarios.sequelize?.query("SELECT asignacion_usuario_radios.asignacion_usuario_radiocol, asignacion_usuario_radios.usuarios_idusuarios, usuarios.nombre,usuarios.clave_elector, asignacion_usuario_radios.radios_idradios,radios.serie, asignacion_usuario_radios.estatus, asignacion_usuario_radios.createdAt,asignacion_usuario_radios.updatedAt  FROM asignacion_usuario_radios INNER JOIN usuarios ON asignacion_usuario_radios.usuarios_idusuarios = usuarios.idusuarios INNER JOIN radios ON asignacion_usuario_radios.radios_idradios = radios.idradios", {
+    replacements: [],
+    model: Asig_Usuarios,
+    mapToModel: true
+});
 
-    res.json({ asig_usuarios });
+    res.json(asig_usuarios );
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -88,19 +94,43 @@ export const putAsig_Usuarios = async( req: Request , res: Response ) => {
 export const deleteAsig_Usuarios = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
-    
+
     try {
 
-        const asig_usuarios = await Asig_Usuarios.findByPk( id );
-        if (!asig_usuarios){
+        const asignacion : any= await Asig_Usuarios.findByPk( id );
+        if (!asignacion){
             return res.status(404).json({
-                msg: 'No existe un asig_usuario con el id ' + id
+                msg: 'No existe un usuario con el id ' + id
             })
         }
 
-       // await usuario.destroy (); //metodo real para borrar el registro
-       await asig_usuarios.update({ fk_status: 6 });
-        res.json( asig_usuarios );
+       // await usuario.destroy ();
+
+       //const UsuarioAutenticado = req.user;
+         
+       const estado= asignacion.estatus;
+        //console.log('dfwwfeffg',estado);
+        
+       //await usuario.update({ estatus: false });
+
+       if ( estado == true)
+       {
+           //Si el estatus viene con valor 'true' deshabilitada el registro
+           await asignacion.update({ estatus: false })
+       }
+       else if (estado == false)
+       {
+        await asignacion.update({ estatus: true})
+       }
+       else
+       {
+           return res.status(400).json({
+               
+               success: false,
+               message: 'El valor del estatus no es valido (true o false)'
+           })
+       }
+        res.json( asignacion);
         
     } catch (error) {
 
@@ -111,7 +141,6 @@ export const deleteAsig_Usuarios = async( req: Request , res: Response ) => {
         
     }
 
- 
 }
 
 

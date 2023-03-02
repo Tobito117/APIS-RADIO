@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
-const AUR = db.define('asignacion_usuario_radio', {
+const Asig_Usuarios = db.define('asignacion_usuario_radios', {
     asignacion_usuario_radiocol: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -22,6 +22,6 @@ const AUR = db.define('asignacion_usuario_radio', {
     updatedAt: {
         type: DataTypes.DATE
     }
-});
+}); 
 
-export default AUR;
+export default Asig_Usuarios;

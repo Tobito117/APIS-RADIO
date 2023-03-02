@@ -17,7 +17,14 @@ const hojas_servicios_model_1 = __importDefault(require("../models/hojas-servici
 //Función para obtener todos los elementos de una tabla
 const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const hojasservicios = yield hojas_servicios_model_1.default.findAll();
-    res.json({ hojasservicios });
+    res.json(hojasservicios);
+    //const hojasservicios: any = await HojasServicios.sequelize?.query("SELECT  hojaservicios.idhojaservicios, hojaservicios.fecha_servicio, hojaservicios.fk_usuario, usuarios., hojaservicios.inventario_segpub, hojaservicios.fk_propietario, corporaciones.nombreCorporacion, radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
+    // replacements: [],
+    // model: HojasServicios,
+    // mapToModel: true
+    //
+    //
+    //.json(hojasservicios);
 });
 exports.getHojasServicios = getHojasServicios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

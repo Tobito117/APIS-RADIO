@@ -4,9 +4,15 @@ import HojasServicios from '../models/hojas-servicios.model';
 //Función para obtener todos los elementos de una tabla
 export const getHojasServicios = async( req: Request , res: Response ) => {
 
-    const hojasservicios = await HojasServicios.findAll();
-
-    res.json({ hojasservicios });
+   const hojasservicios = await HojasServicios.findAll();
+   res.json( hojasservicios );
+//const hojasservicios: any = await HojasServicios.sequelize?.query("SELECT  hojaservicios.idhojaservicios, hojaservicios.fecha_servicio, hojaservicios.fk_usuario, usuarios., hojaservicios.inventario_segpub, hojaservicios.fk_propietario, corporaciones.nombreCorporacion, radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
+// replacements: [],
+// model: HojasServicios,
+// mapToModel: true
+//
+//
+//.json(hojasservicios);
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
@@ -21,8 +27,7 @@ export const getHojasServiciosById = async( req: Request , res: Response ) => {
         res.status(404).json({
             msg: "No existe hoja-servicio en la base de datos"
         });
-    } 
-
+    }
 }
 
 //Función para agregar un elemento a la tabla de nuestra base de datos hoja-servicio

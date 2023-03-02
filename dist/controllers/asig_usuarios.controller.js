@@ -13,17 +13,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEstatusAsig_Usuarios = exports.deleteAsig_Usuarios = exports.putAsig_Usuarios = exports.postAsig_Usuarios = exports.getAsig_UsuariosById = exports.getAsig_Usuarios = void 0;
-const asig_usuarios_model_1 = __importDefault(require("../models/asig_usuarios.model"));
+const asig_usuario_radio_model_1 = __importDefault(require("../models/asig_usuario_radio.model"));
+//import Asig_Usuarios from '../models/asig_usuario_radio.model';
 //Función para obtener todos los elementos de una tabla
 const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const asig_usuarios = yield asig_usuarios_model_1.default.findAll();
-    res.json({ asig_usuarios });
+    var _a;
+    // const asig_usuarios = await Asig_Usuarios.findAll();
+    const asig_usuarios = yield ((_a = asig_usuario_radio_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT asignacion_usuario_radios.asignacion_usuario_radiocol, asignacion_usuario_radios.usuarios_idusuarios, usuarios.nombre,usuarios.clave_elector, asignacion_usuario_radios.radios_idradios,radios.serie, asignacion_usuario_radios.estatus, asignacion_usuario_radios.createdAt,asignacion_usuario_radios.updatedAt  FROM asignacion_usuario_radios INNER JOIN usuarios ON asignacion_usuario_radios.usuarios_idusuarios = usuarios.idusuarios INNER JOIN radios ON asignacion_usuario_radios.radios_idradios = radios.idradios", {
+        replacements: [],
+        model: asig_usuario_radio_model_1.default,
+        mapToModel: true
+    }));
+    res.json(asig_usuarios);
 });
 exports.getAsig_Usuarios = getAsig_Usuarios;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getAsig_UsuariosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const asig_usuarios = yield asig_usuarios_model_1.default.findByPk(id);
+    const asig_usuarios = yield asig_usuario_radio_model_1.default.findByPk(id);
     if (asig_usuarios) {
         res.json(asig_usuarios);
     }
@@ -48,7 +55,7 @@ const postAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functi
         //         msg: 'Ya existe un usuario con el email ' + body.email
         //     });
         // }
-        const asig_usuarios = yield asig_usuarios_model_1.default.create(body);
+        const asig_usuarios = yield asig_usuario_radio_model_1.default.create(body);
         yield asig_usuarios.save();
         res.json(asig_usuarios);
     }
@@ -64,7 +71,7 @@ const putAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const { id } = req.params;
     const { body } = req;
     try {
-        const asig_usuarios = yield asig_usuarios_model_1.default.findByPk(id);
+        const asig_usuarios = yield asig_usuario_radio_model_1.default.findByPk(id);
         if (!asig_usuarios) {
             return res.status(404).json({
                 msg: 'No existe un asig_usuarios con el id ' + id
@@ -85,15 +92,31 @@ exports.putAsig_Usuarios = putAsig_Usuarios;
 const deleteAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const asig_usuarios = yield asig_usuarios_model_1.default.findByPk(id);
-        if (!asig_usuarios) {
+        const asignacion = yield asig_usuario_radio_model_1.default.findByPk(id);
+        if (!asignacion) {
             return res.status(404).json({
-                msg: 'No existe un asig_usuario con el id ' + id
+                msg: 'No existe un usuario con el id ' + id
             });
         }
-        // await usuario.destroy (); //metodo real para borrar el registro
-        yield asig_usuarios.update({ fk_status: 6 });
-        res.json(asig_usuarios);
+        // await usuario.destroy ();
+        //const UsuarioAutenticado = req.user;
+        const estado = asignacion.estatus;
+        //console.log('dfwwfeffg',estado);
+        //await usuario.update({ estatus: false });
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield asignacion.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield asignacion.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
+        res.json(asignacion);
     }
     catch (error) {
         console.log(error);
@@ -114,7 +137,7 @@ const updateEstatusAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 
             message: 'El idAsignacioUsuarios no es un valor válido'
         });
     }
-    const asig_usuarios = yield asig_usuarios_model_1.default.findByPk(id);
+    const asig_usuarios = yield asig_usuario_radio_model_1.default.findByPk(id);
     if (!asig_usuarios) {
         return res.status(404).json({
             data: null,
