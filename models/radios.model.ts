@@ -31,17 +31,13 @@ const Radios = db.define('radios', {
     contrato_compra: {
         type: DataTypes.STRING
     },
-    rfsi: {
-        type: DataTypes.STRING
-    },
+   
     fk_marca: {
         type: DataTypes.INTEGER
     },
-    
     fecha_actualizacion: {
         type: DataTypes.DATE
     },
-    
     fecha_asignacion: {
         type: DataTypes.DATE
     },

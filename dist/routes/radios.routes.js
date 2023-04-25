@@ -6,6 +6,7 @@ const router = (0, express_1.Router)();
 // Todas tienen que pasar por la validación del JWT
 // router.use( validarJWT );
 router.get('/', radios_controller_1.getRadios);
+router.get('/filtrado/', radios_controller_1.getRadiosFiltrado);
 router.get('/:id', radios_controller_1.getRadiosById);
 router.post('/', radios_controller_1.postRadios);
 router.put('/:id', radios_controller_1.putRadios);

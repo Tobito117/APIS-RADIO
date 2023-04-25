@@ -7,7 +7,7 @@ export const getRadios = async( req: Request , res: Response ) => {
     //const radios = await Radios.findAll();
 //
     //res.json( radios );
-    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
+    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
         replacements: [],
         model: Radios,
         mapToModel: true
@@ -16,12 +16,47 @@ export const getRadios = async( req: Request , res: Response ) => {
     res.json(radios);
 }
 
+export const getRadiosFiltrado = async (req:Request, res:Response)=>{
+    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios,"+ 
+    "radios.serie,"+ 
+    "radios.logico,"+ 
+    "radios.inventario_interno," +
+    "radios.inventario_segpub,"+
+    "radios.fk_propietario, "+
+    "corporaciones.nombreCorporacion,"+
+    "radios.fk_recurso_compra,"+ 
+    "recursocompras.nombreRecursoCompra,"+
+    "radios.contrato_compra,"+ 
+    "radios.fk_marca,"+
+    "marcas.nombreMarcas,"+
+    "radios.fecha_actualizacion,"+
+    "radios.fecha_asignacion,"+
+    "radios.observaciones, "+
+    "radios.fecha_recepcion,"+
+    "radios.fk_sue, "+
+    "situacion_ubicacion_estatus.nombreStatus,"+
+    "radios.estatus,"+
+    "radios.createdAt,"+
+    "radios.updatedAt, "+ 
+    "radios.tipo "+
+    "FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones "+
+    "INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras "+
+    "INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas "+
+    "INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue "+
+    "WHERE radios.estatus = true ", {
+        replacements: [], 
+        model: Radios,
+        mapToModel: true
+    });
+ 
+    res.json(radios);
+}
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getRadiosById = async( req: Request , res: Response ) => {
 
     const { id } = req.params;
    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas  INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue where idradios = ?", {
+    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas  INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue where idradios = ?", {
         replacements: [id],
         model: Radios,
         mapToModel: true
@@ -70,6 +105,7 @@ export const postRadios = async( req: Request , res: Response ) => {
         // }
 
         const radios = await Radios.create(body);
+        
         await radios.save();
 
         res.json(radios);
@@ -131,16 +167,16 @@ export const deleteRadios = async( req: Request , res: Response ) => {
        if ( estado == true)
        {
            //Si el estatus viene con valor 'true' deshabilitada el registro
-           await radios.update({ estatus: false })
+           await radios.update({ estatus: false, fecha_baja:new Date() })
        }
        else if (estado == false)
        {
-        await radios.update({ estatus: true})
+        await radios.update({ estatus: true, fecha_baja:new Date()})
        }
        else
        {
            return res.status(400).json({
-               
+        
                success: false,
                message: 'El valor del estatus no es valido (true o false)'
            })

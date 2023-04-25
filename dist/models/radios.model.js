@@ -35,9 +35,6 @@ const Radios = connection_1.default.define('radios', {
     contrato_compra: {
         type: sequelize_1.DataTypes.STRING
     },
-    rfsi: {
-        type: sequelize_1.DataTypes.STRING
-    },
     fk_marca: {
         type: sequelize_1.DataTypes.INTEGER
     },

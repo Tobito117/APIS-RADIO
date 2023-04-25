@@ -13,6 +13,9 @@ const Asig_Usuarios = db.define('asignacion_usuario_radios', {
     radios_idradios: {
         type: DataTypes.INTEGER
       },
+      rfsi: {
+        type: DataTypes.STRING
+    },
     estatus: {
         type: DataTypes.BOOLEAN
     },

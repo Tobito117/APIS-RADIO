@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAsig_Usuarios, getAsig_UsuariosById, postAsig_Usuarios, putAsig_Usuarios, deleteAsig_Usuarios, updateEstatusAsig_Usuarios } from "../controllers/asig_usuarios.controller";
+import { getAsig_Usuarios, getAsig_UsuariosById, postAsig_Usuarios, putAsig_Usuarios, deleteAsig_Usuarios, updateEstatusAsig_Usuarios, actualizarSueRadio } from "../controllers/asig_usuarios.controller";
 
 const router = Router();
 
@@ -7,6 +7,7 @@ const router = Router();
  router.get('/:id',        getAsig_UsuariosById   );
  router.post('/',          postAsig_Usuarios   );
  router.put('/:id',        putAsig_Usuarios   );
+ router.put('/ActualizarSue/:id', actualizarSueRadio);
  router.delete('/:id',     deleteAsig_Usuarios );
  router.put('/status/:id', updateEstatusAsig_Usuarios);
 

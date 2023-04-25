@@ -12,14 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusAsig_Usuarios = exports.deleteAsig_Usuarios = exports.putAsig_Usuarios = exports.postAsig_Usuarios = exports.getAsig_UsuariosById = exports.getAsig_Usuarios = void 0;
+exports.updateEstatusAsig_Usuarios = exports.actualizarSueRadio = exports.deleteAsig_Usuarios = exports.putAsig_Usuarios = exports.postAsig_Usuarios = exports.getAsig_UsuariosById = exports.getAsig_Usuarios = void 0;
 const asig_usuario_radio_model_1 = __importDefault(require("../models/asig_usuario_radio.model"));
+const radios_model_1 = __importDefault(require("../models/radios.model"));
 //import Asig_Usuarios from '../models/asig_usuario_radio.model';
 //Función para obtener todos los elementos de una tabla
 const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     // const asig_usuarios = await Asig_Usuarios.findAll();
-    const asig_usuarios = yield ((_a = asig_usuario_radio_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT asignacion_usuario_radios.asignacion_usuario_radiocol, asignacion_usuario_radios.usuarios_idusuarios, usuarios.nombre,usuarios.clave_elector, asignacion_usuario_radios.radios_idradios,radios.serie, asignacion_usuario_radios.estatus, asignacion_usuario_radios.createdAt,asignacion_usuario_radios.updatedAt  FROM asignacion_usuario_radios INNER JOIN usuarios ON asignacion_usuario_radios.usuarios_idusuarios = usuarios.idusuarios INNER JOIN radios ON asignacion_usuario_radios.radios_idradios = radios.idradios", {
+    const asig_usuarios = yield ((_a = asig_usuario_radio_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT asignacion_usuario_radios.asignacion_usuario_radiocol, asignacion_usuario_radios.usuarios_idusuarios, usuarios.nombre,usuarios.clave_elector, asignacion_usuario_radios.rfsi, asignacion_usuario_radios.radios_idradios,radios.serie,radios.serie, asignacion_usuario_radios.estatus, asignacion_usuario_radios.createdAt,asignacion_usuario_radios.updatedAt  FROM asignacion_usuario_radios INNER JOIN usuarios ON asignacion_usuario_radios.usuarios_idusuarios = usuarios.idusuarios INNER JOIN radios ON asignacion_usuario_radios.radios_idradios = radios.idradios", {
         replacements: [],
         model: asig_usuario_radio_model_1.default,
         mapToModel: true
@@ -126,6 +127,21 @@ const deleteAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.deleteAsig_Usuarios = deleteAsig_Usuarios;
+const actualizarSueRadio = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const sueRadio = yield radios_model_1.default.findByPk(id);
+        yield sueRadio.update({ fk_sue: 7, fecha_asignacion: new Date() });
+        res.json(sueRadio);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el Administrador'
+        });
+    }
+});
+exports.actualizarSueRadio = actualizarSueRadio;
 //Función para habilitar y deshabilitar el estatus de asig_usuarios
 const updateEstatusAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);

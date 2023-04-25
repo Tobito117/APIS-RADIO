@@ -7,6 +7,7 @@ router.get('/', asig_usuarios_controller_1.getAsig_Usuarios);
 router.get('/:id', asig_usuarios_controller_1.getAsig_UsuariosById);
 router.post('/', asig_usuarios_controller_1.postAsig_Usuarios);
 router.put('/:id', asig_usuarios_controller_1.putAsig_Usuarios);
+router.put('/ActualizarSue/:id', asig_usuarios_controller_1.actualizarSueRadio);
 router.delete('/:id', asig_usuarios_controller_1.deleteAsig_Usuarios);
 router.put('/status/:id', asig_usuarios_controller_1.updateEstatusAsig_Usuarios);
 exports.default = router;

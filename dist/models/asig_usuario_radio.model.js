@@ -17,6 +17,9 @@ const Asig_Usuarios = connection_1.default.define('asignacion_usuario_radios', {
     radios_idradios: {
         type: sequelize_1.DataTypes.INTEGER
     },
+    rfsi: {
+        type: sequelize_1.DataTypes.STRING
+    },
     estatus: {
         type: sequelize_1.DataTypes.BOOLEAN
     },

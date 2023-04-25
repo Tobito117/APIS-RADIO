@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getRadios, getRadiosById, postRadios, putRadios, deleteRadios, updateEstatusRadios } from "../controllers/radios.controller";
+import { getRadios, getRadiosById, postRadios, putRadios, deleteRadios, updateEstatusRadios, getRadiosFiltrado } from "../controllers/radios.controller";
 import { validarJWT } from "../middlewares/validar-jwt";
 
 const router = Router();
@@ -7,6 +7,7 @@ const router = Router();
 // router.use( validarJWT );
 
  router.get('/',           getRadios   );
+ router.get('/filtrado/',    getRadiosFiltrado);
  router.get('/:id',        getRadiosById   );
  router.post('/',          postRadios   );
  router.put('/:id',        putRadios   );

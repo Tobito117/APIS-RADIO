@@ -6,10 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 const Asig_Accesorios = connection_1.default.define('asig_accesorios', {
-    idasig_tipo: {
+    idasig_accesorio: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+    },
+    radios_idradios: {
+        type: sequelize_1.DataTypes.INTEGER
     },
     fecha_asig: {
         type: sequelize_1.DataTypes.DATE
@@ -18,6 +21,9 @@ const Asig_Accesorios = connection_1.default.define('asig_accesorios', {
         type: sequelize_1.DataTypes.DATE
     },
     accesorios_idaccesorios: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    accesorios_idaccesorios_bateria: {
         type: sequelize_1.DataTypes.INTEGER
     },
     estatus: {

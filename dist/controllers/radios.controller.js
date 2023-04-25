@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusRadios = exports.deleteRadios = exports.putRadios = exports.postRadios = exports.getRadiosById = exports.getRadios = void 0;
+exports.updateEstatusRadios = exports.deleteRadios = exports.putRadios = exports.postRadios = exports.getRadiosById = exports.getRadiosFiltrado = exports.getRadios = void 0;
 const radios_model_1 = __importDefault(require("../models/radios.model"));
 //Función para obtener todos los elementos de una tabla
 const getRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -20,7 +20,7 @@ const getRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //const radios = await Radios.findAll();
     //
     //res.json( radios );
-    const radios = yield ((_a = radios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  radios.idradios, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
+    const radios = yield ((_a = radios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  radios.idradios, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
         replacements: [],
         model: radios_model_1.default,
         mapToModel: true
@@ -28,12 +28,48 @@ const getRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json(radios);
 });
 exports.getRadios = getRadios;
+const getRadiosFiltrado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    const radios = yield ((_b = radios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT  radios.idradios," +
+        "radios.serie," +
+        "radios.logico," +
+        "radios.inventario_interno," +
+        "radios.inventario_segpub," +
+        "radios.fk_propietario, " +
+        "corporaciones.nombreCorporacion," +
+        "radios.fk_recurso_compra," +
+        "recursocompras.nombreRecursoCompra," +
+        "radios.contrato_compra," +
+        "radios.fk_marca," +
+        "marcas.nombreMarcas," +
+        "radios.fecha_actualizacion," +
+        "radios.fecha_asignacion," +
+        "radios.observaciones, " +
+        "radios.fecha_recepcion," +
+        "radios.fk_sue, " +
+        "situacion_ubicacion_estatus.nombreStatus," +
+        "radios.estatus," +
+        "radios.createdAt," +
+        "radios.updatedAt, " +
+        "radios.tipo " +
+        "FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones " +
+        "INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras " +
+        "INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas " +
+        "INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue " +
+        "WHERE radios.estatus = true ", {
+        replacements: [],
+        model: radios_model_1.default,
+        mapToModel: true
+    }));
+    res.json(radios);
+});
+exports.getRadiosFiltrado = getRadiosFiltrado;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getRadiosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+    var _c;
     const { id } = req.params;
     //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-    const radios = yield ((_b = radios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas  INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue where idradios = ?", {
+    const radios = yield ((_c = radios_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas  INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue where idradios = ?", {
         replacements: [id],
         model: radios_model_1.default,
         mapToModel: true
@@ -119,10 +155,10 @@ const deleteRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const estado = radios.estatus;
         if (estado == true) {
             //Si el estatus viene con valor 'true' deshabilitada el registro
-            yield radios.update({ estatus: false });
+            yield radios.update({ estatus: false, fecha_baja: new Date() });
         }
         else if (estado == false) {
-            yield radios.update({ estatus: true });
+            yield radios.update({ estatus: true, fecha_baja: new Date() });
         }
         else {
             return res.status(400).json({
