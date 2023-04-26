@@ -8,12 +8,20 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
 
    // const asig_usuarios = await Asig_Usuarios.findAll();
    const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
-    "SELECT asignacion_usuario_radios.asignacion_usuario_radiocol, asignacion_usuario_radios.usuarios_idusuarios, " +
-    "CONCAT (usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, usuarios.clave_elector, asignacion_usuario_radios.rfsi, asignacion_usuario_radios.radios_idradios, " +
-    "radios.serie,radios.serie, asignacion_usuario_radios.estatus, asignacion_usuario_radios.createdAt,asignacion_usuario_radios.updatedAt " + 
-    "FROM asignacion_usuario_radios " +
-    "INNER JOIN usuarios ON asignacion_usuario_radios.usuarios_idusuarios = usuarios.idusuarios " +
-    "INNER JOIN radios ON asignacion_usuario_radios.radios_idradios = radios.idradios", 
+    "SELECT asignaciones.idasignacion, "  +
+      "usuarios.idusuarios, CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, usuarios.clave_elector, " +
+      "asignaciones.rfsi, " +
+      "radios.idradios, radios.serie AS serie_radio, " +
+      "asignaciones.estatus, asignaciones.createdAt, asignaciones.updatedAt, " +
+      "cargadores.idaccesorios AS idcargador, cargadores.num_serie AS serie_cargador, " +
+      "baterias.idaccesorios AS idbateria, baterias.num_serie AS serie_bateria, " +
+      "gps.idaccesorios AS idgps, gps.num_serie AS serie_gps " +
+    "FROM asignaciones " +
+      "INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios " +
+      "INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios " +
+      "LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios " +
+      "LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios " +
+      "LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios " +
     {
     replacements: [],
     model: Asig_Usuarios,
