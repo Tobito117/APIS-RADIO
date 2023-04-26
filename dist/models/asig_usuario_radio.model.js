@@ -17,6 +17,15 @@ const Asig_Usuarios = connection_1.default.define('asignaciones', {
     radios_idradios: {
         type: sequelize_1.DataTypes.INTEGER
     },
+    fk_accesorio_cargador: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    fk_accesorio_bateria: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    fk_accesorio_gps: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
     rfsi: {
         type: sequelize_1.DataTypes.STRING
     },
