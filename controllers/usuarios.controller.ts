@@ -8,6 +8,14 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 
     res.json( usuarios);
 }
+export const getUsuariosIdNombre = async( req: Request , res: Response ) => {
+
+    const usuarios: any = await Usuarios.sequelize?.query(
+      "SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios"  
+    );
+
+    res.json( usuarios);
+}
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID
 export const getUsuarioById = async( req: Request , res: Response ) => {

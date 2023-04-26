@@ -91,15 +91,31 @@ export const deleteConfigReportes = async( req: Request , res: Response ) => {
     
     try {
 
-        const configreportes = await ConfigReportes.findByPk( id );
+        const configreportes: any = await ConfigReportes.findByPk( id );
         if (!configreportes){
             return res.status(404).json({
                 msg: 'No existe una configreportes con el id ' + id
             })
         }
 
-       // await usuario.destroy (); //elimina elemento verdadero de la base de datos
-       await configreportes.update({ fk_status: 6 });
+        const estado = configreportes.estatus;
+
+        if ( estado == true )
+        {
+            await configreportes.update({ estatus: false })
+        }
+        else if ( estado == false )
+        {
+            // await usuario.destroy (); //elimina elemento verdadero de la base de datos
+            await configreportes.update({ estatus: true });
+        }
+        else{
+            return res.status(400).json({
+               
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            })
+        }
         res.json( configreportes );
         
     } catch (error) {

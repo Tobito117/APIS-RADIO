@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
-const Asig_Usuarios = db.define('asignacion_usuario_radios', {
-    asignacion_usuario_radiocol: {
+const Asig_Usuarios = db.define('asignaciones', {
+    idasignacion: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

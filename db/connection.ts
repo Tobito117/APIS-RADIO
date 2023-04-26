@@ -1,8 +1,9 @@
 import { Sequelize } from 'sequelize';
 
 
+// const db = new Sequelize('radiocomu', 'system', 'Aldebaran619*', {
 const db = new Sequelize('radiocomu', 'system', 'Aldebaran619*', {
-    host: '10.30.1.44',
+    host: 'localhost',
     dialect: 'mysql',
     // logging: false,
 });

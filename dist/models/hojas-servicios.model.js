@@ -14,13 +14,10 @@ const HojasServicios = connection_1.default.define('hojaservicios', {
     fecha_servicio: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_usuario: {
+    fk_idasignacion_ur: {
         type: sequelize_1.DataTypes.INTEGER
     },
     fk_idservicios: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_idradios: {
         type: sequelize_1.DataTypes.INTEGER
     },
     fk_idaccesorios: {

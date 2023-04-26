@@ -7,16 +7,13 @@ const HojasServicios = db.define('hojaservicios', {
         primaryKey: true,
         autoIncrement: true,
       },
-      fecha_servicio:{
+    fecha_servicio:{
         type: DataTypes.DATE
       },
-    fk_usuario: {
-        type: DataTypes.INTEGER
-    },
-    fk_idservicios: {
+    fk_idasignacion_ur: {
         type: DataTypes.INTEGER
       },
-    fk_idradios: {
+    fk_idservicios: {
         type: DataTypes.INTEGER
       },
     fk_idaccesorios: {

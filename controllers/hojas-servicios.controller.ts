@@ -4,15 +4,38 @@ import HojasServicios from '../models/hojas-servicios.model';
 //Función para obtener todos los elementos de una tabla
 export const getHojasServicios = async( req: Request , res: Response ) => {
 
-   const hojasservicios = await HojasServicios.findAll();
-   res.json( hojasservicios );
-//const hojasservicios: any = await HojasServicios.sequelize?.query("SELECT  hojaservicios.idhojaservicios, hojaservicios.fecha_servicio, hojaservicios.fk_usuario, usuarios., hojaservicios.inventario_segpub, hojaservicios.fk_propietario, corporaciones.nombreCorporacion, radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.rfsi, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
-// replacements: [],
-// model: HojasServicios,
-// mapToModel: true
-//
-//
-//.json(hojasservicios);
+//    const hojasservicios = await HojasServicios.findAll();
+//    res.json( hojasservicios );
+    const hojasservicios: any = await HojasServicios.sequelize?.query(
+        "SELECT hojaservicios.idhojaservicios, hojaservicios.fecha_servicio, " + 
+            "asignaciones.idasignacion, " +
+            "CONCAT (usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, " +
+            "radios.idradios, radios.serie, radios.tipo, radios.inventario_interno, radios.inventario_segpub, " +
+            "hojaservicios.fk_idservicios, " + 
+            "servicios.idservicios, servicios.nombreServicios, " +
+            "hojaservicios.fk_idaccesorios, " +
+            "accesorios.idaccesorios, accesorios.num_serie, accesorios.inventario_interno, accesorios.inventario_segpub, " +
+            "hojaservicios.descripcion, hojaservicios.entrego_equipo, hojaservicios.fecha_entrega, " +
+            "hojaservicios.fk_supervisortec, " +
+            "supervisortec.idusuarios, CONCAT (supervisortec.nombre, ' ', supervisortec.apellido_pat, ' ', supervisortec.apellido_mat ) AS nombreSupervisorTec, " +
+            "hojaservicios.usuario_servicio, hojaservicios.usuario_entrega, " +
+            "hojaservicios.fk_tecnico_entrega, " +
+            "tecnico_entrega.idusuarios, CONCAT (tecnico_entrega.nombre, ' ', tecnico_entrega.apellido_pat, ' ', tecnico_entrega.apellido_mat ) AS nombreTecEntrega, " +
+            "hojaservicios.estatus, hojaservicios.createdAt, hojaservicios.updatedAt " +
+        "FROM hojaservicios " + 
+        "INNER JOIN asignaciones ON hojaservicios.fk_idasignacion_ur = asignaciones.idasignacion " + 
+        "INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios " +
+        "INNER JOIN usuarios AS supervisortec ON hojaservicios.fk_supervisortec = supervisortec.idusuarios " + 
+        "INNER JOIN usuarios AS tecnico_entrega ON hojaservicios.fk_tecnico_entrega = tecnico_entrega.idusuarios " + 
+        "INNER JOIN servicios ON hojaservicios.fk_idservicios = servicios.idservicios " + 
+        "INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios " + 
+        "INNER JOIN accesorios ON hojaservicios.fk_idaccesorios = accesorios.idaccesorios", {
+            replacements: [],
+            model: HojasServicios,
+            mapToModel: true
+    });
+
+    res.json(hojasservicios);
 }
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 

@@ -91,8 +91,20 @@ const deleteConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 msg: 'No existe una configreportes con el id ' + id
             });
         }
-        // await usuario.destroy (); //elimina elemento verdadero de la base de datos
-        yield configreportes.update({ fk_status: 6 });
+        const estado = configreportes.estatus;
+        if (estado == true) {
+            yield configreportes.update({ estatus: false });
+        }
+        else if (estado == false) {
+            // await usuario.destroy (); //elimina elemento verdadero de la base de datos
+            yield configreportes.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(configreportes);
     }
     catch (error) {

@@ -6,6 +6,7 @@ const router = (0, express_1.Router)();
 // Todas tienen que pasar por la validación del JWT
 //router.use( validarJWT );
 router.get('/', usuarios_controller_1.getUsuarios);
+router.get('/idnombre', usuarios_controller_1.getUsuariosIdNombre);
 router.get('/:id', usuarios_controller_1.getUsuarioById);
 router.post('/', usuarios_controller_1.postUsuario);
 router.put('/:id', usuarios_controller_1.putUsuario);

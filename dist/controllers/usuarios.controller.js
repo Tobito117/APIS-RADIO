@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuarios = void 0;
+exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuariosIdNombre = exports.getUsuarios = void 0;
 const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -20,6 +20,12 @@ const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     res.json(usuarios);
 });
 exports.getUsuarios = getUsuarios;
+const getUsuariosIdNombre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const usuarios = yield ((_a = usuarios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios"));
+    res.json(usuarios);
+});
+exports.getUsuariosIdNombre = getUsuariosIdNombre;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID
 const getUsuarioById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
