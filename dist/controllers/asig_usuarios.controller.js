@@ -24,6 +24,10 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
         "usuarios.idusuarios, CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, usuarios.clave_elector, " +
         "asignaciones.rfsi, " +
         "radios.idradios, radios.serie AS serie_radio, " +
+<<<<<<< HEAD
+=======
+        "vehiculos.idvehiculo, vehiculos.placa" +
+>>>>>>> 57d552761522b989236d92678e78c66fc3b5467a
         "asignaciones.estatus, asignaciones.createdAt, asignaciones.updatedAt, " +
         "cargadores.idaccesorios AS idcargador, cargadores.num_serie AS serie_cargador, " +
         "baterias.idaccesorios AS idbateria, baterias.num_serie AS serie_bateria, " +
@@ -31,6 +35,7 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
         "FROM asignaciones " +
         "INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios " +
         "INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios " +
+<<<<<<< HEAD
         "LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios " +
         "LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios " +
         "LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios " +
@@ -39,6 +44,16 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
             model: asig_usuario_radio_model_1.default,
             mapToModel: true
         }));
+=======
+        "LEFT JOIN vehiculos on asignaciones.fk_vehiculo = vehiculos.idvehiculos " +
+        "LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios " +
+        "LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios " +
+        "LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios ", {
+        replacements: [],
+        model: asig_usuario_radio_model_1.default,
+        mapToModel: true
+    }));
+>>>>>>> 57d552761522b989236d92678e78c66fc3b5467a
     res.json(asig_usuarios);
 });
 exports.getAsig_Usuarios = getAsig_Usuarios;

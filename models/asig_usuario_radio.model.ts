@@ -13,16 +13,16 @@ const Asig_Usuarios = db.define('asignaciones', {
     radios_idradios: {
         type: DataTypes.INTEGER
       },
-    fk_accesorio_cargador: {
+      fk_accesorio_cargador: {
         type: DataTypes.INTEGER
       },
-    fk_accesorio_bateria: {
+      fk_accesorio_bateria: {
         type: DataTypes.INTEGER
       },
-    fk_accesorio_gps: {
+      fk_accesorio_gps: {
         type: DataTypes.INTEGER
       },
-    rfsi: {
+      rfsi: {
         type: DataTypes.STRING
     },
     estatus: {
