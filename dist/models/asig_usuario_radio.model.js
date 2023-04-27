@@ -26,6 +26,9 @@ const Asig_Usuarios = connection_1.default.define('asignaciones', {
     fk_accesorio_gps: {
         type: sequelize_1.DataTypes.INTEGER
     },
+    fk_vehiculo: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
     rfsi: {
         type: sequelize_1.DataTypes.STRING
     },
