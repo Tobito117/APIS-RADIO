@@ -24,12 +24,12 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
       "LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios " +
       "LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios " +
       "LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios " ,
-    {
+    { 
     replacements: [],
     model: Asig_Usuarios,
     mapToModel: true
 });
-
+//gkdjgposd
     res.json(asig_usuarios );
 }
 

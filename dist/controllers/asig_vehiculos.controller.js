@@ -34,6 +34,7 @@ const getAsig_VehiculosById = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getAsig_VehiculosById = getAsig_VehiculosById;
+//dfgdñjgpadfgpoadf
 // Función para agregar un elemento a la tabla de nuestra base de datos asig_vehiculos
 const postAsig_Vehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;

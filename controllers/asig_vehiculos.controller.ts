@@ -24,7 +24,7 @@ export const getAsig_VehiculosById = async( req: Request , res: Response ) => {
     } 
 
 }
-
+//dfgdñjgpadfgpoadf
 // Función para agregar un elemento a la tabla de nuestra base de datos asig_vehiculos
 export const postAsig_Vehiculos = async( req: Request , res: Response ) => {
 

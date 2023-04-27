@@ -40,6 +40,7 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
         model: asig_usuario_radio_model_1.default,
         mapToModel: true
     }));
+    //gkdjgposd
     res.json(asig_usuarios);
 });
 exports.getAsig_Usuarios = getAsig_Usuarios;
