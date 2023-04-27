@@ -22,6 +22,9 @@ const Asig_Usuarios = db.define('asignaciones', {
       fk_accesorio_gps: {
         type: DataTypes.INTEGER
       },
+      fk_vehiculo: {
+        type: DataTypes.INTEGER
+      },
       rfsi: {
         type: DataTypes.STRING
     },
