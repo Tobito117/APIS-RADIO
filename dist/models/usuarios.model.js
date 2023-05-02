@@ -19,6 +19,9 @@ const Usuarios = connection_1.default.define('usuarios', {
     apellido_mat: {
         type: sequelize_1.DataTypes.STRING
     },
+    fk_puesto: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
     cuip: {
         type: sequelize_1.DataTypes.STRING
     },
