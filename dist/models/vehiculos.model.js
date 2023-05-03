@@ -11,19 +11,25 @@ const Vehiculos = connection_1.default.define('vehiculos', {
         primaryKey: true,
         autoIncrement: true,
     },
-    nombreVehiculo: {
+    marcas_idmarcas: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    anio: {
         type: sequelize_1.DataTypes.STRING
     },
-    placa: {
+    tipo: {
         type: sequelize_1.DataTypes.STRING
     },
     color: {
         type: sequelize_1.DataTypes.STRING
     },
-    anio: {
+    placa: {
         type: sequelize_1.DataTypes.STRING
     },
-    marcas_idmarcas: {
+    unidad: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    fk_zonaregion: {
         type: sequelize_1.DataTypes.INTEGER
     },
     estatus: {

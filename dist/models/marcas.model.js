@@ -16,6 +16,9 @@ const Marcas = connection_1.default.define('marcas', {
     nombreModelos: {
         type: sequelize_1.DataTypes.STRING
     },
+    tipo: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
     estatus: {
         type: sequelize_1.DataTypes.BOOLEAN
     },

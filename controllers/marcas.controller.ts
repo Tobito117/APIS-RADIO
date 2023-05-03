@@ -25,6 +25,22 @@ export const getMarcasById = async( req: Request , res: Response ) => {
 
 }
 
+// Función para obtener marcas por tipo
+export const getMarcasByTipo = async( req: Request , res: Response ) => {
+    const { id } = req.params;
+    console.log("tipo:::" + req.params)
+    const marcas: any = await Marcas.sequelize?.query(
+        "SELECT * FROM marcas WHERE tipo=" + id , 
+        {
+            replacements: [],
+            model: Marcas,
+            mapToModel: true
+        });
+         
+        res.json(marcas);
+
+}
+
 //Función para agregar un elemento a la tabla de nuestra base de datos marcas
 export const postMarcas = async( req: Request , res: Response ) => {
 

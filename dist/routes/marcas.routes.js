@@ -7,6 +7,7 @@ const router = (0, express_1.Router)();
 //router.use( validarJWT );
 router.get('/', marcas_controller_1.getMarcas);
 router.get('/:id', marcas_controller_1.getMarcasById);
+router.get('/tipo/:id', marcas_controller_1.getMarcasByTipo);
 router.post('/', marcas_controller_1.postMarcas);
 router.put('/:id', marcas_controller_1.putMarcas);
 router.delete('/:id', marcas_controller_1.deleteMarcas);
