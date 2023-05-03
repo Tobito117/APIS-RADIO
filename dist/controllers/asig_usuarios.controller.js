@@ -25,7 +25,7 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
         "asignaciones.rfsi, " +
         "radios.idradios, radios.serie AS serie_radio, " +
         "vehiculos.idvehiculo, vehiculos.placa,  " +
-        "asignaciones.estatus, asignaciones.createdAt, asignaciones.updatedAt, " +
+        "asignaciones.estatus, asignaciones.createdAt, asignaciones.updatedAt, asignaciones.usuarios_idusuarios,asignaciones.radios_idradios, " +
         "cargadores.idaccesorios AS idcargador, cargadores.num_serie AS serie_cargador, " +
         "baterias.idaccesorios AS idbateria, baterias.num_serie AS serie_bateria, " +
         "gps.idaccesorios AS idgps, gps.num_serie AS serie_gps " +

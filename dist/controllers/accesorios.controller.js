@@ -19,7 +19,7 @@ const getAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     var _a;
     //    const accesorios = await Accesorios.findAll();
     //    res.json(accesorios,);
-    const accesorios = yield ((_a = accesorios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT accesorios.idaccesorios, accesorios.num_serie, accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt, accesorios.tipo FROM accesorios INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue ", {
+    const accesorios = yield ((_a = accesorios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.num_serie, accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt FROM accesorios INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue ", {
         replacements: [],
         model: accesorios_model_1.default,
         mapToModel: true
