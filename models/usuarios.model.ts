@@ -15,6 +15,9 @@ const Usuarios = db.define('usuarios', {
     apellido_mat: {
         type: DataTypes.STRING
     },
+    fk_puesto: {
+        type: DataTypes.INTEGER
+    },
     cuip: {
         type: DataTypes.STRING
     },

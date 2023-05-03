@@ -6,20 +6,26 @@ const Vehiculos = db.define('vehiculos', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
-    nombreVehiculo: {
+    },
+    marcas_idmarcas: {
+        type: DataTypes.INTEGER
+    },
+    anio: {
+        type: DataTypes.STRING
+    },
+    tipo: {
+        type: DataTypes.STRING
+    },
+    color: {
         type: DataTypes.STRING
     },
     placa: {
         type: DataTypes.STRING
     },
-    color: {
+    unidad: {
         type: DataTypes.STRING
-      },
-    anio: {
-        type: DataTypes.STRING
-      },
-    marcas_idmarcas: {
+    },
+    fk_zonaregion: {
         type: DataTypes.INTEGER
     },
     estatus: {

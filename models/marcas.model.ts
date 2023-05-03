@@ -5,13 +5,16 @@ const Marcas = db.define('marcas', {
     idmarcas: {
         type: DataTypes.INTEGER,
         primaryKey: true
-      },
+    },
     nombreMarcas: {
         type: DataTypes.STRING
     },
     nombreModelos: {
         type: DataTypes.STRING
-      },
+    },
+    tipo: {
+        type: DataTypes.INTEGER,
+    },
     estatus: {
         type: DataTypes.BOOLEAN
     },

@@ -6,26 +6,26 @@ const Asig_Usuarios = db.define('asignaciones', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
+    },
     usuarios_idusuarios: {     
         type: DataTypes.INTEGER
     },
     radios_idradios: {
         type: DataTypes.INTEGER
-      },
-      fk_accesorio_cargador: {
+    },
+    fk_accesorio_cargador: {
         type: DataTypes.INTEGER
-      },
-      fk_accesorio_bateria: {
+    },
+    fk_accesorio_bateria: {
         type: DataTypes.INTEGER
-      },
-      fk_accesorio_gps: {
+    },
+    fk_accesorio_gps: {
         type: DataTypes.INTEGER
-      },
-      fk_vehiculo: {
+    },
+    fk_vehiculo: {
         type: DataTypes.INTEGER
-      },
-      rfsi: {
+    },
+    rfsi: {
         type: DataTypes.STRING
     },
     estatus: {

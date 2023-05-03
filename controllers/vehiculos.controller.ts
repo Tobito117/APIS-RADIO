@@ -6,7 +6,14 @@ export const getVehiculos = async( req: Request , res: Response ) => {
 
 //    const vehiculos = await Vehiculos.findAll();
 //    res.json( vehiculos );
-const vehiculos: any = await Vehiculos.sequelize?.query("SELECT vehiculos.idvehiculo, vehiculos.nombreVehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio,vehiculos.marcas_idmarcas, marcas.nombreMarcas, vehiculos.estatus,vehiculos.createdAt, vehiculos.updatedAt FROM vehiculos INNER JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas", {
+const vehiculos: any = await Vehiculos.sequelize?.query(
+   "SELECT vehiculos.idvehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio, " +
+   "vehiculos.marcas_idmarcas, marcas.nombreMarcas, marcas.nombreModelos,vehiculos.estatus,vehiculos.createdAt, vehiculos.updatedAt, " +
+   "vehiculos.fk_zonaregion, zonasregiones.nombreZonasRegiones, vehiculos.unidad, vehiculos.tipo " +
+   "FROM vehiculos " +
+   "INNER JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas " +
+   "INNER JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones ",
+{
     replacements: [],
     model: Vehiculos,
     mapToModel: true

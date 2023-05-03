@@ -58,6 +58,24 @@ const getAsig_UsuariosById = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getAsig_UsuariosById = getAsig_UsuariosById;
+// export const getAsig_UsuariosByRfsi= async( req: Request , res: Response ) => {
+//     // const { rfsi } = req.params;
+//     const asig_usuarios = await Asig_Usuarios.sequelize?.query(
+//         ,
+//         { 
+//             replacements: [],
+//             model: Asig_Usuarios,
+//             mapToModel: true
+//         });
+//         res.json(asig_usuarios );
+//     // if(asig_usuarios){
+//     //     res.json(asig_usuarios)
+//     // }else{
+//     //     res.status(404).json({
+//     //         msg: "No existe Usuario en la base de datos"
+//     //     });
+//     // } 
+// }
 // Función para agregar un elemento a la tabla de nuestra base de datos asig_usuarios
 const postAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;

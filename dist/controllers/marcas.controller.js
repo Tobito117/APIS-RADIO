@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusMarcas = exports.deleteMarcas = exports.putMarcas = exports.postMarcas = exports.getMarcasById = exports.getMarcas = void 0;
+exports.updateEstatusMarcas = exports.deleteMarcas = exports.putMarcas = exports.postMarcas = exports.getMarcasByTipo = exports.getMarcasById = exports.getMarcas = void 0;
 const marcas_model_1 = __importDefault(require("../models/marcas.model"));
 //Función para obtener todos los elementos de una tabla
 const getMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,6 +34,19 @@ const getMarcasById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.getMarcasById = getMarcasById;
+// Función para obtener marcas por tipo
+const getMarcasByTipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const { id } = req.params;
+    console.log("tipo:::" + req.params);
+    const marcas = yield ((_a = marcas_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT * FROM marcas WHERE tipo=" + id, {
+        replacements: [],
+        model: marcas_model_1.default,
+        mapToModel: true
+    }));
+    res.json(marcas);
+});
+exports.getMarcasByTipo = getMarcasByTipo;
 //Función para agregar un elemento a la tabla de nuestra base de datos marcas
 const postMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
