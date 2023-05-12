@@ -9,13 +9,13 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
    // const asig_usuarios = await Asig_Usuarios.findAll();
    const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
     "SELECT asignaciones.idasignacion, "  +
-      "usuarios.idusuarios, CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, usuarios.clave_elector, " +
-      "asignaciones.rfsi, " +
-      "radios.idradios, radios.serie AS serie_radio, " +
+      "usuarios.idusuarios, CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, usuarios.clave_elector,usuarios.nombre, usuarios.apellido_pat,usuarios.apellido_mat, " +
+      "asignaciones.rfsi,asignaciones.fk_accesorio_bateria,asignaciones.fk_accesorio_cargador,asignaciones.fk_accesorio_gps, " +
+      "radios.idradios, radios.serie AS serie_radio, radios.serie, " +
       "vehiculos.idvehiculo, vehiculos.placa,  "+
       "asignaciones.estatus, asignaciones.createdAt, asignaciones.updatedAt, asignaciones.usuarios_idusuarios,asignaciones.radios_idradios, " +
-      "cargadores.idaccesorios AS idcargador, cargadores.num_serie AS serie_cargador, " +
-      "baterias.idaccesorios AS idbateria, baterias.num_serie AS serie_bateria, " +
+      "cargadores.idaccesorios AS idcargador,cargadores.num_serie AS serie_cargador, " +
+      "baterias.idaccesorios AS idbateria, baterias.num_serie ,baterias.num_serie AS serie_bateria, " +
       "gps.idaccesorios AS idgps, gps.num_serie AS serie_gps " +
     "FROM asignaciones " +
       "INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios " +
