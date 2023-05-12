@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusZonasRegiones = exports.deleteZonasRegiones = exports.putZonasRegiones = exports.postZonasRegiones = exports.getZonasRegionesById = exports.getZonasRegiones = void 0;
+exports.updateEstatusZonasRegiones = exports.deleteZonasRegiones = exports.putZonasRegiones = exports.postZonasRegiones = exports.getZonasRegionesById = exports.getZonasRegionesEstatusActivo = exports.getZonasRegiones = void 0;
 const zonasregiones_model_1 = __importDefault(require("../models/zonasregiones.model"));
 //Función para obtener todos los elementos de una tabla
 const getZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -20,6 +20,16 @@ const getZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, functio
     res.json(zonasregiones);
 });
 exports.getZonasRegiones = getZonasRegiones;
+//Función para obtener todos los elementos de una tabla filtrados por estatus=true
+const getZonasRegionesEstatusActivo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const zonasregiones = yield zonasregiones_model_1.default.findAll({
+        where: {
+            estatus: true
+        }
+    });
+    res.json(zonasregiones);
+});
+exports.getZonasRegionesEstatusActivo = getZonasRegionesEstatusActivo;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getZonasRegionesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

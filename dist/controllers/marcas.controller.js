@@ -38,8 +38,7 @@ exports.getMarcasById = getMarcasById;
 const getMarcasByTipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { id } = req.params;
-    console.log("tipo:::" + req.params);
-    const marcas = yield ((_a = marcas_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT * FROM marcas WHERE tipo=" + id, {
+    const marcas = yield ((_a = marcas_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT * FROM marcas WHERE tipo=${id} AND estatus=1`, {
         replacements: [],
         model: marcas_model_1.default,
         mapToModel: true

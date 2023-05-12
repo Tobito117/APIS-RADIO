@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const zonasregiones_controller_1 = require("../controllers/zonasregiones.controller");
-const validar_jwt_1 = require("../middlewares/validar-jwt");
 const router = (0, express_1.Router)();
 // Todas tienen que pasar por la validación del JWT
-router.use(validar_jwt_1.validarJWT);
+// router.use( validarJWT );
 router.get('/', zonasregiones_controller_1.getZonasRegiones);
+router.get('/estatus', zonasregiones_controller_1.getZonasRegionesEstatusActivo);
 router.get('/:id', zonasregiones_controller_1.getZonasRegionesById);
 router.post('/', zonasregiones_controller_1.postZonasRegiones);
 router.put('/:id', zonasregiones_controller_1.putZonasRegiones);

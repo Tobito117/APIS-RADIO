@@ -9,10 +9,10 @@ export const getVehiculos = async( req: Request , res: Response ) => {
 const vehiculos: any = await Vehiculos.sequelize?.query(
    "SELECT vehiculos.idvehiculo, vehiculos.placa, vehiculos.color, vehiculos.anio, " +
    "vehiculos.marcas_idmarcas, marcas.nombreMarcas, marcas.nombreModelos,vehiculos.estatus,vehiculos.createdAt, vehiculos.updatedAt, " +
-   "vehiculos.fk_zonaregion, zonasregiones.nombreZonasRegiones, vehiculos.unidad, vehiculos.tipo " +
+   "vehiculos.fk_zonaregion, zonasregiones.idzonasregiones, zonasregiones.nombreZonasRegiones, vehiculos.unidad, vehiculos.tipo " +
    "FROM vehiculos " +
-   "INNER JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas " +
-   "INNER JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones ",
+   "LEFT JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas " +
+   "LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones ",
 {
     replacements: [],
     model: Vehiculos,
