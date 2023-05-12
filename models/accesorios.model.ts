@@ -7,6 +7,9 @@ const Accesorios = db.define('accesorios', {
         primaryKey: true,
         autoIncrement: true,
     },
+    accesorio: {
+        type: DataTypes.STRING
+    },
     num_serie: {
         type: DataTypes.STRING
     },

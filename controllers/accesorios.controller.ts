@@ -6,7 +6,7 @@ export const getAccesorios = async (req: Request, res: Response) => {
 
     //    const accesorios = await Accesorios.findAll();
     //    res.json(accesorios,);
-    const accesorios: any = await Accesorios.sequelize?.query("SELECT accesorios.idaccesorios, accesorios.num_serie, accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt, accesorios.tipo FROM accesorios INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue ", {
+    const accesorios: any = await Accesorios.sequelize?.query("SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.num_serie, accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt FROM accesorios INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue ", {
         replacements: [],
         model: Accesorios,
         mapToModel: true
@@ -14,6 +14,27 @@ export const getAccesorios = async (req: Request, res: Response) => {
     res.json(accesorios);
 }
 
+export const getAccesoriosFiltrado =async (req:Request, res: Response) => {
+
+const {tipo}=req.params;
+
+    const accesorios: any = await Accesorios.sequelize?.query(
+        "SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.num_serie, "+
+        "accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, "+
+        "accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,"+
+        "accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, "+
+        "accesorios.estatus, accesorios.createdAt, accesorios.updatedAt "+
+        "FROM accesorios "+
+        "INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas "+
+        "INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue "+
+        `WHERE accesorios.estatus = true AND accesorios.accesorio = '${tipo}'`, 
+        {
+        replacements: [],
+        model: Accesorios,
+        mapToModel: true
+    });
+    res.json(accesorios);
+}
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getAccesoriosById = async (req: Request, res: Response) => {
 

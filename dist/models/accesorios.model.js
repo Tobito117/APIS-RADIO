@@ -11,6 +11,9 @@ const Accesorios = connection_1.default.define('accesorios', {
         primaryKey: true,
         autoIncrement: true,
     },
+    accesorio: {
+        type: sequelize_1.DataTypes.STRING
+    },
     num_serie: {
         type: sequelize_1.DataTypes.STRING
     },
