@@ -9,6 +9,19 @@ export const getZonasRegiones = async( req: Request , res: Response ) => {
     res.json( zonasregiones );
 }
 
+//Función para obtener todos los elementos de una tabla filtrados por estatus=true
+export const getZonasRegionesEstatusActivo = async( req: Request , res: Response ) => {
+
+    const zonasregiones = await ZonasRegiones.findAll({
+        where: {
+            estatus: true
+        }
+    });
+
+    res.json( zonasregiones );
+}
+
+
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getZonasRegionesById = async( req: Request , res: Response ) => {
 

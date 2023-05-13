@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { deleteZonasRegiones, getZonasRegiones, getZonasRegionesById, postZonasRegiones, putZonasRegiones, /*deleteZonasRegiones,*/ updateEstatusZonasRegiones } from "../controllers/zonasregiones.controller";
+import { deleteZonasRegiones, getZonasRegiones,getZonasRegionesEstatusActivo, getZonasRegionesById, postZonasRegiones, putZonasRegiones, /*deleteZonasRegiones,*/ updateEstatusZonasRegiones } from "../controllers/zonasregiones.controller";
 import { validarJWT } from "../middlewares/validar-jwt";
 
 const router = Router();
 
 // Todas tienen que pasar por la validación del JWT
-router.use( validarJWT );
+// router.use( validarJWT );
 
  router.get('/',           getZonasRegiones   );
+ router.get('/estatus',    getZonasRegionesEstatusActivo );
  router.get('/:id',        getZonasRegionesById );
  router.post('/',          postZonasRegiones   );
  router.put('/:id',        putZonasRegiones   );

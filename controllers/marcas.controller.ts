@@ -28,9 +28,8 @@ export const getMarcasById = async( req: Request , res: Response ) => {
 // Función para obtener marcas por tipo
 export const getMarcasByTipo = async( req: Request , res: Response ) => {
     const { id } = req.params;
-    console.log("tipo:::" + req.params)
     const marcas: any = await Marcas.sequelize?.query(
-        "SELECT * FROM marcas WHERE tipo=" + id , 
+        `SELECT * FROM marcas WHERE tipo=${id} AND estatus=1` , 
         {
             replacements: [],
             model: Marcas,

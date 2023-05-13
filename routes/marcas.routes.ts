@@ -8,7 +8,7 @@ const router = Router();
 
  router.get('/',           getMarcas   );
  router.get('/:id',        getMarcasById   );
- router.get('/tipo/:id',      getMarcasByTipo  );
+ router.get('/tipo/:id',   getMarcasByTipo  );
  router.post('/',          postMarcas   );
  router.put('/:id',        putMarcas   );
  router.delete('/:id',     deleteMarcas );
