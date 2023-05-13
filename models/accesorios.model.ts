@@ -10,7 +10,13 @@ const Accesorios = db.define('accesorios', {
     accesorio: {
         type: DataTypes.STRING
     },
-    num_serie: {
+    serie_bateria: {
+        type: DataTypes.STRING
+    },
+    serie_cargador: {
+        type: DataTypes.STRING
+    },
+    serie_gps: {
         type: DataTypes.STRING
     },
     marcas_idMarcas: {

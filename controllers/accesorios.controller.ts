@@ -19,7 +19,7 @@ export const getAccesoriosFiltrado =async (req:Request, res: Response) => {
 const {tipo}=req.params;
 
     const accesorios: any = await Accesorios.sequelize?.query(
-        "SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.num_serie, "+
+        "SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.serie_bateria, accesorios.serie_cargador,accesorios.serie_gps, "+
         "accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, "+
         "accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,"+
         "accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, "+

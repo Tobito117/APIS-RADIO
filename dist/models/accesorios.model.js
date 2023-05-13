@@ -14,7 +14,13 @@ const Accesorios = connection_1.default.define('accesorios', {
     accesorio: {
         type: sequelize_1.DataTypes.STRING
     },
-    num_serie: {
+    serie_bateria: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    serie_cargador: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    serie_gps: {
         type: sequelize_1.DataTypes.STRING
     },
     marcas_idMarcas: {
