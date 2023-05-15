@@ -24,6 +24,15 @@ res.json(vehiculos);
 
 }
 
+export const getVehiculosEstatus = async(req: Request , res: Response )=>{
+    const vehiculos = await Vehiculos.findAll( {
+        where: {
+            estatus: true
+        }
+    });
+    res.json( vehiculos );
+}
+
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getVehiculosById = async( req: Request , res: Response ) => {
 

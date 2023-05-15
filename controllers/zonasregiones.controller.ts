@@ -17,7 +17,6 @@ export const getZonasRegionesEstatusActivo = async( req: Request , res: Response
             estatus: true
         }
     });
-
     res.json( zonasregiones );
 }
 
