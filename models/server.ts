@@ -8,8 +8,6 @@ import userRoutes from '../routes/usuario.routes';
 import usuariosRoutes from '../routes/usuarios.routes';
 import vehiculosRoutes from '../routes/vehiculos.routes';
 import zonasregionesRoutes from '../routes/zonasregiones.routes';
-import sueRoutes from '../routes/situacion_ubicacion_estatus.routes';
-import tiposRoutes from '../routes/tipos.routes';
 import serviciosRoutes from '../routes/servicios.routes';
 import recursoscomprasRoutes from '../routes/recursos-compras.routes';
 import puestosRoutes from '../routes/puestos.routes';
@@ -35,8 +33,6 @@ export class Server {
         usuarios: '/api/v0/usuarios',
         vehiculos: '/api/v0/vehiculos',
         zonasregiones: '/api/v0/zonasregiones',
-        sue: '/api/v0/sue',
-        tipos: '/api/v0/tipos',
         servicios: '/api/v0/servicios',
         recursos_compras: '/api/v0/recursoscompras',
         puestos: '/api/v0/puestos',
@@ -105,8 +101,6 @@ export class Server {
         this.app.use ( this.baseUrl.usuarios, usuariosRoutes);
         this.app.use ( this.baseUrl.vehiculos, vehiculosRoutes);
         this.app.use (this.baseUrl.zonasregiones, zonasregionesRoutes);
-        this.app.use (this.baseUrl.sue, sueRoutes);
-        this.app.use (this.baseUrl.tipos, tiposRoutes);
         this.app.use (this.baseUrl.servicios, serviciosRoutes);
         this.app.use (this.baseUrl.recursos_compras, recursoscomprasRoutes);
         this.app.use (this.baseUrl.puestos, puestosRoutes);

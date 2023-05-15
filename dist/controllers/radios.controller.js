@@ -20,7 +20,7 @@ const getRadios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //const radios = await Radios.findAll();
     //
     //res.json( radios );
-    const radios = yield ((_a = radios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  radios.idradios, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.fk_marca, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.fk_sue, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt, radios.tipo FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue", {
+    const radios = yield ((_a = radios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  radios.idradios, radios.tipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.fk_marca, marcas.nombreMarcas, radios.fecha_baja, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.situacion, radios.ubicacion, radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas ORDER BY radios.idradios DESC", {
         replacements: [],
         model: radios_model_1.default,
         mapToModel: true
@@ -46,8 +46,8 @@ const getRadiosFiltrado = (req, res) => __awaiter(void 0, void 0, void 0, functi
         "radios.fecha_asignacion," +
         "radios.observaciones, " +
         "radios.fecha_recepcion," +
-        "radios.fk_sue, " +
-        "situacion_ubicacion_estatus.nombreStatus," +
+        "radios.situacion," +
+        "radios.ubicacion," +
         "radios.estatus," +
         "radios.createdAt," +
         "radios.updatedAt, " +
@@ -55,8 +55,7 @@ const getRadiosFiltrado = (req, res) => __awaiter(void 0, void 0, void 0, functi
         "FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones " +
         "INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras " +
         "INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas " +
-        "INNER JOIN situacion_ubicacion_estatus ON radios.fk_sue = situacion_ubicacion_estatus.id_sue " +
-        "WHERE radios.estatus = true ", {
+        "WHERE radios.estatus = true ORDER BY radios.idradios DESC ", {
         replacements: [],
         model: radios_model_1.default,
         mapToModel: true
@@ -69,7 +68,7 @@ const getRadiosById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     var _c;
     const { id } = req.params;
     //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-    const radios = yield ((_c = radios_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query("SELECT  radios.idradios, tipos.nombreTipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, situacion_ubicacion_estatus.nombreStatus,radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas  INNER JOIN situacion_ubicacion_estatus ON radios.idradios = situacion_ubicacion_estatus.id_sue where idradios = ?", {
+    const radios = yield ((_c = radios_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query("SELECT  radios.idradios, radios.tipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub, corporaciones.nombreCorporacion, recursocompras.nombreRecursoCompra,radios.contrato_compra, marcas.nombreMarcas, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion, radios.situacion, radios.ubicacion, radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.idradios = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.idradios = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.idradios = marcas.idmarcas  where idradios = ?", {
         replacements: [id],
         model: radios_model_1.default,
         mapToModel: true

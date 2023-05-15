@@ -20,12 +20,10 @@ const getAccesorios = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     //    const accesorios = await Accesorios.findAll();
     //    res.json(accesorios,);
     const accesorios = yield ((_a = accesorios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.serie_bateria, accesorios.serie_cargador, accesorios.serie_gps, accesorios.marcas_idMarcas, " +
-        "marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra," +
-        "accesorios.observaciones,accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, " +
-        "accesorios.estatus, accesorios.createdAt, accesorios.updatedAt " +
+        "marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra, accesorios.observaciones, " +
+        "accesorios.fecha_recepcion, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt  " +
         "FROM accesorios " +
-        "INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas " +
-        "INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue ", {
+        "INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas ORDER BY accesorios.idaccesorios DESC", {
         replacements: [],
         model: accesorios_model_1.default,
         mapToModel: true
@@ -39,12 +37,10 @@ const getAccesoriosFiltrado = (req, res) => __awaiter(void 0, void 0, void 0, fu
     const accesorios = yield ((_b = accesorios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.serie_bateria, accesorios.serie_cargador,accesorios.serie_gps, " +
         "accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, " +
         "accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones," +
-        "accesorios.fecha_recepcion,accesorios.fk_sue,situacion_ubicacion_estatus.nombreStatus, " +
-        "accesorios.estatus, accesorios.createdAt, accesorios.updatedAt " +
+        "accesorios.fecha_recepcion, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt " +
         "FROM accesorios " +
         "INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas " +
-        "INNER JOIN situacion_ubicacion_estatus ON accesorios.fk_sue = situacion_ubicacion_estatus.id_sue " +
-        `WHERE accesorios.estatus = true AND accesorios.accesorio = '${tipo}'`, {
+        `WHERE accesorios.estatus = true AND accesorios.accesorio = '${tipo}' ORDER BY accesorios.idaccesorios DESC`, {
         replacements: [],
         model: accesorios_model_1.default,
         mapToModel: true

@@ -22,8 +22,6 @@ const usuario_routes_1 = __importDefault(require("../routes/usuario.routes"));
 const usuarios_routes_1 = __importDefault(require("../routes/usuarios.routes"));
 const vehiculos_routes_1 = __importDefault(require("../routes/vehiculos.routes"));
 const zonasregiones_routes_1 = __importDefault(require("../routes/zonasregiones.routes"));
-const situacion_ubicacion_estatus_routes_1 = __importDefault(require("../routes/situacion_ubicacion_estatus.routes"));
-const tipos_routes_1 = __importDefault(require("../routes/tipos.routes"));
 const servicios_routes_1 = __importDefault(require("../routes/servicios.routes"));
 const recursos_compras_routes_1 = __importDefault(require("../routes/recursos-compras.routes"));
 const puestos_routes_1 = __importDefault(require("../routes/puestos.routes"));
@@ -46,8 +44,6 @@ class Server {
             usuarios: '/api/v0/usuarios',
             vehiculos: '/api/v0/vehiculos',
             zonasregiones: '/api/v0/zonasregiones',
-            sue: '/api/v0/sue',
-            tipos: '/api/v0/tipos',
             servicios: '/api/v0/servicios',
             recursos_compras: '/api/v0/recursoscompras',
             puestos: '/api/v0/puestos',
@@ -104,8 +100,6 @@ class Server {
         this.app.use(this.baseUrl.usuarios, usuarios_routes_1.default);
         this.app.use(this.baseUrl.vehiculos, vehiculos_routes_1.default);
         this.app.use(this.baseUrl.zonasregiones, zonasregiones_routes_1.default);
-        this.app.use(this.baseUrl.sue, situacion_ubicacion_estatus_routes_1.default);
-        this.app.use(this.baseUrl.tipos, tipos_routes_1.default);
         this.app.use(this.baseUrl.servicios, servicios_routes_1.default);
         this.app.use(this.baseUrl.recursos_compras, recursos_compras_routes_1.default);
         this.app.use(this.baseUrl.puestos, puestos_routes_1.default);
