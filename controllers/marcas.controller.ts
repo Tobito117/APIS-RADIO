@@ -29,7 +29,7 @@ export const getMarcasById = async( req: Request , res: Response ) => {
 export const getMarcasByTipo = async( req: Request , res: Response ) => {
     const { id } = req.params;
     const marcas: any = await Marcas.sequelize?.query(
-        `SELECT * FROM marcas WHERE tipo=${id} AND estatus=1` , 
+        `SELECT * FROM marcas WHERE tipo=${id} AND estatus=1 ORDER BY marcas.idmarcas DESC` , 
         {
             replacements: [],
             model: Marcas,

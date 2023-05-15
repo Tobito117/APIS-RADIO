@@ -31,9 +31,11 @@ const Radios = db.define('radios', {
     contrato_compra: {
         type: DataTypes.STRING
     },
-   
     fk_marca: {
         type: DataTypes.INTEGER
+    },
+    fecha_baja: {
+        type: DataTypes.DATE
     },
     fecha_actualizacion: {
         type: DataTypes.DATE
@@ -47,8 +49,11 @@ const Radios = db.define('radios', {
     fecha_recepcion: {
         type: DataTypes.DATE
     },
-    fk_sue:{
-        type: DataTypes.INTEGER
+    situacion:{
+        type: DataTypes.STRING
+    },
+    ubicacion:{
+        type: DataTypes.STRING
     },
     estatus: {
         type: DataTypes.BOOLEAN
