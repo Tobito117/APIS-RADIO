@@ -16,7 +16,7 @@ exports.updateEstatusMarcas = exports.deleteMarcas = exports.putMarcas = exports
 const marcas_model_1 = __importDefault(require("../models/marcas.model"));
 //Función para obtener todos los elementos de una tabla
 const getMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const marcas = yield marcas_model_1.default.findAll();
+    const marcas = yield marcas_model_1.default.findAll({ order: [['idmarcas', 'DESC']] });
     res.json(marcas);
 });
 exports.getMarcas = getMarcas;

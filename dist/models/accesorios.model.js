@@ -41,9 +41,6 @@ const Accesorios = connection_1.default.define('accesorios', {
     fecha_recepcion: {
         type: sequelize_1.DataTypes.DATE
     },
-    fk_sue: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
     estatus: {
         type: sequelize_1.DataTypes.BOOLEAN
     },

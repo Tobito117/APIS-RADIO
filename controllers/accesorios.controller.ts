@@ -8,7 +8,7 @@ export const getAccesorios = async (req: Request, res: Response) => {
     //    res.json(accesorios,);
     const accesorios: any = await Accesorios.sequelize?.query(
         "SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.serie_bateria, accesorios.serie_cargador, accesorios.serie_gps, accesorios.marcas_idMarcas, " +
-            "marcas.nombreMarcas, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra, accesorios.observaciones, "  +
+            "marcas.nombreMarcas, marcas.nombreModelos, accesorios.inventario_interno, accesorios.inventario_segpub,accesorios.contrato_compra, accesorios.observaciones, "  +
             "accesorios.fecha_recepcion, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt  " +
         "FROM accesorios " +
         "INNER JOIN marcas ON accesorios.marcas_idMarcas = marcas.idmarcas ORDER BY accesorios.idaccesorios DESC" ,
@@ -26,7 +26,7 @@ const {tipo}=req.params;
 
     const accesorios: any = await Accesorios.sequelize?.query(
         "SELECT accesorios.idaccesorios,accesorios.accesorio, accesorios.serie_bateria, accesorios.serie_cargador,accesorios.serie_gps, "+
-        "accesorios.marcas_idMarcas, marcas.nombreMarcas, accesorios.inventario_interno, "+
+        "accesorios.marcas_idMarcas, marcas.idmarcas, marcas.nombreMarcas, marcas.nombreModelos, accesorios.inventario_interno, "+
         "accesorios.inventario_segpub,accesorios.contrato_compra,accesorios.observaciones,"+
         "accesorios.fecha_recepcion, accesorios.estatus, accesorios.createdAt, accesorios.updatedAt "+
         "FROM accesorios "+

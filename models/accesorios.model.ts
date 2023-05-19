@@ -37,9 +37,6 @@ const Accesorios = db.define('accesorios', {
     fecha_recepcion: {
         type: DataTypes.DATE
     },
-    fk_sue: {
-        type: DataTypes.INTEGER
-    },
     estatus: {
         type: DataTypes.BOOLEAN
     },

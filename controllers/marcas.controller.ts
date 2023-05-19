@@ -4,7 +4,7 @@ import Marcas from '../models/marcas.model';
 //Función para obtener todos los elementos de una tabla
 export const getMarcas = async( req: Request , res: Response ) => {
 
-    const marcas = await Marcas.findAll();
+    const marcas = await Marcas.findAll({ order: [ ['idmarcas', 'DESC'] ] });
 
     res.json( marcas);
 }
