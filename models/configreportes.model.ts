@@ -10,18 +10,6 @@ const ConfigReportes = db.define('configreportes', {
     encabezado_carta: {
         type: DataTypes.STRING
     },
-    encabezado2: {
-        type: DataTypes.STRING
-      },
-    encabezado_hservicio: {
-        type: DataTypes.STRING
-      },
-    logo1: {
-        type: DataTypes.STRING
-    },
-    logo2: {
-        type: DataTypes.STRING
-    },
     articulo1: {
         type: DataTypes.TEXT
     },
@@ -31,29 +19,41 @@ const ConfigReportes = db.define('configreportes', {
     articulo3: {
         type: DataTypes.TEXT
     },
-    revisor: {
+    articulo4: {
         type: DataTypes.STRING
     },
-    responsable_entrega: {
+    articulo5: {
         type: DataTypes.STRING
     },
-    pie_carta: {
+    articulo6: {
         type: DataTypes.STRING
     },
-    pie_hservicio: {
+    articulo7: {
         type: DataTypes.STRING
     },
-    fecha_creacion: {
-        type: DataTypes.DATE
+    logoc4: {
+        type: DataTypes.STRING
+      },
+    logo_ssypc: {
+        type: DataTypes.STRING
     },
-    estatus: {
-        type: DataTypes.BOOLEAN
+    fk_revisor: {
+        type: DataTypes.STRING
+    },
+    fk_responsable_entrega: {
+        type: DataTypes.STRING
+    },
+    ccp_carta: {
+        type: DataTypes.STRING
     },
     fecha_inicial: {
         type: DataTypes.DATE
     },
     fecha_final: {
         type: DataTypes.DATE
+    },
+    estatus: {
+        type: DataTypes.BOOLEAN
     },
     createdAt: {
         type: DataTypes.DATE

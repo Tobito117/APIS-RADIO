@@ -22,11 +22,44 @@ const Asig_Usuarios = db.define('asignaciones', {
     fk_accesorio_gps: {
         type: DataTypes.INTEGER
     },
+    funda: {
+        type: DataTypes.BOOLEAN
+    },
+    antena: {
+        type: DataTypes.BOOLEAN
+    },
+    bocina: {
+        type: DataTypes.BOOLEAN
+    },
+    c2h: {
+        type: DataTypes.BOOLEAN
+    },
+    cable_principal: {
+        type: DataTypes.BOOLEAN
+    },
+    caratula: {
+        type: DataTypes.BOOLEAN
+    },
+    micro: {
+        type: DataTypes.BOOLEAN
+    },
+    cofre: {
+        type: DataTypes.BOOLEAN
+    },
+    porta_caratula: {
+        type: DataTypes.BOOLEAN
+    },
+    cuello_cisne: {
+        type: DataTypes.BOOLEAN
+    },
     fk_vehiculo: {
         type: DataTypes.INTEGER
     },
     rfsi: {
         type: DataTypes.STRING
+    },
+    fecha_asignacion: {
+        type: DataTypes.DATE
     },
     estatus: {
         type: DataTypes.BOOLEAN

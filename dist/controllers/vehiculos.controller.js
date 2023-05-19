@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusVehiculos = exports.deleteVehiculos = exports.putVehiculos = exports.postVehiculos = exports.getVehiculosById = exports.getVehiculos = void 0;
+exports.updateEstatusVehiculos = exports.deleteVehiculos = exports.putVehiculos = exports.postVehiculos = exports.getVehiculosById = exports.getVehiculosEstatus = exports.getVehiculos = void 0;
 const vehiculos_model_1 = __importDefault(require("../models/vehiculos.model"));
 //Función para obtener todos los elementos de una tabla
 const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,6 +32,15 @@ const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     res.json(vehiculos);
 });
 exports.getVehiculos = getVehiculos;
+const getVehiculosEstatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const vehiculos = yield vehiculos_model_1.default.findAll({
+        where: {
+            estatus: true
+        }
+    });
+    res.json(vehiculos);
+});
+exports.getVehiculosEstatus = getVehiculosEstatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getVehiculosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

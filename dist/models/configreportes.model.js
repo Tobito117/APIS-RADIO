@@ -14,18 +14,6 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     encabezado_carta: {
         type: sequelize_1.DataTypes.STRING
     },
-    encabezado2: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    encabezado_hservicio: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    logo1: {
-        type: sequelize_1.DataTypes.STRING
-    },
-    logo2: {
-        type: sequelize_1.DataTypes.STRING
-    },
     articulo1: {
         type: sequelize_1.DataTypes.TEXT
     },
@@ -35,29 +23,41 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     articulo3: {
         type: sequelize_1.DataTypes.TEXT
     },
-    revisor: {
+    articulo4: {
         type: sequelize_1.DataTypes.STRING
     },
-    responsable_entrega: {
+    articulo5: {
         type: sequelize_1.DataTypes.STRING
     },
-    pie_carta: {
+    articulo6: {
         type: sequelize_1.DataTypes.STRING
     },
-    pie_hservicio: {
+    articulo7: {
         type: sequelize_1.DataTypes.STRING
     },
-    fecha_creacion: {
-        type: sequelize_1.DataTypes.DATE
+    logoc4: {
+        type: sequelize_1.DataTypes.STRING
     },
-    estatus: {
-        type: sequelize_1.DataTypes.BOOLEAN
+    logo_ssypc: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    fk_revisor: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    fk_responsable_entrega: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    ccp_carta: {
+        type: sequelize_1.DataTypes.STRING
     },
     fecha_inicial: {
         type: sequelize_1.DataTypes.DATE
     },
     fecha_final: {
         type: sequelize_1.DataTypes.DATE
+    },
+    estatus: {
+        type: sequelize_1.DataTypes.BOOLEAN
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE
