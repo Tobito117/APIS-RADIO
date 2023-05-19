@@ -26,11 +26,44 @@ const Asig_Usuarios = connection_1.default.define('asignaciones', {
     fk_accesorio_gps: {
         type: sequelize_1.DataTypes.INTEGER
     },
+    funda: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    antena: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    bocina: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    c2h: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    cable_principal: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    caratula: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    micro: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    cofre: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    porta_caratula: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
+    cuello_cisne: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
     fk_vehiculo: {
         type: sequelize_1.DataTypes.INTEGER
     },
     rfsi: {
         type: sequelize_1.DataTypes.STRING
+    },
+    fecha_asignacion: {
+        type: sequelize_1.DataTypes.DATE
     },
     estatus: {
         type: sequelize_1.DataTypes.BOOLEAN

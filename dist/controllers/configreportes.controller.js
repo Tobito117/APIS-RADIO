@@ -16,7 +16,22 @@ exports.updateEstatusConfigReportes = exports.deleteConfigReportes = exports.put
 const configreportes_model_1 = __importDefault(require("../models/configreportes.model"));
 //Función para obtener todos los elementos de una tabla
 const getConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const configreportes = yield configreportes_model_1.default.findAll();
+    var _a;
+    const configreportes = yield ((_a = configreportes_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT configreportes.idconfigReportes, configreportes.encabezado_carta, configreportes.articulo1, configreportes.articulo2, configreportes.articulo3,  " +
+        "    configreportes.articulo4, configreportes.articulo5, configreportes.articulo6, configreportes.articulo7, configreportes.logoc4, configreportes.logo_ssypc, " +
+        "    configreportes.fk_revisor, CONCAT(revisores.nombre, ' ' , revisores.apellido_pat, ' ' , revisores.apellido_mat) AS nombre_revisor, " +
+        "    revisores.nombre, revisores.apellido_pat, revisores.apellido_mat, " +
+        "    configreportes.fk_responsable_entrega, CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable, " +
+        "    responsables.nombre, responsables.apellido_pat, responsables.apellido_mat, " +
+        "    configreportes.ccp_carta, configreportes.fecha_inicial, configreportes.fecha_final, configreportes.estatus, configreportes.createdAt, configreportes.updatedAt " +
+        "FROM configreportes " +
+        "LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios " +
+        "LEFT JOIN usuarios AS responsables ON configreportes.fk_responsable_entrega = responsables.idusuarios " +
+        "ORDER BY configreportes.idconfigReportes DESC ", {
+        replacements: [],
+        model: configreportes_model_1.default,
+        mapToModel: true
+    }));
     res.json(configreportes);
 });
 exports.getConfigReportes = getConfigReportes;

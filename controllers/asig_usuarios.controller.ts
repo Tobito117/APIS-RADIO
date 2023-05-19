@@ -13,7 +13,8 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
       "asignaciones.rfsi,asignaciones.fk_accesorio_bateria,asignaciones.fk_accesorio_cargador,asignaciones.fk_accesorio_gps, " +
       "radios.idradios, radios.serie AS serie_radio, radios.serie, " +
       "vehiculos.idvehiculo, vehiculos.placa,  "+
-      "asignaciones.estatus, asignaciones.createdAt, asignaciones.updatedAt, asignaciones.usuarios_idusuarios,asignaciones.radios_idradios, " +
+      "asignaciones.funda, asignaciones.antena,asignaciones.bocina, asignaciones.c2h, asignaciones.cable_principal, asignaciones.caratula, asignaciones.micro, asignaciones.cofre, asignaciones.porta_caratula, asignaciones.cuello_cisne, "+
+      "asignaciones.estatus, asignaciones.fecha_asignacion, asignaciones.createdAt, asignaciones.updatedAt, asignaciones.usuarios_idusuarios,asignaciones.radios_idradios, " +
       " baterias.serie_bateria, cargadores.serie_cargador, gps.serie_gps "+
       //"cargadores.idaccesorios AS idcargador, cargadores.num_serie AS serie_cargador, " +
       //"baterias.idaccesorios AS idbateria ,baterias.num_serie AS serie_bateria, " +
