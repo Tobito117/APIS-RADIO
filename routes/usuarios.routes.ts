@@ -1,18 +1,19 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { getUsuarios, getUsuariosIdNombre, getUsuarioById, postUsuario, putUsuario,  updateEstatusUsuarios, deleteUsuario } from "../controllers/usuarios.controller";
+import { getUsuarios, getUsuariosIdNombre, getUsuariosIdCorporacion, getUsuarioById, postUsuario, putUsuario,  updateEstatusUsuarios, deleteUsuario } from "../controllers/usuarios.controller";
 import { validarJWT } from "../middlewares/validar-jwt";
 
 const router = Router();
 // Todas tienen que pasar por la validación del JWT
 //router.use( validarJWT );
 
-router.get('/',           getUsuarios   );
-router.get('/idnombre',   getUsuariosIdNombre );
-router.get('/:id',        getUsuarioById   );
-router.post('/',          postUsuario   );
-router.put('/:id',        putUsuario);
- router.delete('/:id',     deleteUsuario );
-router.put('/status/:id', updateEstatusUsuarios);
+router.get('/',                     getUsuarios   );
+router.get('/idnombre',             getUsuariosIdNombre );
+router.get('/corporaciones/:id',    getUsuariosIdCorporacion );
+router.get('/:id',                  getUsuarioById   );
+router.post('/',                    postUsuario   );
+router.put('/:id',                  putUsuario);
+router.delete('/:id',               deleteUsuario );
+router.put('/status/:id',           updateEstatusUsuarios);
 
 export default router;
