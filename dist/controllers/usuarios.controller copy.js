@@ -190,4 +190,4 @@ const updateEstatusUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, fu
     });
 });
 exports.updateEstatusUsuarios = updateEstatusUsuarios;
-//# sourceMappingURL=usuarios.controller.js.map
+//# sourceMappingURL=usuarios.controller%20copy.js.map

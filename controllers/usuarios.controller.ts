@@ -20,7 +20,7 @@ export const getUsuariosIdNombre = async( req: Request , res: Response ) => {
 export const getUsuariosIdCorporacion = async( req: Request , res: Response ) => {
     const { id } = req.params;
     const usuarios: any = await Usuarios.sequelize?.query(
-`SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat, usuarios.idusuarios, 
+    `SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
 		CONCAT (usuarios.nombre, " ", usuarios.apellido_pat, " ", usuarios.apellido_mat ) AS nombre_completo,
 		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
 		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
@@ -38,6 +38,7 @@ export const getUsuariosIdCorporacion = async( req: Request , res: Response ) =>
 
     res.json( usuarios);
 }
+
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID
 export const getUsuarioById = async( req: Request , res: Response ) => {

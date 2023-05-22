@@ -9,7 +9,7 @@ const router = Router();
 
 router.get('/',                     getUsuarios   );
 router.get('/idnombre',             getUsuariosIdNombre );
-router.get('/corporaciones/:id',    getUsuariosIdCorporacion );
+router.get('/revisores/:id',        getUsuariosIdCorporacion );
 router.get('/:id',                  getUsuarioById   );
 router.post('/',                    postUsuario   );
 router.put('/:id',                  putUsuario);

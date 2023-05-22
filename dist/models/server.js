@@ -20,6 +20,7 @@ const express_fileupload_1 = __importDefault(require("express-fileupload"));
 //Rutas Llamadas
 const usuario_routes_1 = __importDefault(require("../routes/usuario.routes"));
 const usuarios_routes_1 = __importDefault(require("../routes/usuarios.routes"));
+const responsables_routes_1 = __importDefault(require("../routes/responsables.routes"));
 const vehiculos_routes_1 = __importDefault(require("../routes/vehiculos.routes"));
 const zonasregiones_routes_1 = __importDefault(require("../routes/zonasregiones.routes"));
 const servicios_routes_1 = __importDefault(require("../routes/servicios.routes"));
@@ -42,6 +43,7 @@ class Server {
         this.baseUrl = {
             users: '/api/v0/users',
             usuarios: '/api/v0/usuarios',
+            responsables: '/api/v0/responsables',
             vehiculos: '/api/v0/vehiculos',
             zonasregiones: '/api/v0/zonasregiones',
             servicios: '/api/v0/servicios',
@@ -98,6 +100,7 @@ class Server {
     routes() {
         this.app.use(this.baseUrl.users, usuario_routes_1.default);
         this.app.use(this.baseUrl.usuarios, usuarios_routes_1.default);
+        this.app.use(this.baseUrl.responsables, responsables_routes_1.default);
         this.app.use(this.baseUrl.vehiculos, vehiculos_routes_1.default);
         this.app.use(this.baseUrl.zonasregiones, zonasregiones_routes_1.default);
         this.app.use(this.baseUrl.servicios, servicios_routes_1.default);
