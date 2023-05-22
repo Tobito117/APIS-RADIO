@@ -11,12 +11,38 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 export const getUsuariosIdNombre = async( req: Request , res: Response ) => {
 
     const usuarios: any = await Usuarios.sequelize?.query(
-      "SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios"  
+      "SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios" , 
+      {
+        replacements: [],
+        model: Usuarios,
+        mapToModel: true
+    }
+    );
+
+    res.json( usuarios);
+    console.log(usuarios)
+}
+
+export const getUsuariosIdCorporacion2 = async( req: Request , res: Response ) => {
+    const { id } = req.params;
+    const usuarios: any = await Usuarios.sequelize?.query(
+    `SELECT usuarios.idusuarios AS idRes, usuarios.nombre AS nombreRes, usuarios.apellido_pat AS appatRes, usuarios.apellido_mat AS apmatRes,
+		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
+		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
+    FROM usuarios
+    LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+    LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+    WHERE usuarios.estatus=1 AND corporaciones.idcorporaciones = ${id}
+    ORDER BY usuarios.idusuarios DESC`,
+    {
+        replacements: [],
+        model: Usuarios,
+        mapToModel: true
+    }
     );
 
     res.json( usuarios);
 }
-
 export const getUsuariosIdCorporacion = async( req: Request , res: Response ) => {
     const { id } = req.params;
     const usuarios: any = await Usuarios.sequelize?.query(

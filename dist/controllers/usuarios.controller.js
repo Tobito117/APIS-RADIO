@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuariosIdCorporacion = exports.getUsuariosIdNombre = exports.getUsuarios = void 0;
+exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuarioById = exports.getUsuariosIdCorporacion = exports.getUsuariosIdCorporacion2 = exports.getUsuariosIdNombre = exports.getUsuarios = void 0;
 const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,14 +22,37 @@ const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUsuarios = getUsuarios;
 const getUsuariosIdNombre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const usuarios = yield ((_a = usuarios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios"));
+    const usuarios = yield ((_a = usuarios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios", {
+        replacements: [],
+        model: usuarios_model_1.default,
+        mapToModel: true
+    }));
     res.json(usuarios);
+    console.log(usuarios);
 });
 exports.getUsuariosIdNombre = getUsuariosIdNombre;
-const getUsuariosIdCorporacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getUsuariosIdCorporacion2 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     const { id } = req.params;
-    const usuarios = yield ((_b = usuarios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
+    const usuarios = yield ((_b = usuarios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT usuarios.idusuarios AS idRes, usuarios.nombre AS nombreRes, usuarios.apellido_pat AS appatRes, usuarios.apellido_mat AS apmatRes,
+		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
+		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
+    FROM usuarios
+    LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+    LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+    WHERE usuarios.estatus=1 AND corporaciones.idcorporaciones = ${id}
+    ORDER BY usuarios.idusuarios DESC`, {
+        replacements: [],
+        model: usuarios_model_1.default,
+        mapToModel: true
+    }));
+    res.json(usuarios);
+});
+exports.getUsuariosIdCorporacion2 = getUsuariosIdCorporacion2;
+const getUsuariosIdCorporacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _c;
+    const { id } = req.params;
+    const usuarios = yield ((_c = usuarios_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query(`SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
 		CONCAT (usuarios.nombre, " ", usuarios.apellido_pat, " ", usuarios.apellido_mat ) AS nombre_completo,
 		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
 		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt

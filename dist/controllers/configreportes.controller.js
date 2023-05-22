@@ -22,7 +22,7 @@ const getConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, functi
         "    configreportes.fk_revisor, CONCAT(revisores.nombre, ' ' , revisores.apellido_pat, ' ' , revisores.apellido_mat) AS nombre_revisor, " +
         "    revisores.nombre, revisores.apellido_pat, revisores.apellido_mat, " +
         "    configreportes.fk_responsable_entrega, CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable, " +
-        "    responsables.nombre, responsables.apellido_pat, responsables.apellido_mat, " +
+        "    responsables.idusuarios AS idRes, responsables.nombre AS nombreRes, responsables.apellido_pat AS appatRes, responsables.apellido_mat AS apmatRes, " +
         "    configreportes.ccp_carta, configreportes.fecha_inicial, configreportes.fecha_final, configreportes.estatus, configreportes.createdAt, configreportes.updatedAt " +
         "FROM configreportes " +
         "LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios " +

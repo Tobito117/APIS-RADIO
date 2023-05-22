@@ -8,6 +8,7 @@ const router = (0, express_1.Router)();
 router.get('/', usuarios_controller_1.getUsuarios);
 router.get('/idnombre', usuarios_controller_1.getUsuariosIdNombre);
 router.get('/revisores/:id', usuarios_controller_1.getUsuariosIdCorporacion);
+router.get('/responsables/:id', usuarios_controller_1.getUsuariosIdCorporacion2);
 router.get('/:id', usuarios_controller_1.getUsuarioById);
 router.post('/', usuarios_controller_1.postUsuario);
 router.put('/:id', usuarios_controller_1.putUsuario);

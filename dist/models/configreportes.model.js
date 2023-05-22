@@ -42,10 +42,10 @@ const ConfigReportes = connection_1.default.define('configreportes', {
         type: sequelize_1.DataTypes.STRING
     },
     fk_revisor: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.INTEGER
     },
     fk_responsable_entrega: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.INTEGER
     },
     ccp_carta: {
         type: sequelize_1.DataTypes.STRING
