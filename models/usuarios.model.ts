@@ -9,9 +9,6 @@ const Usuarios = db.define('usuarios', {
     nombre: {
         type: DataTypes.STRING
     },
-    nombreRes: {
-        type: DataTypes.STRING
-    },
     apellido_pat: {
         type: DataTypes.STRING
       },

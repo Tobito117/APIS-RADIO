@@ -19,29 +19,46 @@ const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
     var _a;
     //    const hojasservicios = await HojasServicios.findAll();
     //    res.json( hojasservicios );
-    const hojasservicios = yield ((_a = hojas_servicios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT hojaservicios.idhojaservicios, hojaservicios.fecha_servicio, " +
-        "asignaciones.idasignacion, " +
-        "CONCAT (usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, " +
-        "radios.idradios, radios.serie, radios.tipo, radios.inventario_interno, radios.inventario_segpub, " +
-        "hojaservicios.fk_idservicios, " +
-        "servicios.idservicios, servicios.nombreServicios, " +
-        "hojaservicios.fk_idaccesorios, " +
-        "accesorios.idaccesorios, accesorios.num_serie, accesorios.inventario_interno, accesorios.inventario_segpub, " +
-        "hojaservicios.descripcion, hojaservicios.entrego_equipo, hojaservicios.fecha_entrega, " +
-        "hojaservicios.fk_supervisortec, " +
-        "supervisortec.idusuarios, CONCAT (supervisortec.nombre, ' ', supervisortec.apellido_pat, ' ', supervisortec.apellido_mat ) AS nombreSupervisorTec, " +
-        "hojaservicios.usuario_servicio, hojaservicios.usuario_entrega, " +
-        "hojaservicios.fk_tecnico_entrega, " +
-        "tecnico_entrega.idusuarios, CONCAT (tecnico_entrega.nombre, ' ', tecnico_entrega.apellido_pat, ' ', tecnico_entrega.apellido_mat ) AS nombreTecEntrega, " +
-        "hojaservicios.estatus, hojaservicios.createdAt, hojaservicios.updatedAt " +
-        "FROM hojaservicios " +
-        "INNER JOIN asignaciones ON hojaservicios.fk_idasignacion_ur = asignaciones.idasignacion " +
-        "INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios " +
-        "INNER JOIN usuarios AS supervisortec ON hojaservicios.fk_supervisortec = supervisortec.idusuarios " +
-        "INNER JOIN usuarios AS tecnico_entrega ON hojaservicios.fk_tecnico_entrega = tecnico_entrega.idusuarios " +
-        "INNER JOIN servicios ON hojaservicios.fk_idservicios = servicios.idservicios " +
-        "INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios " +
-        "INNER JOIN accesorios ON hojaservicios.fk_idaccesorios = accesorios.idaccesorios", {
+    const hojasservicios = yield ((_a = hojas_servicios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT hojaservicios.idhojaservicios, hojaservicios.fecha_servicio,  
+            asignaciones.idasignacion, 
+            CONCAT (usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
+            radios.idradios, 
+            radios.serie, 
+            radios.tipo, 
+            radios.inventario_interno, 
+            radios.inventario_segpub, 
+            hojaservicios.fk_idservicios,  
+            servicios.idservicios, 
+            servicios.nombreServicios, 
+            hojaservicios.fk_idaccesorios, 
+            accesorios.idaccesorios, 
+            accesorios.serie_bateria, 
+            accesorios.serie_cargador, 
+            accesorios.serie_gps, 
+            accesorios.inventario_interno, 
+            accesorios.inventario_segpub, 
+            hojaservicios.descripcion, 
+            hojaservicios.entrego_equipo, 
+            hojaservicios.fecha_entrega, 
+            hojaservicios.fk_supervisortec, 
+            supervisortec.idusuarios, 
+            CONCAT (supervisortec.nombre, ' ', supervisortec.apellido_pat, ' ', supervisortec.apellido_mat ) AS nombreSupervisorTec,
+            hojaservicios.usuario_servicio, 
+            hojaservicios.usuario_entrega, 
+            hojaservicios.fk_tecnico_entrega, 
+            tecnico_entrega.idusuarios, 
+            CONCAT (tecnico_entrega.nombre, ' ', tecnico_entrega.apellido_pat, ' ', tecnico_entrega.apellido_mat ) AS nombreTecEntrega, 
+            hojaservicios.estatus, 
+            hojaservicios.createdAt, 
+            hojaservicios.updatedAt 
+        FROM hojaservicios 
+        INNER JOIN asignaciones ON hojaservicios.fk_idasignacion_ur = asignaciones.idasignacion 
+        INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
+        INNER JOIN usuarios AS supervisortec ON hojaservicios.fk_supervisortec = supervisortec.idusuarios  
+        INNER JOIN usuarios AS tecnico_entrega ON hojaservicios.fk_tecnico_entrega = tecnico_entrega.idusuarios 
+        INNER JOIN servicios ON hojaservicios.fk_idservicios = servicios.idservicios  
+        INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios 
+        INNER JOIN accesorios ON hojaservicios.fk_idaccesorios = accesorios.idaccesorios`, {
         replacements: [],
         model: hojas_servicios_model_1.default,
         mapToModel: true

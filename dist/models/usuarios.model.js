@@ -13,9 +13,6 @@ const Usuarios = connection_1.default.define('usuarios', {
     nombre: {
         type: sequelize_1.DataTypes.STRING
     },
-    nombreRes: {
-        type: sequelize_1.DataTypes.STRING
-    },
     apellido_pat: {
         type: sequelize_1.DataTypes.STRING
     },

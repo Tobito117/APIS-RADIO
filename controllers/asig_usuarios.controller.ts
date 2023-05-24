@@ -35,6 +35,61 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
     res.json(asig_usuarios );
 }
 
+//Función para obtener todos los datos con el filtro de RFSI
+export const getAsignacionRfsi = async( req: Request , res: Response ) => {
+   const { id } = req.params;
+   const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
+    `SELECT asignaciones.idasignacion, 
+        usuarios.idusuarios, 
+        CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
+        usuarios.clave_elector,
+        usuarios.nombre, 
+        usuarios.apellido_pat,
+        usuarios.apellido_mat, 
+        asignaciones.rfsi,
+        asignaciones.fk_accesorio_bateria,
+        asignaciones.fk_accesorio_cargador,
+        asignaciones.fk_accesorio_gps, 
+        radios.idradios, 
+        radios.serie AS serie_radio, 
+        vehiculos.idvehiculo, 
+        vehiculos.placa, 
+        asignaciones.funda, 
+        asignaciones.antena,
+        asignaciones.bocina, 
+        asignaciones.c2h, 
+        asignaciones.cable_principal, 
+        asignaciones.caratula, 
+        asignaciones.micro, 
+        asignaciones.cofre, 
+        asignaciones.porta_caratula, 
+        asignaciones.cuello_cisne,
+        asignaciones.estatus, 
+        asignaciones.fecha_asignacion, 
+        asignaciones.createdAt, 
+        asignaciones.updatedAt, 
+        asignaciones.usuarios_idusuarios,
+        asignaciones.radios_idradios, 
+        baterias.serie_bateria, 
+        cargadores.serie_cargador, 
+        gps.serie_gps
+    FROM asignaciones 
+    INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
+    INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios 
+    LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo
+    LEFT JOIN accesorios AS baterias  ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios 
+    LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios 
+    LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios 
+    WHERE asignaciones.estatus = true 
+        AND usuarios.idusuarios = ${id} `
+,{ 
+    replacements: [],
+    model: Asig_Usuarios,
+    mapToModel: true
+});
+    res.json(asig_usuarios );
+}
+
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getAsig_UsuariosById = async( req: Request , res: Response ) => {
 

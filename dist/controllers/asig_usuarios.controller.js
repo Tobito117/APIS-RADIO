@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusAsig_Usuarios = exports.actualizarSueRadio = exports.deleteAsig_Usuarios = exports.putAsig_Usuarios = exports.postAsig_Usuarios = exports.getAsig_UsuariosById = exports.getAsig_Usuarios = void 0;
+exports.updateEstatusAsig_Usuarios = exports.actualizarSueRadio = exports.deleteAsig_Usuarios = exports.putAsig_Usuarios = exports.postAsig_Usuarios = exports.getAsig_UsuariosById = exports.getAsignacionRfsi = exports.getAsig_Usuarios = void 0;
 const asig_usuario_radio_model_1 = __importDefault(require("../models/asig_usuario_radio.model"));
 const radios_model_1 = __importDefault(require("../models/radios.model"));
 //import Asig_Usuarios from '../models/asig_usuario_radio.model';
@@ -46,6 +46,60 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     res.json(asig_usuarios);
 });
 exports.getAsig_Usuarios = getAsig_Usuarios;
+//Función para obtener todos los datos con el filtro de RFSI
+const getAsignacionRfsi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    const { id } = req.params;
+    const asig_usuarios = yield ((_b = asig_usuario_radio_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT asignaciones.idasignacion, 
+        usuarios.idusuarios, 
+        CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
+        usuarios.clave_elector,
+        usuarios.nombre, 
+        usuarios.apellido_pat,
+        usuarios.apellido_mat, 
+        asignaciones.rfsi,
+        asignaciones.fk_accesorio_bateria,
+        asignaciones.fk_accesorio_cargador,
+        asignaciones.fk_accesorio_gps, 
+        radios.idradios, 
+        radios.serie AS serie_radio, 
+        vehiculos.idvehiculo, 
+        vehiculos.placa, 
+        asignaciones.funda, 
+        asignaciones.antena,
+        asignaciones.bocina, 
+        asignaciones.c2h, 
+        asignaciones.cable_principal, 
+        asignaciones.caratula, 
+        asignaciones.micro, 
+        asignaciones.cofre, 
+        asignaciones.porta_caratula, 
+        asignaciones.cuello_cisne,
+        asignaciones.estatus, 
+        asignaciones.fecha_asignacion, 
+        asignaciones.createdAt, 
+        asignaciones.updatedAt, 
+        asignaciones.usuarios_idusuarios,
+        asignaciones.radios_idradios, 
+        baterias.serie_bateria, 
+        cargadores.serie_cargador, 
+        gps.serie_gps
+    FROM asignaciones 
+    INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
+    INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios 
+    LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo
+    LEFT JOIN accesorios AS baterias  ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios 
+    LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios 
+    LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios 
+    WHERE asignaciones.estatus = true 
+        AND usuarios.idusuarios = ${id} `, {
+        replacements: [],
+        model: asig_usuario_radio_model_1.default,
+        mapToModel: true
+    }));
+    res.json(asig_usuarios);
+});
+exports.getAsignacionRfsi = getAsignacionRfsi;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getAsig_UsuariosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
