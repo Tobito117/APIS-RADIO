@@ -6,7 +6,6 @@ import fileUpload from 'express-fileupload';
 //Rutas Llamadas
 import userRoutes from '../routes/usuario.routes';
 import usuariosRoutes from '../routes/usuarios.routes';
-import responsablesRoutes from '../routes/responsables.routes';
 import vehiculosRoutes from '../routes/vehiculos.routes';
 import zonasregionesRoutes from '../routes/zonasregiones.routes';
 import serviciosRoutes from '../routes/servicios.routes';
@@ -32,7 +31,6 @@ export class Server {
     private baseUrl = {
         users: '/api/v0/users',
         usuarios: '/api/v0/usuarios',
-        responsables: '/api/v0/responsables',
         vehiculos: '/api/v0/vehiculos',
         zonasregiones: '/api/v0/zonasregiones',
         servicios: '/api/v0/servicios',
@@ -101,7 +99,6 @@ export class Server {
     routes () {
         this.app.use( this.baseUrl.users, userRoutes);
         this.app.use ( this.baseUrl.usuarios, usuariosRoutes);
-        this.app.use ( this.baseUrl.responsables, responsablesRoutes);
         this.app.use ( this.baseUrl.vehiculos, vehiculosRoutes);
         this.app.use (this.baseUrl.zonasregiones, zonasregionesRoutes);
         this.app.use (this.baseUrl.servicios, serviciosRoutes);

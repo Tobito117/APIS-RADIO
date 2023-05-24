@@ -38,10 +38,10 @@ const ConfigReportes = db.define('configreportes', {
         type: DataTypes.STRING
     },
     fk_revisor: {
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER
     },
     fk_responsable_entrega: {
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER
     },
     ccp_carta: {
         type: DataTypes.STRING
