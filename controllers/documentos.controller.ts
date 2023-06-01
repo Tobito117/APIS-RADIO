@@ -278,9 +278,10 @@ export const mostrarImange = async (req: Request, res: Response) => {
 
     }
 
-    const pathImagen = path.join( __dirname, '../assets/no-jefe.png');
+    const pathImagen = path.join( __dirname, `../uploads/imgs/${modelo.nombre}`);
     res.sendFile( pathImagen );
-    // console.log(pathImagen);
+    
+    console.log(pathImagen);
 
 }
 

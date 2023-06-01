@@ -25,6 +25,29 @@ export const getConfigReportes = async( req: Request , res: Response ) => {
 
     res.json( configreportes );
 }
+export const getConfigReportesByStatus = async( req: Request , res: Response ) => {
+
+    const configreportes: any = await ConfigReportes.sequelize?.query(
+        "SELECT configreportes.idconfigReportes, configreportes.encabezado_carta, configreportes.articulo1, configreportes.articulo2, configreportes.articulo3,  " +
+		"    configreportes.articulo4, configreportes.articulo5, configreportes.articulo6, configreportes.articulo7, configreportes.logoc4, configreportes.logo_ssypc, " +
+	    "    configreportes.fk_revisor, CONCAT(revisores.nombre, ' ' , revisores.apellido_pat, ' ' , revisores.apellido_mat) AS nombre_revisor, " +
+		"    revisores.nombre, revisores.apellido_pat, revisores.apellido_mat, " +
+		"    configreportes.fk_responsable_entrega, CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable, " +
+		"    responsables.idusuarios AS idRes, responsables.nombre AS nombreRes, responsables.apellido_pat AS appatRes, responsables.apellido_mat AS apmatRes, " +
+		"    configreportes.ccp_carta, configreportes.fecha_inicial, configreportes.fecha_final, configreportes.estatus, configreportes.createdAt, configreportes.updatedAt " +
+        "FROM configreportes " +
+        "LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios " +
+        "LEFT JOIN usuarios AS responsables ON configreportes.fk_responsable_entrega = responsables.idusuarios " +
+        "WHERE configreportes.estatus = true "+
+        "ORDER BY configreportes.idconfigReportes DESC ",
+    { 
+        replacements: [],
+        model: ConfigReportes,
+        mapToModel: true
+    });
+
+    res.json( configreportes );
+}
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getConfigReportesById = async( req: Request , res: Response ) => {

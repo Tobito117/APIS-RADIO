@@ -26,7 +26,7 @@ const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
         "hojaservicios.fk_idservicios, " +
         "servicios.idservicios, servicios.nombreServicios, " +
         "hojaservicios.fk_idaccesorios, " +
-        "accesorios.idaccesorios, accesorios.num_serie, accesorios.inventario_interno, accesorios.inventario_segpub, " +
+        "accesorios.idaccesorios, accesorios.inventario_interno, accesorios.inventario_segpub, " +
         "hojaservicios.descripcion, hojaservicios.entrego_equipo, hojaservicios.fecha_entrega, " +
         "hojaservicios.fk_supervisortec, " +
         "supervisortec.idusuarios, CONCAT (supervisortec.nombre, ' ', supervisortec.apellido_pat, ' ', supervisortec.apellido_mat ) AS nombreSupervisorTec, " +

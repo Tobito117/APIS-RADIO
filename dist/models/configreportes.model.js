@@ -50,9 +50,6 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     ccp_carta: {
         type: sequelize_1.DataTypes.STRING
     },
-    nombre_respons: {
-        type: sequelize_1.DataTypes.STRING
-    },
     fecha_inicial: {
         type: sequelize_1.DataTypes.DATE
     },

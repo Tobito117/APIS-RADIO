@@ -4,8 +4,21 @@ import Usuarios from '../models/usuarios.model';
 //Función para obtener todos los elementos de una tabla
 export const getUsuarios = async( req: Request , res: Response ) => {
 
-    const usuarios = await Usuarios.findAll();
-
+    //const usuarios = await Usuarios.findAll();
+    const usuarios: any = await Usuarios.sequelize?.query(
+        `SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
+            usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
+            usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
+        FROM usuarios
+        LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+        LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+        ORDER BY usuarios.idusuarios DESC`,
+        {
+            replacements: [],
+            model: Usuarios,
+            mapToModel: true
+        }
+        );
     res.json( usuarios);
 }
 export const getUsuariosIdNombre = async( req: Request , res: Response ) => {

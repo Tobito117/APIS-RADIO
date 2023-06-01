@@ -224,9 +224,9 @@ const mostrarImange = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return res.sendFile(pathImagen);
         }
     }
-    const pathImagen = path_1.default.join(__dirname, '../assets/no-jefe.png');
+    const pathImagen = path_1.default.join(__dirname, `../uploads/imgs/${modelo.nombre}`);
     res.sendFile(pathImagen);
-    // console.log(pathImagen);
+    console.log(pathImagen);
 });
 exports.mostrarImange = mostrarImange;
 //# sourceMappingURL=documentos.controller.js.map

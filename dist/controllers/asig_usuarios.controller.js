@@ -23,7 +23,7 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const asig_usuarios = yield ((_a = asig_usuario_radio_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT asignaciones.idasignacion, " +
         "usuarios.idusuarios, CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, usuarios.clave_elector,usuarios.nombre, usuarios.apellido_pat,usuarios.apellido_mat, " +
         "asignaciones.rfsi,asignaciones.fk_accesorio_bateria,asignaciones.fk_accesorio_cargador,asignaciones.fk_accesorio_gps, " +
-        "radios.idradios, radios.serie AS serie_radio, radios.serie, " +
+        "radios.idradios, radios.serie AS serie_radio, radios.serie, radios.tipo, " +
         "vehiculos.idvehiculo, vehiculos.placa,  " +
         "asignaciones.funda, asignaciones.antena,asignaciones.bocina, asignaciones.c2h, asignaciones.cable_principal, asignaciones.caratula, asignaciones.micro, asignaciones.cofre, asignaciones.porta_caratula, asignaciones.cuello_cisne, " +
         "asignaciones.estatus, asignaciones.fecha_asignacion, asignaciones.createdAt, asignaciones.updatedAt, asignaciones.usuarios_idusuarios,asignaciones.radios_idradios, " +
@@ -37,7 +37,7 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
         "LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo " +
         "LEFT JOIN accesorios AS baterias  ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios " +
         "LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios " +
-        "LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios ", {
+        "LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios ORDER BY asignaciones.idasignacion DESC ", {
         replacements: [],
         model: asig_usuario_radio_model_1.default,
         mapToModel: true

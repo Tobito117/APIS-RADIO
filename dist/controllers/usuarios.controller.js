@@ -16,13 +16,25 @@ exports.updateEstatusUsuarios = exports.deleteUsuario = exports.putUsuario = exp
 const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 //Función para obtener todos los elementos de una tabla
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const usuarios = yield usuarios_model_1.default.findAll();
+    var _a;
+    //const usuarios = await Usuarios.findAll();
+    const usuarios = yield ((_a = usuarios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
+            usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
+            usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
+        FROM usuarios
+        LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+        LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+        ORDER BY usuarios.idusuarios DESC`, {
+        replacements: [],
+        model: usuarios_model_1.default,
+        mapToModel: true
+    }));
     res.json(usuarios);
 });
 exports.getUsuarios = getUsuarios;
 const getUsuariosIdNombre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    const usuarios = yield ((_a = usuarios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios", {
+    var _b;
+    const usuarios = yield ((_b = usuarios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios", {
         replacements: [],
         model: usuarios_model_1.default,
         mapToModel: true
@@ -32,9 +44,9 @@ const getUsuariosIdNombre = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 exports.getUsuariosIdNombre = getUsuariosIdNombre;
 const getUsuariosIdCorporacion2 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+    var _c;
     const { id } = req.params;
-    const usuarios = yield ((_b = usuarios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT usuarios.idusuarios AS idRes, usuarios.nombre AS nombreRes, usuarios.apellido_pat AS appatRes, usuarios.apellido_mat AS apmatRes,
+    const usuarios = yield ((_c = usuarios_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query(`SELECT usuarios.idusuarios AS idRes, usuarios.nombre AS nombreRes, usuarios.apellido_pat AS appatRes, usuarios.apellido_mat AS apmatRes,
 		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
 		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
     FROM usuarios
@@ -50,9 +62,9 @@ const getUsuariosIdCorporacion2 = (req, res) => __awaiter(void 0, void 0, void 0
 });
 exports.getUsuariosIdCorporacion2 = getUsuariosIdCorporacion2;
 const getUsuariosIdCorporacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
+    var _d;
     const { id } = req.params;
-    const usuarios = yield ((_c = usuarios_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query(`SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
+    const usuarios = yield ((_d = usuarios_model_1.default.sequelize) === null || _d === void 0 ? void 0 : _d.query(`SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
 		CONCAT (usuarios.nombre, " ", usuarios.apellido_pat, " ", usuarios.apellido_mat ) AS nombre_completo,
 		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
 		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt

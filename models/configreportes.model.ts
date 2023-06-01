@@ -46,9 +46,6 @@ const ConfigReportes = db.define('configreportes', {
     ccp_carta: {
         type: DataTypes.STRING
     },
-    nombre_respons: {
-        type: DataTypes.STRING
-    },
     fecha_inicial: {
         type: DataTypes.DATE
     },
