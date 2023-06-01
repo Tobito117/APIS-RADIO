@@ -17,9 +17,7 @@ import hojasserviciosRoutes from '../routes/hojas-servicios.routes';
 import documentosRoutes from '../routes/documentos.routes';
 import corporacionesRoutes from '../routes/corporaciones.routes';
 import configreportesRoutes from '../routes/configreportes.routes';
-import asig_vehiculosRoutes from '../routes/asig_vehiculos.routes';
 import asig_usuariosRoutes from '../routes/asig_usuarios.routes';
-import asig_accesoriosRoutes from '../routes/asig_accesorios.routes';
 import accesoriosRoutes from '../routes/accesorios.routes';
 import radiosRoutes from '../routes/radios.routes';
 import rolesRoutes from '../routes/roles.routes'
@@ -42,9 +40,7 @@ export class Server {
         documentos: '/api/v0/documentos',
         corporaciones: '/api/v0/corporaciones',
         configreportes: '/api/v0/configreportes',
-        asig_vehiculos: '/api/v0/asig_vehiculos',
         asig_usuarios: '/api/v0/asig_usuarios',
-        asig_accesorios: '/api/v0/asig_accesorios',
         accesorios: '/api/v0/accesorios',
         radios: '/api/v0/radios',
         roles: '/api/v0/roles',
@@ -110,9 +106,7 @@ export class Server {
         this.app.use (this.baseUrl.documentos, documentosRoutes);
         this.app.use (this.baseUrl.corporaciones, corporacionesRoutes);
         this.app.use (this.baseUrl.configreportes, configreportesRoutes);
-        this.app.use (this.baseUrl.asig_vehiculos, asig_vehiculosRoutes);
         this.app.use (this.baseUrl.asig_usuarios, asig_usuariosRoutes);
-        this.app.use (this.baseUrl.asig_accesorios, asig_accesoriosRoutes);
         this.app.use (this.baseUrl.accesorios, accesoriosRoutes);
         this.app.use (this.baseUrl.radios, radiosRoutes);
         this.app.use(this.baseUrl.roles, rolesRoutes);

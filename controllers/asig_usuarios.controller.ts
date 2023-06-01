@@ -11,8 +11,8 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
     "SELECT asignaciones.idasignacion, "  +
       "usuarios.idusuarios, CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, usuarios.clave_elector,usuarios.nombre, usuarios.apellido_pat,usuarios.apellido_mat, " +
       "asignaciones.rfsi,asignaciones.fk_accesorio_bateria,asignaciones.fk_accesorio_cargador,asignaciones.fk_accesorio_gps, " +
-      "radios.idradios, radios.serie AS serie_radio, radios.serie, radios.tipo, " +
-      "vehiculos.idvehiculo, vehiculos.placa,  "+
+      "radios.idradios, radios.serie AS serie_radio, radios.serie, " +
+      "vehiculos.idvehiculo, vehiculos.placa,vehiculos.unidad,  "+
       "asignaciones.funda, asignaciones.antena,asignaciones.bocina, asignaciones.c2h, asignaciones.cable_principal, asignaciones.caratula, asignaciones.micro, asignaciones.cofre, asignaciones.porta_caratula, asignaciones.cuello_cisne, "+
       "asignaciones.estatus, asignaciones.fecha_asignacion, asignaciones.createdAt, asignaciones.updatedAt, asignaciones.usuarios_idusuarios,asignaciones.radios_idradios, " +
       " baterias.serie_bateria, cargadores.serie_cargador, gps.serie_gps "+
@@ -32,6 +32,136 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
     mapToModel: true
 });
 //gkdjgposd
+    res.json(asig_usuarios );
+}
+
+//Función para obtener todos los datos con el filtro de RFSI
+export const getAsignacionPorUsuario = async( req: Request , res: Response ) => {
+   const { nombre } = req.params;
+   const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
+    `SELECT asignaciones.idasignacion, 
+        usuarios.idusuarios, 
+        usuarios.nombre, 
+        usuarios.apellido_pat,
+        usuarios.apellido_mat, 
+        CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
+        usuarios.clave_elector,
+        puestos.idpuesto,
+        puestos.nombre,
+        corporaciones.idcorporaciones,
+        corporaciones.nombreCorporacion,
+        asignaciones.fk_accesorio_bateria,
+        baterias.serie_bateria, 
+        asignaciones.fk_accesorio_cargador,
+        cargadores.serie_cargador, 
+        asignaciones.fk_accesorio_gps, 
+        gps.serie_gps,
+        radios.idradios, 
+        radios.serie AS serie_radio, 
+        vehiculos.idvehiculo, 
+        vehiculos.placa, 
+        vehiculos.unidad,
+        zonasregiones.nombreZonasRegiones,
+        asignaciones.rfsi,
+        asignaciones.funda, 
+        asignaciones.antena,
+        asignaciones.bocina, 
+        asignaciones.c2h, 
+        asignaciones.cable_principal, 
+        asignaciones.caratula, 
+        asignaciones.micro, 
+        asignaciones.cofre, 
+        asignaciones.porta_caratula, 
+        asignaciones.cuello_cisne,
+        asignaciones.estatus, 
+        asignaciones.fecha_asignacion, 
+        asignaciones.createdAt, 
+        asignaciones.updatedAt, 
+        asignaciones.usuarios_idusuarios,
+        asignaciones.radios_idradios 
+    FROM asignaciones 
+    INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
+    INNER JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+    INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+    INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios 
+    LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo
+    LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion= zonasregiones.idzonasregiones
+    LEFT JOIN accesorios AS baterias  ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios 
+    LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios 
+    LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios 
+    WHERE asignaciones.estatus = true 
+    AND CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) = '${nombre}' `
+,{ 
+    replacements: [],
+    model: Asig_Usuarios,
+    mapToModel: true
+});
+    res.json(asig_usuarios );
+}
+export const getAsignacionPorRfsi= async( req: Request , res: Response ) => {
+   const { rfsi,usuarioBuscar } = req.params;
+   const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
+    `SELECT asignaciones.idasignacion, 
+        usuarios.idusuarios, 
+        usuarios.nombre, 
+        usuarios.apellido_pat,
+        usuarios.apellido_mat, 
+        CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
+        usuarios.clave_elector,
+        puestos.idpuesto,
+        puestos.nombre,
+        corporaciones.idcorporaciones,
+        corporaciones.nombreCorporacion,
+        asignaciones.fk_accesorio_bateria,
+        baterias.serie_bateria, 
+        asignaciones.fk_accesorio_cargador,
+        cargadores.serie_cargador, 
+        asignaciones.fk_accesorio_gps, 
+        gps.serie_gps,
+        radios.idradios,
+        radios.tipo, 
+        radios.serie, 
+        radios.inventario_interno, 
+        radios.serie AS serie_radio, 
+        vehiculos.idvehiculo, 
+        vehiculos.placa, 
+        vehiculos.unidad,
+        zonasregiones.nombreZonasRegiones,
+        asignaciones.rfsi,
+        asignaciones.funda, 
+        asignaciones.antena,
+        asignaciones.bocina, 
+        asignaciones.c2h, 
+        asignaciones.cable_principal, 
+        asignaciones.caratula, 
+        asignaciones.micro, 
+        asignaciones.cofre, 
+        asignaciones.porta_caratula, 
+        asignaciones.cuello_cisne,
+        asignaciones.estatus, 
+        asignaciones.fecha_asignacion, 
+        asignaciones.createdAt, 
+        asignaciones.updatedAt, 
+        asignaciones.usuarios_idusuarios,
+        asignaciones.radios_idradios 
+    FROM asignaciones 
+    INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
+    INNER JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+    INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+    INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios 
+    LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo
+    LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion= zonasregiones.idzonasregiones
+    LEFT JOIN accesorios AS baterias  ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios 
+    LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios 
+    LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios 
+    WHERE asignaciones.estatus = true
+    AND CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) = '${usuarioBuscar}' 
+    AND asignaciones.rfsi = '${rfsi}' `
+,{ 
+    replacements: [],
+    model: Asig_Usuarios,
+    mapToModel: true
+});
     res.json(asig_usuarios );
 }
 

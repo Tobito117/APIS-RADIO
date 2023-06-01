@@ -31,9 +31,7 @@ const hojas_servicios_routes_1 = __importDefault(require("../routes/hojas-servic
 const documentos_routes_1 = __importDefault(require("../routes/documentos.routes"));
 const corporaciones_routes_1 = __importDefault(require("../routes/corporaciones.routes"));
 const configreportes_routes_1 = __importDefault(require("../routes/configreportes.routes"));
-const asig_vehiculos_routes_1 = __importDefault(require("../routes/asig_vehiculos.routes"));
 const asig_usuarios_routes_1 = __importDefault(require("../routes/asig_usuarios.routes"));
-const asig_accesorios_routes_1 = __importDefault(require("../routes/asig_accesorios.routes"));
 const accesorios_routes_1 = __importDefault(require("../routes/accesorios.routes"));
 const radios_routes_1 = __importDefault(require("../routes/radios.routes"));
 const roles_routes_1 = __importDefault(require("../routes/roles.routes"));
@@ -53,9 +51,7 @@ class Server {
             documentos: '/api/v0/documentos',
             corporaciones: '/api/v0/corporaciones',
             configreportes: '/api/v0/configreportes',
-            asig_vehiculos: '/api/v0/asig_vehiculos',
             asig_usuarios: '/api/v0/asig_usuarios',
-            asig_accesorios: '/api/v0/asig_accesorios',
             accesorios: '/api/v0/accesorios',
             radios: '/api/v0/radios',
             roles: '/api/v0/roles',
@@ -109,9 +105,7 @@ class Server {
         this.app.use(this.baseUrl.documentos, documentos_routes_1.default);
         this.app.use(this.baseUrl.corporaciones, corporaciones_routes_1.default);
         this.app.use(this.baseUrl.configreportes, configreportes_routes_1.default);
-        this.app.use(this.baseUrl.asig_vehiculos, asig_vehiculos_routes_1.default);
         this.app.use(this.baseUrl.asig_usuarios, asig_usuarios_routes_1.default);
-        this.app.use(this.baseUrl.asig_accesorios, asig_accesorios_routes_1.default);
         this.app.use(this.baseUrl.accesorios, accesorios_routes_1.default);
         this.app.use(this.baseUrl.radios, radios_routes_1.default);
         this.app.use(this.baseUrl.roles, roles_routes_1.default);

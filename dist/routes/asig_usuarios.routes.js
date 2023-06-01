@@ -4,6 +4,8 @@ const express_1 = require("express");
 const asig_usuarios_controller_1 = require("../controllers/asig_usuarios.controller");
 const router = (0, express_1.Router)();
 router.get('/', asig_usuarios_controller_1.getAsig_Usuarios);
+router.get('/usuarios/:nombre', asig_usuarios_controller_1.getAsignacionPorUsuario);
+router.get('/radio/:rfsi/:usuarioBuscar', asig_usuarios_controller_1.getAsignacionPorRfsi);
 router.get('/:id', asig_usuarios_controller_1.getAsig_UsuariosById);
 router.post('/', asig_usuarios_controller_1.postAsig_Usuarios);
 router.put('/:id', asig_usuarios_controller_1.putAsig_Usuarios);
