@@ -27,7 +27,6 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             accesorios.serie_bateria, 
             accesorios.serie_cargador, 
             accesorios.serie_gps, 
-            accesorios.inventario_interno, 
             accesorios.inventario_segpub, 
             hojaservicios.descripcion, 
             hojaservicios.entrego_equipo, 

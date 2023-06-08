@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteServicios, getServicios, getServiciosById, postServicios,putServicios,/*deleteServicios,*/ updateEstatusServicios } from "../controllers/servicios.controller"
+import { deleteServicios, getServicios, getServiciosById, getServiciosEstatus, postServicios,putServicios,/*deleteServicios,*/ updateEstatusServicios } from "../controllers/servicios.controller"
 import { validarJWT } from "../middlewares/validar-jwt";
 
 const router = Router();
@@ -7,6 +7,7 @@ const router = Router();
 router.use( validarJWT );
 
  router.get('/',           getServicios   );
+ router.get('/estatus/',           getServiciosEstatus   );
  router.get('/:id',        getServiciosById   );
  router.post('/',          postServicios   );
  router.put('/:id',        putServicios   );

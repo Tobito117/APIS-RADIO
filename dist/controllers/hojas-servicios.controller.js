@@ -39,7 +39,6 @@ const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
             accesorios.serie_bateria, 
             accesorios.serie_cargador, 
             accesorios.serie_gps, 
-            accesorios.inventario_interno, 
             accesorios.inventario_segpub, 
             hojaservicios.descripcion, 
             hojaservicios.entrego_equipo, 

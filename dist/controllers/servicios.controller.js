@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusServicios = exports.deleteServicios = exports.putServicios = exports.postServicios = exports.getServiciosById = exports.getServicios = void 0;
+exports.updateEstatusServicios = exports.deleteServicios = exports.putServicios = exports.postServicios = exports.getServiciosById = exports.getServiciosEstatus = exports.getServicios = void 0;
 const servicios_model_1 = __importDefault(require("../models/servicios.model"));
 //Función para obtener todos los elementos de una tabla
 const getServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -20,6 +20,15 @@ const getServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     res.json(servicios);
 });
 exports.getServicios = getServicios;
+const getServiciosEstatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const servicios = yield servicios_model_1.default.findAll({
+        where: {
+            estatus: true
+        }
+    });
+    res.json(servicios);
+});
+exports.getServiciosEstatus = getServiciosEstatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getServiciosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

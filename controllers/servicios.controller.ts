@@ -8,6 +8,15 @@ export const getServicios = async( req: Request , res: Response ) => {
 
     res.json(servicios );
 }
+export const getServiciosEstatus = async( req: Request , res: Response ) => {
+
+    const servicios = await Servicios.findAll({
+        where: {
+            estatus: true
+        }
+    });
+    res.json(servicios );
+}
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getServiciosById = async( req: Request , res: Response ) => {
