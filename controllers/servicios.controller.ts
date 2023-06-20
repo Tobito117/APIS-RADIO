@@ -4,7 +4,12 @@ import Servicios from '../models/servicios.model';
 //Función para obtener todos los elementos de una tabla
 export const getServicios = async( req: Request , res: Response ) => {
 
-    const servicios = await Servicios.findAll();
+    const servicios = await Servicios.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idservicios', 'DESC'],
+            ]
+    });
 
     res.json(servicios );
 }

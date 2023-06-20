@@ -16,7 +16,12 @@ exports.updateEstatusZonasRegiones = exports.deleteZonasRegiones = exports.putZo
 const zonasregiones_model_1 = __importDefault(require("../models/zonasregiones.model"));
 //Función para obtener todos los elementos de una tabla
 const getZonasRegiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const zonasregiones = yield zonasregiones_model_1.default.findAll();
+    const zonasregiones = yield zonasregiones_model_1.default.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idzonasregiones', 'DESC'],
+        ]
+    });
     res.json(zonasregiones);
 });
 exports.getZonasRegiones = getZonasRegiones;

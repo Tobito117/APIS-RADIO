@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Documentos = db.define('documentos', {
     iddocumentos: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     fecha_carga: {
         type: DataTypes.DATE
@@ -27,6 +28,9 @@ const Documentos = db.define('documentos', {
     // descripcion: {
     //     type: DataTypes.STRING
     // },
+    tipoDoc: {
+        type: DataTypes.STRING
+    },
     estatus: {
         type: DataTypes.BOOLEAN
     },

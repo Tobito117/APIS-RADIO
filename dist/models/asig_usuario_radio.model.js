@@ -18,13 +18,16 @@ const Asig_Usuarios = connection_1.default.define('asignaciones', {
         type: sequelize_1.DataTypes.INTEGER
     },
     fk_accesorio_cargador: {
-        type: sequelize_1.DataTypes.INTEGER
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true
     },
     fk_accesorio_bateria: {
-        type: sequelize_1.DataTypes.INTEGER
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true
     },
     fk_accesorio_gps: {
-        type: sequelize_1.DataTypes.INTEGER
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true
     },
     funda: {
         type: sequelize_1.DataTypes.BOOLEAN
@@ -57,7 +60,8 @@ const Asig_Usuarios = connection_1.default.define('asignaciones', {
         type: sequelize_1.DataTypes.BOOLEAN
     },
     fk_vehiculo: {
-        type: sequelize_1.DataTypes.INTEGER
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true
     },
     rfsi: {
         type: sequelize_1.DataTypes.STRING

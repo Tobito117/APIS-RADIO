@@ -4,7 +4,12 @@ import ZonasRegiones from '../models/zonasregiones.model';
 //Función para obtener todos los elementos de una tabla
 export const getZonasRegiones = async( req: Request , res: Response ) => {
 
-    const zonasregiones = await ZonasRegiones.findAll();
+    const zonasregiones = await ZonasRegiones.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idzonasregiones', 'DESC'],
+            ]
+    });
 
     res.json( zonasregiones );
 }

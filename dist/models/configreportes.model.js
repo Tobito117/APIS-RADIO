@@ -38,8 +38,14 @@ const ConfigReportes = connection_1.default.define('configreportes', {
     logoc4: {
         type: sequelize_1.DataTypes.STRING
     },
+    fk_logo_c4: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
     logo_ssypc: {
         type: sequelize_1.DataTypes.STRING
+    },
+    fk_logo_ssypc: {
+        type: sequelize_1.DataTypes.INTEGER
     },
     fk_revisor: {
         type: sequelize_1.DataTypes.INTEGER

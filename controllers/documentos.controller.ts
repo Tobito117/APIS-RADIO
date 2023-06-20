@@ -15,6 +15,32 @@ export const getDocumentos = async (req: Request, res: Response) => {
 
     res.json({ documentos });
 }
+export const getDocumentosTipoIne = async (req: Request, res: Response) => {
+
+    //const documentos = await Documentos.findAll({
+    //    
+    //});
+    const documentos: any = await Documentos.sequelize?.query("SELECT iddocumentos FROM documentos WHERE tipoDoc ='ine' ORDER BY iddocumentos DESC LIMIT 1", {
+        replacements: [],
+        model: Documentos,
+        mapToModel: true
+    });
+
+    res.json({ documentos });
+}
+export const getDocumentosTipoCuip = async (req: Request, res: Response) => {
+
+    //const documentos = await Documentos.findAll({
+    //    
+    //});
+    const documentos: any = await Documentos.sequelize?.query("SELECT iddocumentos FROM documentos WHERE tipoDoc ='cuip' ORDER BY iddocumentos DESC LIMIT 1", {
+        replacements: [],
+        model: Documentos,
+        mapToModel: true
+    });
+
+    res.json({ documentos });
+}
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getDocumentosById = async (req: Request, res: Response) => {
@@ -220,15 +246,18 @@ export const updateEstatusDocumentos = async (req: Request, res: Response) => {
 
 //Cargar Archivo 
 export const postDocumentos = async (req: Request, res: Response) => {
-
+    const { body } = req;
+    console.log(body);
     try {
 
         //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
         const nombre = await subirArchivo(req, req.files, undefined, 'imgs');
         console.log(nombre);
+        
 
         const prueba: any = {
              nombre: nombre,
+             tipoDoc:"logo",
              estatus: true
         }
 
@@ -243,6 +272,58 @@ export const postDocumentos = async (req: Request, res: Response) => {
     }
 
 
+
+}
+export const postDocumentosIne = async (req: Request, res: Response) => {
+    const { body } = req;
+    console.log(body);
+    try {
+
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
+        const nombre = await subirArchivo(req, req.files, undefined, 'imgs');
+        console.log(nombre);
+        console.log(req.body);
+        const prueba: any = {
+             nombre: nombre,
+             tipoDoc:"ine",
+             estatus: true
+        }
+
+        const documentos = await Documentos.create(prueba);
+        await documentos.save();
+        
+        res.json(documentos);
+        
+
+    } catch (msg) {
+        res.status(400).json({ msg });
+    }
+
+}
+export const postDocumentosCuip = async (req: Request, res: Response) => {
+    const { body } = req;
+    console.log(body);
+    console.log(req);
+    try {
+
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
+        const nombre = await subirArchivo(req, req.files, undefined, 'imgs');
+        console.log(nombre);
+
+        const prueba: any = {
+             nombre: nombre,
+             tipoDoc:"cuip",
+             estatus: true
+        }
+
+        const documentos = await Documentos.create(prueba);
+        await documentos.save();
+
+        res.json(documentos);
+
+    } catch (msg) {
+        res.status(400).json({ msg });
+    }
 
 }
 

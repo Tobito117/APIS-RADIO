@@ -4,7 +4,23 @@ import Roles from '../models/roles.model';
 //Función para obtener todos los elementos de una tabla
 export const getRoles = async( req: Request , res: Response ) => {
 
-    const roles = await Roles.findAll();
+    const roles = await Roles.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idrol', 'DESC'],
+            ]
+    });
+
+    res.json(roles);
+}
+//Función para obtener todos los elementos de una tabla por estatus
+export const getRolesEstatus = async( req: Request , res: Response ) => {
+
+    const roles = await Roles.findAll({
+        where: {
+            estatus: true
+        }
+    });
 
     res.json(roles);
 }
@@ -113,7 +129,6 @@ export const deleteTipos = async( req: Request , res: Response ) => {
        else
        {
            return res.status(400).json({
-               
                success: false,
                message: 'El valor del estatus no es valido (true o false)'
            })

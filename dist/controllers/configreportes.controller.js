@@ -18,7 +18,7 @@ const configreportes_model_1 = __importDefault(require("../models/configreportes
 const getConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const configreportes = yield ((_a = configreportes_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT configreportes.idconfigReportes, configreportes.encabezado_carta, configreportes.articulo1, configreportes.articulo2, configreportes.articulo3,  " +
-        "    configreportes.articulo4, configreportes.articulo5, configreportes.articulo6, configreportes.articulo7, configreportes.logoc4, configreportes.logo_ssypc, " +
+        "    configreportes.articulo4, configreportes.articulo5, configreportes.articulo6, configreportes.articulo7, configreportes.logoc4, configreportes.logo_ssypc,configreportes.fk_logo_c4,configreportes.fk_logo_ssypc, " +
         "    configreportes.fk_revisor, CONCAT(revisores.nombre, ' ' , revisores.apellido_pat, ' ' , revisores.apellido_mat) AS nombre_revisor, " +
         "    revisores.nombre, revisores.apellido_pat, revisores.apellido_mat, " +
         "    configreportes.fk_responsable_entrega, CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable, " +
@@ -39,40 +39,42 @@ const getConfigReportesByStatus = (req, res) => __awaiter(void 0, void 0, void 0
     var _b;
     const configreportes = yield ((_b = configreportes_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT configreportes.idconfigReportes, 
         configreportes.encabezado_carta, 
-        configreportes.articulo1, 
-        configreportes.articulo2, 
-        configreportes.articulo3,  
-        configreportes.articulo4, 
-        configreportes.articulo5, 
-        configreportes.articulo6, 
-        configreportes.articulo7, 
-        configreportes.logoc4 , 
-        configreportes.logo_ssypc, 
-        configreportes.fk_revisor, 
-        CONCAT(revisores.nombre, ' ' , revisores.apellido_pat, ' ' , revisores.apellido_mat) AS nombre_revisor, 
-        revisores.nombre, 
-        revisores.apellido_pat, 
-        revisores.apellido_mat, 
-        puestosRevisores.nombre AS nombrePuestoRevisor,  
-        configreportes.fk_responsable_entrega, 
-        CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable, 
-        responsables.idusuarios AS idRes, 
-        responsables.nombre AS nombreRes, 
-        responsables.apellido_pat AS appatRes, 
-        responsables.apellido_mat AS apmatRes, 
+        configreportes.articulo1,
+        configreportes.articulo2,
+        configreportes.articulo3,
+        configreportes.articulo4,
+        configreportes.articulo5,
+        configreportes.articulo6,
+        configreportes.articulo7,
+        configreportes.logoc4 ,
+        configreportes.fk_logo_c4,
+        configreportes.logo_ssypc,
+        configreportes.fk_logo_ssypc,
+        configreportes.fk_revisor,
+        CONCAT(revisores.nombre, ' ' , revisores.apellido_pat, ' ' , revisores.apellido_mat) AS nombre_revisor,
+        revisores.nombre,
+        revisores.apellido_pat,
+        revisores.apellido_mat,
+        puestosRevisores.nombre AS nombrePuestoRevisor,
+        configreportes.fk_responsable_entrega,
+        CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable,
+        responsables.idusuarios AS idRes,
+        responsables.nombre AS nombreRes,
+        responsables.apellido_pat AS appatRes,
+        responsables.apellido_mat AS apmatRes,
         puestosResponsables.nombre AS nombrePuestoRes,
-        configreportes.ccp_carta, 
-        configreportes.fecha_inicial, 
-        configreportes.fecha_final, 
-        configreportes.estatus, 
-        configreportes.createdAt, 
-        configreportes.updatedAt 
-    FROM configreportes 
-    LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios 
+        configreportes.ccp_carta,
+        configreportes.fecha_inicial,
+        configreportes.fecha_final,
+        configreportes.estatus,
+        configreportes.createdAt,
+        configreportes.updatedAt
+    FROM configreportes
+    LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios
     INNER JOIN puestos AS puestosRevisores ON revisores.fk_puesto = puestosRevisores.idpuesto
-    LEFT JOIN usuarios AS responsables ON configreportes.fk_responsable_entrega = responsables.idusuarios 
-    INNER JOIN puestos AS puestosResponsables ON responsables.fk_puesto = puestosResponsables.idpuesto 
-    WHERE configreportes.estatus = true 
+    LEFT JOIN usuarios AS responsables ON configreportes.fk_responsable_entrega = responsables.idusuarios
+    INNER JOIN puestos AS puestosResponsables ON responsables.fk_puesto = puestosResponsables.idpuesto
+    WHERE configreportes.estatus = true
     ORDER BY configreportes.idconfigReportes DESC`, {
         replacements: [],
         model: configreportes_model_1.default,

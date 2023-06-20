@@ -12,13 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusPuestos = exports.deletePuestos = exports.putPuestos = exports.postPuestos = exports.getPuestosById = exports.getPuestos = void 0;
+exports.updateEstatusPuestos = exports.deletePuestos = exports.putPuestos = exports.postPuestos = exports.getPuestosById = exports.getPuestosEstatus = exports.getPuestos = void 0;
 const puestos_model_1 = __importDefault(require("../models/puestos.model"));
 //Función para obtener todos los elementos de una tabla
 const getPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-    const puestos = yield ((_a = puestos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT puestos.idpuesto, puestos.nombre,puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones", {
+    const puestos = yield ((_a = puestos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT puestos.idpuesto, puestos.nombre,puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones ORDER BY puestos.idpuesto DESC", {
         replacements: [],
         model: puestos_model_1.default,
         mapToModel: true
@@ -26,12 +26,24 @@ const getPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.json(puestos);
 });
 exports.getPuestos = getPuestos;
+//Función para obtener todos los elementos de una tabla por estatus
+const getPuestosEstatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
+    const puestos = yield ((_b = puestos_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT puestos.idpuesto, puestos.nombre,puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones WHERE puestos.estatus = 1 ", {
+        replacements: [],
+        model: puestos_model_1.default,
+        mapToModel: true
+    }));
+    res.json(puestos);
+});
+exports.getPuestosEstatus = getPuestosEstatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getPuestosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+    var _c;
     const { id } = req.params;
     //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-    const puestos = yield ((_b = puestos_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT puestos.idpuesto, puestos.nombre, corporaciones.nombreCorporacion, puestos.estatus FROM puestos INNER JOIN corporaciones ON puestos.idpuesto = corporaciones.idcorporaciones where idpuesto = ?", {
+    const puestos = yield ((_c = puestos_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query("SELECT puestos.idpuesto, puestos.nombre, corporaciones.nombreCorporacion, puestos.estatus FROM puestos INNER JOIN corporaciones ON puestos.idpuesto = corporaciones.idcorporaciones where idpuesto = ?", {
         replacements: [id],
         model: puestos_model_1.default,
         mapToModel: true

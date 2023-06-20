@@ -24,7 +24,7 @@ const getVehiculos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         "vehiculos.fk_zonaregion, zonasregiones.idzonasregiones, zonasregiones.nombreZonasRegiones, vehiculos.unidad, vehiculos.tipo " +
         "FROM vehiculos " +
         "LEFT JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas " +
-        "LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones ", {
+        "LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones ORDER BY vehiculos.idvehiculo DESC", {
         replacements: [],
         model: vehiculos_model_1.default,
         mapToModel: true

@@ -3,7 +3,7 @@ import fileUpload from 'express-fileupload';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-export const subirArchivo = async ( req: Request, files: any, extensionesValidas = ['png', 'jpg', 'jpeg', 'gif', 'docx', 'xlsx', 'pdf', 'txt'], carpeta = ''  ) => {
+export const subirArchivo = async ( req: Request, files: any, extensionesValidas = ['PNG','png', 'jpg', 'jpeg', 'gif', 'docx', 'xlsx', 'pdf', 'txt'], carpeta = ''  ) => {
 
     return new Promise((resolve, reject,  ) => {
         

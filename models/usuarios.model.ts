@@ -4,7 +4,8 @@ import db from '../db/connection';
 const Usuarios = db.define('usuarios', {
     idusuarios: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
       },
     nombre: {
         type: DataTypes.STRING
@@ -27,8 +28,14 @@ const Usuarios = db.define('usuarios', {
     imagen_ine: {
         type: DataTypes.STRING
     },
+    fk_documento_ine: {
+        type: DataTypes.INTEGER
+    },
     imagen_cuip: {
         type: DataTypes.STRING
+    },
+    fk_documento_cuip: {
+        type: DataTypes.INTEGER
     },
     titulo: {
         type: DataTypes.STRING

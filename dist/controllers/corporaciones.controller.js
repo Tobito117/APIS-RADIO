@@ -12,14 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusCorporaciones = exports.deleteCorporaciones = exports.putCorporaciones = exports.postCorporaciones = exports.getCorporacionesById = exports.getCorporaciones = void 0;
+exports.updateEstatusCorporaciones = exports.deleteCorporaciones = exports.putCorporaciones = exports.postCorporaciones = exports.getCorporacionesById = exports.getCorporacionesEstatus = exports.getCorporaciones = void 0;
 const corporaciones_model_1 = __importDefault(require("../models/corporaciones.model"));
 //Función para obtener todos los elementos de una tabla
 const getCorporaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const corporaciones = yield corporaciones_model_1.default.findAll();
+    const corporaciones = yield corporaciones_model_1.default.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idcorporaciones', 'DESC'],
+        ]
+    });
     res.json(corporaciones);
 });
 exports.getCorporaciones = getCorporaciones;
+const getCorporacionesEstatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const corporaciones = yield corporaciones_model_1.default.findAll({
+        where: {
+            estatus: true
+        }
+    });
+    res.json(corporaciones);
+});
+exports.getCorporacionesEstatus = getCorporacionesEstatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getCorporacionesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

@@ -297,7 +297,8 @@ export const postAsig_Usuarios = async( req: Request , res: Response ) => {
         
     } catch (error) {
         res.status(500).json({
-            msg: 'Hable con el Administrador'
+            msg: 'Hable con el Administrador',
+            errores:error
         })
     }
 }

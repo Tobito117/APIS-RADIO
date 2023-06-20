@@ -4,7 +4,22 @@ import Corporaciones from '../models/corporaciones.model';
 //Función para obtener todos los elementos de una tabla
 export const getCorporaciones = async( req: Request , res: Response ) => {
 
-    const corporaciones = await Corporaciones.findAll();
+    const corporaciones = await Corporaciones.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idcorporaciones', 'DESC'],
+            ]
+    });
+
+    res.json( corporaciones );
+}
+export const getCorporacionesEstatus = async( req: Request , res: Response ) => {
+
+    const corporaciones = await Corporaciones.findAll({
+        where: {
+            estatus: true
+        }
+    });
 
     res.json( corporaciones );
 }

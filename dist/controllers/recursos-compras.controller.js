@@ -12,14 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusRecursosCompras = exports.deleteRecursosCompras = exports.putRecursosCompras = exports.postRecursosCompras = exports.getRecursosComprasById = exports.getRecursosCompras = void 0;
+exports.updateEstatusRecursosCompras = exports.deleteRecursosCompras = exports.putRecursosCompras = exports.postRecursosCompras = exports.getRecursosComprasById = exports.getRecursosComprasEstatus = exports.getRecursosCompras = void 0;
 const recursos_compras_model_1 = __importDefault(require("../models/recursos-compras.model"));
 //Función para obtener todos los elementos de una tabla
 const getRecursosCompras = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const recursoscompras = yield recursos_compras_model_1.default.findAll();
+    const recursoscompras = yield recursos_compras_model_1.default.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idrecursoCompras', 'DESC'],
+        ]
+    });
     res.json(recursoscompras);
 });
 exports.getRecursosCompras = getRecursosCompras;
+//Función para obtener todos los elementos de una tabla por estatus
+const getRecursosComprasEstatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const recursoscompras = yield recursos_compras_model_1.default.findAll({
+        where: {
+            estatus: true
+        }
+    });
+    res.json(recursoscompras);
+});
+exports.getRecursosComprasEstatus = getRecursosComprasEstatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getRecursosComprasById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

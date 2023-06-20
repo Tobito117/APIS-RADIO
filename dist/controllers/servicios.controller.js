@@ -16,7 +16,12 @@ exports.updateEstatusServicios = exports.deleteServicios = exports.putServicios 
 const servicios_model_1 = __importDefault(require("../models/servicios.model"));
 //Función para obtener todos los elementos de una tabla
 const getServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const servicios = yield servicios_model_1.default.findAll();
+    const servicios = yield servicios_model_1.default.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idservicios', 'DESC'],
+        ]
+    });
     res.json(servicios);
 });
 exports.getServicios = getServicios;

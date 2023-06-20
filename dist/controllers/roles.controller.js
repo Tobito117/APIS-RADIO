@@ -12,14 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusRoles = exports.deleteTipos = exports.putRoles = exports.postRoles = exports.getRolesById = exports.getRoles = void 0;
+exports.updateEstatusRoles = exports.deleteTipos = exports.putRoles = exports.postRoles = exports.getRolesById = exports.getRolesEstatus = exports.getRoles = void 0;
 const roles_model_1 = __importDefault(require("../models/roles.model"));
 //Función para obtener todos los elementos de una tabla
 const getRoles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const roles = yield roles_model_1.default.findAll();
+    const roles = yield roles_model_1.default.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idrol', 'DESC'],
+        ]
+    });
     res.json(roles);
 });
 exports.getRoles = getRoles;
+//Función para obtener todos los elementos de una tabla por estatus
+const getRolesEstatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const roles = yield roles_model_1.default.findAll({
+        where: {
+            estatus: true
+        }
+    });
+    res.json(roles);
+});
+exports.getRolesEstatus = getRolesEstatus;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getRolesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

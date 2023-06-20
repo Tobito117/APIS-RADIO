@@ -8,7 +8,7 @@ export const getUsuarios = async( req: Request , res: Response ) => {
 //    const usuarios = await User.findAll();
 //
 //    res.json( usuarios ); 
-const usuarios: any = await User.sequelize?.query("SELECT  users.idusers, users.username, users.password, users.email,users.roles_idrol, roles.rol, users.estatus,users.createdAt, users.updatedAt FROM users INNER JOIN roles ON users.roles_idrol = roles.idrol", {
+const usuarios: any = await User.sequelize?.query("SELECT  users.idusers, users.username, users.password, users.email,users.roles_idrol, roles.rol, users.estatus,users.createdAt, users.updatedAt FROM users INNER JOIN roles ON users.roles_idrol = roles.idrol ORDER BY users.idusers DESC", {
     replacements: [],
     model: User,
     mapToModel: true
@@ -329,6 +329,7 @@ export const validarUsuarioPrueba = async ( req: Request, res: Response) => {
         ok: true,
         idusers:existeUsuario.dataValues.idusers,
         username:existeUsuario.dataValues.username,
+        rol:existeUsuario.dataValues.roles_idrol,
         token
     })
 }

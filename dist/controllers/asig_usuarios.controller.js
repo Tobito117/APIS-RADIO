@@ -296,7 +296,8 @@ const postAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     catch (error) {
         res.status(500).json({
-            msg: 'Hable con el Administrador'
+            msg: 'Hable con el Administrador',
+            errores: error
         });
     }
 });

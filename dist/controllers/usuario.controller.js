@@ -21,7 +21,7 @@ const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     //    const usuarios = await User.findAll();
     //
     //    res.json( usuarios ); 
-    const usuarios = yield ((_a = usuario_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  users.idusers, users.username, users.password, users.email,users.roles_idrol, roles.rol, users.estatus,users.createdAt, users.updatedAt FROM users INNER JOIN roles ON users.roles_idrol = roles.idrol", {
+    const usuarios = yield ((_a = usuario_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT  users.idusers, users.username, users.password, users.email,users.roles_idrol, roles.rol, users.estatus,users.createdAt, users.updatedAt FROM users INNER JOIN roles ON users.roles_idrol = roles.idrol ORDER BY users.idusers DESC", {
         replacements: [],
         model: usuario_model_1.default,
         mapToModel: true
@@ -270,6 +270,7 @@ const revalidarToken = (req, res) => __awaiter(void 0, void 0, void 0, function*
         ok: true,
         idusers: existeUsuario.dataValues.idusers,
         username: existeUsuario.dataValues.username,
+        rol: existeUsuario.dataValues.roles_idrol,
         token
     });
 });

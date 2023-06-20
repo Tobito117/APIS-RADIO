@@ -34,8 +34,14 @@ const ConfigReportes = db.define('configreportes', {
     logoc4: {
         type: DataTypes.STRING
       },
+      fk_logo_c4: {
+        type: DataTypes.INTEGER
+    },
     logo_ssypc: {
         type: DataTypes.STRING
+    },
+    fk_logo_ssypc: {
+        type: DataTypes.INTEGER
     },
     fk_revisor: {
         type: DataTypes.INTEGER

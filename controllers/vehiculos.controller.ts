@@ -12,7 +12,7 @@ const vehiculos: any = await Vehiculos.sequelize?.query(
    "vehiculos.fk_zonaregion, zonasregiones.idzonasregiones, zonasregiones.nombreZonasRegiones, vehiculos.unidad, vehiculos.tipo " +
    "FROM vehiculos " +
    "LEFT JOIN marcas ON vehiculos.marcas_idmarcas = marcas.idmarcas " +
-   "LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones ",
+   "LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones ORDER BY vehiculos.idvehiculo DESC",
 {
     replacements: [],
     model: Vehiculos,

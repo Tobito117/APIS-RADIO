@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mostrarImange = exports.postDocumentos = exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.getDocumentosById = exports.getDocumentos = void 0;
+exports.mostrarImange = exports.postDocumentosCuip = exports.postDocumentosIne = exports.postDocumentos = exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.getDocumentosById = exports.getDocumentosTipoCuip = exports.getDocumentosTipoIne = exports.getDocumentos = void 0;
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const documentos_model_1 = __importDefault(require("../models/documentos.model"));
@@ -23,6 +23,32 @@ const getDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     res.json({ documentos });
 });
 exports.getDocumentos = getDocumentos;
+const getDocumentosTipoIne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    //const documentos = await Documentos.findAll({
+    //    
+    //});
+    const documentos = yield ((_a = documentos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT iddocumentos FROM documentos WHERE tipoDoc ='ine' ORDER BY iddocumentos DESC LIMIT 1", {
+        replacements: [],
+        model: documentos_model_1.default,
+        mapToModel: true
+    }));
+    res.json({ documentos });
+});
+exports.getDocumentosTipoIne = getDocumentosTipoIne;
+const getDocumentosTipoCuip = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    //const documentos = await Documentos.findAll({
+    //    
+    //});
+    const documentos = yield ((_b = documentos_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT iddocumentos FROM documentos WHERE tipoDoc ='cuip' ORDER BY iddocumentos DESC LIMIT 1", {
+        replacements: [],
+        model: documentos_model_1.default,
+        mapToModel: true
+    }));
+    res.json({ documentos });
+});
+exports.getDocumentosTipoCuip = getDocumentosTipoCuip;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getDocumentosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -183,12 +209,15 @@ const updateEstatusDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, 
 exports.updateEstatusDocumentos = updateEstatusDocumentos;
 //Cargar Archivo 
 const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    console.log(body);
     try {
         //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
         const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'imgs');
         console.log(nombre);
         const prueba = {
             nombre: nombre,
+            tipoDoc: "logo",
             estatus: true
         };
         const documentos = yield documentos_model_1.default.create(prueba);
@@ -200,6 +229,50 @@ const postDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.postDocumentos = postDocumentos;
+const postDocumentosIne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    console.log(body);
+    try {
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
+        const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'imgs');
+        console.log(nombre);
+        console.log(req.body);
+        const prueba = {
+            nombre: nombre,
+            tipoDoc: "ine",
+            estatus: true
+        };
+        const documentos = yield documentos_model_1.default.create(prueba);
+        yield documentos.save();
+        res.json(documentos);
+    }
+    catch (msg) {
+        res.status(400).json({ msg });
+    }
+});
+exports.postDocumentosIne = postDocumentosIne;
+const postDocumentosCuip = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    console.log(body);
+    console.log(req);
+    try {
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
+        const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'imgs');
+        console.log(nombre);
+        const prueba = {
+            nombre: nombre,
+            tipoDoc: "cuip",
+            estatus: true
+        };
+        const documentos = yield documentos_model_1.default.create(prueba);
+        yield documentos.save();
+        res.json(documentos);
+    }
+    catch (msg) {
+        res.status(400).json({ msg });
+    }
+});
+exports.postDocumentosCuip = postDocumentosCuip;
 //Cargar Archivo 
 const mostrarImange = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, coleccion } = req.params;

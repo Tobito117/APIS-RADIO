@@ -8,7 +8,8 @@ const connection_1 = __importDefault(require("../db/connection"));
 const Documentos = connection_1.default.define('documentos', {
     iddocumentos: {
         type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     fecha_carga: {
         type: sequelize_1.DataTypes.DATE
@@ -31,6 +32,9 @@ const Documentos = connection_1.default.define('documentos', {
     // descripcion: {
     //     type: DataTypes.STRING
     // },
+    tipoDoc: {
+        type: sequelize_1.DataTypes.STRING
+    },
     estatus: {
         type: sequelize_1.DataTypes.BOOLEAN
     },

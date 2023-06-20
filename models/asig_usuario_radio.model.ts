@@ -14,13 +14,16 @@ const Asig_Usuarios = db.define('asignaciones', {
         type: DataTypes.INTEGER
     },
     fk_accesorio_cargador: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
     fk_accesorio_bateria: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
     fk_accesorio_gps: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
     funda: {
         type: DataTypes.BOOLEAN
@@ -53,7 +56,8 @@ const Asig_Usuarios = db.define('asignaciones', {
         type: DataTypes.BOOLEAN
     },
     fk_vehiculo: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
     rfsi: {
         type: DataTypes.STRING

@@ -8,7 +8,7 @@ export const getUsuarios = async( req: Request , res: Response ) => {
     const usuarios: any = await Usuarios.sequelize?.query(
         `SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
             usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
-            usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
+            usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.fk_documento_ine, usuarios.fk_documento_cuip,usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
         FROM usuarios
         LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
         LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
@@ -19,12 +19,26 @@ export const getUsuarios = async( req: Request , res: Response ) => {
             mapToModel: true
         }
         );
-    res.json( usuarios);
+    res.json( usuarios); 
 }
 export const getUsuariosIdNombre = async( req: Request , res: Response ) => {
 
     const usuarios: any = await Usuarios.sequelize?.query(
       "SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios" , 
+      {
+        replacements: [],
+        model: Usuarios,
+        mapToModel: true
+    }
+    );
+
+    res.json( usuarios);
+    console.log(usuarios)
+}
+export const getMaxUsuario = async( req: Request , res: Response ) => {
+
+    const usuarios: any = await Usuarios.sequelize?.query(
+      "SELECT MAX(idusuarios) FROM usuarios" , 
       {
         replacements: [],
         model: Usuarios,
@@ -112,7 +126,7 @@ export const postUsuario = async( req: Request , res: Response ) => {
         //         msg: 'Ya existe un usuario con el email ' + body.email
         //     });
         // }
-
+console.log(body)
         const usuario = await Usuarios.create(body);
         await usuario.save();
 
@@ -139,7 +153,7 @@ export const putUsuario = async( req: Request , res: Response ) => {
                 msg: 'No existe un usuario con el id ' + id
             })
         }
-
+        console.log(body)
         await usuario.update ( body );
         res.json( usuario );
         

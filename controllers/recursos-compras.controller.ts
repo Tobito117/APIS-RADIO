@@ -4,7 +4,23 @@ import RecursosCompras from '../models/recursos-compras.model';
 //Función para obtener todos los elementos de una tabla
 export const getRecursosCompras = async( req: Request , res: Response ) => {
 
-    const recursoscompras = await RecursosCompras.findAll();
+    const recursoscompras = await RecursosCompras.findAll({
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idrecursoCompras', 'DESC'],
+            ]
+    });
+
+    res.json( recursoscompras );
+}
+//Función para obtener todos los elementos de una tabla por estatus
+export const getRecursosComprasEstatus = async( req: Request , res: Response ) => {
+
+    const recursoscompras = await RecursosCompras.findAll({
+        where: {
+            estatus: true
+        }
+    });
 
     res.json( recursoscompras );
 }
