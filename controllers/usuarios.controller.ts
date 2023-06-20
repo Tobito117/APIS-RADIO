@@ -21,6 +21,7 @@ export const getUsuarios = async( req: Request , res: Response ) => {
         );
     res.json( usuarios); 
 }
+
 export const getUsuariosIdNombre = async( req: Request , res: Response ) => {
 
     const usuarios: any = await Usuarios.sequelize?.query(
@@ -50,6 +51,28 @@ export const getMaxUsuario = async( req: Request , res: Response ) => {
     console.log(usuarios)
 }
 
+export const getUsuariosIdCorporacion = async( req: Request , res: Response ) => {
+    const { id } = req.params;
+    const usuarios: any = await Usuarios.sequelize?.query(
+    `SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
+		CONCAT (usuarios.nombre, " ", usuarios.apellido_pat, " ", usuarios.apellido_mat ) AS nombre_completo,
+		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
+		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
+    FROM usuarios
+    LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+    LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+    WHERE usuarios.estatus=1 AND corporaciones.idcorporaciones = ${id}
+    ORDER BY usuarios.idusuarios DESC`,
+    {
+        replacements: [],
+        model: Usuarios,
+        mapToModel: true
+    }
+    );
+
+    res.json( usuarios);
+}
+
 export const getUsuariosIdCorporacion2 = async( req: Request , res: Response ) => {
     const { id } = req.params;
     const usuarios: any = await Usuarios.sequelize?.query(
@@ -70,11 +93,11 @@ export const getUsuariosIdCorporacion2 = async( req: Request , res: Response ) =
 
     res.json( usuarios);
 }
-export const getUsuariosIdCorporacion = async( req: Request , res: Response ) => {
+
+export const getUsuariosIdCorporacion3 = async( req: Request , res: Response ) => {
     const { id } = req.params;
     const usuarios: any = await Usuarios.sequelize?.query(
-    `SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
-		CONCAT (usuarios.nombre, " ", usuarios.apellido_pat, " ", usuarios.apellido_mat ) AS nombre_completo,
+    `SELECT usuarios.idusuarios AS idSup, usuarios.nombre AS nombreSup, usuarios.apellido_pat AS appatSup, usuarios.apellido_mat AS apmatSup,
 		usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
 		usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
     FROM usuarios

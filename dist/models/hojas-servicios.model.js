@@ -20,8 +20,8 @@ const HojasServicios = connection_1.default.define('hojaservicios', {
     fk_idservicios: {
         type: sequelize_1.DataTypes.INTEGER
     },
-    fk_idaccesorios: {
-        type: sequelize_1.DataTypes.INTEGER
+    servicios: {
+        type: sequelize_1.DataTypes.STRING
     },
     descripcion: {
         type: sequelize_1.DataTypes.STRING

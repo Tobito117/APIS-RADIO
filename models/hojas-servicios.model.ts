@@ -16,8 +16,8 @@ const HojasServicios = db.define('hojaservicios', {
     fk_idservicios: {
         type: DataTypes.INTEGER
       },
-    fk_idaccesorios: {
-        type: DataTypes.INTEGER
+      servicios: {
+        type: DataTypes.STRING
       },
     descripcion: {
         type: DataTypes.STRING
