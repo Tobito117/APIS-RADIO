@@ -191,6 +191,7 @@ export const getAsignacionPorRfsi= async( req: Request , res: Response ) => {
         radios.tipo, 
         radios.serie, 
         radios.inventario_interno, 
+        radios.inventario_segpub, 
         radios.serie AS serie_radio, 
         vehiculos.idvehiculo, 
         vehiculos.placa, 

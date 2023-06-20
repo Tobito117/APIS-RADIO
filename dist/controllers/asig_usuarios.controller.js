@@ -202,6 +202,7 @@ const getAsignacionPorRfsi = (req, res) => __awaiter(void 0, void 0, void 0, fun
         radios.tipo, 
         radios.serie, 
         radios.inventario_interno, 
+        radios.inventario_segpub, 
         radios.serie AS serie_radio, 
         vehiculos.idvehiculo, 
         vehiculos.placa, 
