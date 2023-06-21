@@ -13,6 +13,8 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             usuarios.nombre, 
             usuarios.apellido_pat,
             usuarios.apellido_mat,
+            corporaciones.nombreCorporacion,
+            puestos.nombre AS nombrePuesto,
             radios.idradios,  
             radios.serie, 
             radios.tipo, 
@@ -28,6 +30,8 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             gps.idaccesorios AS idgps,
             gps.serie_gps,
             gps.inventario_segpub AS inventario_segpub_gps, 
+            vehiculos.unidad,
+            zonasregiones.nombreZonasRegiones,
             hojaservicios.descripcion, 
             hojaservicios.entrego_equipo, 
             hojaservicios.fecha_entrega, 
@@ -49,11 +53,14 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             LEFT JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
             LEFT JOIN usuarios AS supervisortec ON hojaservicios.fk_supervisortec = supervisortec.idusuarios  
             LEFT JOIN usuarios AS tecnicos ON hojaservicios.fk_tecnico_entrega = tecnicos.idusuarios 
+            LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+            LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
             LEFT JOIN radios ON asignaciones.radios_idradios = radios.idradios 
             LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios
             LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios
             LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios
-           
+            LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo
+            LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones
             ORDER BY hojaservicios.idhojaservicios DESC`
         , {
             replacements: [],
