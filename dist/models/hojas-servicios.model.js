@@ -17,9 +17,6 @@ const HojasServicios = connection_1.default.define('hojaservicios', {
     fk_idasignacion_ur: {
         type: sequelize_1.DataTypes.INTEGER
     },
-    fk_idservicios: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
     servicios: {
         type: sequelize_1.DataTypes.STRING
     },
@@ -30,7 +27,7 @@ const HojasServicios = connection_1.default.define('hojaservicios', {
         type: sequelize_1.DataTypes.BOOLEAN
     },
     fecha_entrega: {
-        type: sequelize_1.DataTypes.DATE
+        type: sequelize_1.DataTypes.DATE(6)
     },
     fk_supervisortec: {
         type: sequelize_1.DataTypes.INTEGER

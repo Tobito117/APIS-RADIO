@@ -13,9 +13,6 @@ const HojasServicios = db.define('hojaservicios', {
     fk_idasignacion_ur: {
         type: DataTypes.INTEGER
       },
-    fk_idservicios: {
-        type: DataTypes.INTEGER
-      },
       servicios: {
         type: DataTypes.STRING
       },
@@ -26,7 +23,7 @@ const HojasServicios = db.define('hojaservicios', {
         type: DataTypes.BOOLEAN
       },
     fecha_entrega: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE(6)
       },
     fk_supervisortec: {
         type: DataTypes.INTEGER

@@ -391,7 +391,7 @@ export const actualizarSueRadio =async (req:Request, res: Response) => {
     try {
 
         const sueRadio : any = await Radios.findByPk(id);
-       await sueRadio.update({ fk_sue: 7, fecha_asignacion:new Date() })
+       await sueRadio.update({ situacion: "Asignado", fecha_asignacion:new Date() })
         res.json( sueRadio);
         
     } catch (error) {
