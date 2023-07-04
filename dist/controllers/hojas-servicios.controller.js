@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusHojasServicios = exports.deleteHojasServicios = exports.putHojasServicios = exports.postHojasServicios = exports.getHojasServiciosById = exports.getHojasServicios = void 0;
+exports.updateEstatusHojasServicios = exports.deleteHojasServicios = exports.putHojasServicios = exports.postHojasServicios = exports.getHojasServiciosById = exports.getHojasServiciosUltimo = exports.getHojasServicios = void 0;
 const hojas_servicios_model_1 = __importDefault(require("../models/hojas-servicios.model"));
 //Función para obtener todos los elementos de una tabla
 const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -45,6 +45,7 @@ const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
             vehiculos.unidad,
             zonasregiones.nombreZonasRegiones,
             hojaservicios.descripcion, 
+            hojaservicios.folio, 
             hojaservicios.entrego_equipo, 
             hojaservicios.fecha_entrega, 
             hojaservicios.fk_supervisortec, 
@@ -81,6 +82,26 @@ const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
     res.json(hojasservicios);
 });
 exports.getHojasServicios = getHojasServicios;
+const getHojasServiciosUltimo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //    const hojasservicios = await HojasServicios.findAll();
+    //    res.json( hojasservicios );
+    //const hojasservicios: any = await HojasServicios.sequelize?.query(
+    //    `SELECT folio, createdAt FROM hojaservicios ORDER BY idhojaservicios DESC LIMIT 1`
+    //    , {
+    //        replacements: [],
+    //        model: HojasServicios,
+    //        mapToModel: true
+    //});
+    const hojasservicios = yield hojas_servicios_model_1.default.findOne({
+        attributes: ['folio', 'createdAt'],
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idhojaservicios', 'DESC'],
+        ]
+    });
+    res.json(hojasservicios);
+});
+exports.getHojasServiciosUltimo = getHojasServiciosUltimo;
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 const getHojasServiciosById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

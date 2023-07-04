@@ -20,6 +20,9 @@ const HojasServicios = connection_1.default.define('hojaservicios', {
     servicios: {
         type: sequelize_1.DataTypes.STRING
     },
+    folio: {
+        type: sequelize_1.DataTypes.STRING
+    },
     descripcion: {
         type: sequelize_1.DataTypes.STRING
     },

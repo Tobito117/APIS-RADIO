@@ -16,6 +16,9 @@ const HojasServicios = db.define('hojaservicios', {
       servicios: {
         type: DataTypes.STRING
       },
+      folio: {
+        type: DataTypes.STRING
+      },
     descripcion: {
         type: DataTypes.STRING
       },

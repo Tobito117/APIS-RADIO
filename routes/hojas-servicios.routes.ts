@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { getHojasServicios, getHojasServiciosById, postHojasServicios, putHojasServicios, deleteHojasServicios, updateEstatusHojasServicios  } from "../controllers/hojas-servicios.controller";
+import { getHojasServicios, getHojasServiciosById, postHojasServicios, putHojasServicios, deleteHojasServicios, updateEstatusHojasServicios, getHojasServiciosUltimo  } from "../controllers/hojas-servicios.controller";
 import { esAdminRole } from "../middlewares/validar-role";
 import { validarJWT } from "../middlewares/validar-jwt";
 
 const router = Router();
 
  router.get('/',           getHojasServicios   );
+ router.get('/ultimo/',    getHojasServiciosUltimo   );
  router.get('/:id',        getHojasServiciosById   );
  router.post('/',          [validarJWT,esAdminRole],postHojasServicios   );
  router.put('/:id',        [validarJWT,esAdminRole],putHojasServicios   );

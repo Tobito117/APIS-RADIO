@@ -33,6 +33,7 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             vehiculos.unidad,
             zonasregiones.nombreZonasRegiones,
             hojaservicios.descripcion, 
+            hojaservicios.folio, 
             hojaservicios.entrego_equipo, 
             hojaservicios.fecha_entrega, 
             hojaservicios.fk_supervisortec, 
@@ -66,6 +67,27 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             replacements: [],
             model: HojasServicios,
             mapToModel: true
+    });
+
+    res.json(hojasservicios);
+}
+export const getHojasServiciosUltimo = async( req: Request , res: Response ) => {
+
+//    const hojasservicios = await HojasServicios.findAll();
+//    res.json( hojasservicios );
+    //const hojasservicios: any = await HojasServicios.sequelize?.query(
+    //    `SELECT folio, createdAt FROM hojaservicios ORDER BY idhojaservicios DESC LIMIT 1`
+    //    , {
+    //        replacements: [],
+    //        model: HojasServicios,
+    //        mapToModel: true
+    //});
+    const hojasservicios = await HojasServicios.findOne({
+        attributes: ['folio', 'createdAt'],
+        order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['idhojaservicios', 'DESC'],
+            ]
     });
 
     res.json(hojasservicios);
