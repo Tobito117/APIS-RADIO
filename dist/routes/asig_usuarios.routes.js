@@ -7,6 +7,7 @@ const validar_role_1 = require("../middlewares/validar-role");
 const router = (0, express_1.Router)();
 router.get('/', asig_usuarios_controller_1.getAsig_Usuarios);
 router.get('/usuarios/:nombre', asig_usuarios_controller_1.getAsignacionPorUsuario);
+router.get('/filtrado/listo/', asig_usuarios_controller_1.getAsig);
 router.get('/radio/:rfsi/:usuarioBuscar', asig_usuarios_controller_1.getAsignacionPorRfsi);
 router.get('/:id', asig_usuarios_controller_1.getAsig_UsuariosById);
 router.post('/', [validar_jwt_1.validarJWT, validar_role_1.esAdminRole], asig_usuarios_controller_1.postAsig_Usuarios);
