@@ -19,7 +19,7 @@ const getHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
     var _a;
     //    const hojasservicios = await HojasServicios.findAll();
     //    res.json( hojasservicios );
-    const hojasservicios = yield ((_a = hojas_servicios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT hojaservicios.idhojaservicios, hojaservicios.fecha_servicio, hojaservicios.servicios, hojaservicios.fk_idasignacion_ur,  
+    const hojasservicios = yield ((_a = hojas_servicios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT hojaservicios.idhojaservicios, hojaservicios.folio, hojaservicios.fecha_servicio, hojaservicios.servicios, hojaservicios.fk_idasignacion_ur,  
             asignaciones.idasignacion, 
             CONCAT (usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
             usuarios.nombre, 

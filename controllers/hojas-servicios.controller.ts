@@ -7,7 +7,7 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
 //    const hojasservicios = await HojasServicios.findAll();
 //    res.json( hojasservicios );
     const hojasservicios: any = await HojasServicios.sequelize?.query(
-        `SELECT hojaservicios.idhojaservicios, hojaservicios.fecha_servicio, hojaservicios.servicios, hojaservicios.fk_idasignacion_ur,  
+        `SELECT hojaservicios.idhojaservicios, hojaservicios.folio, hojaservicios.fecha_servicio, hojaservicios.servicios, hojaservicios.fk_idasignacion_ur,  
             asignaciones.idasignacion, 
             CONCAT (usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
             usuarios.nombre, 
