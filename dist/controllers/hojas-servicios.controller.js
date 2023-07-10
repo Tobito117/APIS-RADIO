@@ -165,16 +165,49 @@ const putHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.putHojasServicios = putHojasServicios;
 //Función para borrar un elemento a la tabla de nuestra base de datos asig_usuarios (Solo se dehabilita)
 const deleteHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // const { id } = req.params;
+    // try {
+    //     const hojasservicios = await HojasServicios.findByPk( id );
+    //     if (!hojasservicios){
+    //         return res.status(404).json({
+    //             msg: 'No existe una hoja-servicios con el id ' + id
+    //         })
+    //     }
+    //    // await usuario.destroy (); //se elimina el elemento total de la base de datos
+    //    await hojasservicios.update({ fk_status: 6 });
+    //     res.json( hojasservicios );
+    // } catch (error) {
+    //     console.log(error);
+    //     res.status(500).json({
+    //         msg: 'Hable con el Administrador'
+    //     })
+    // }
     const { id } = req.params;
     try {
         const hojasservicios = yield hojas_servicios_model_1.default.findByPk(id);
         if (!hojasservicios) {
             return res.status(404).json({
-                msg: 'No existe una hoja-servicios con el id ' + id
+                msg: 'No existe un tipo con el id ' + id
             });
         }
-        // await usuario.destroy (); //se elimina el elemento total de la base de datos
-        yield hojasservicios.update({ fk_status: 6 });
+        // await usuario.destroy ();
+        //await tipos.update({ fk_status: 6 });
+        const estado = hojasservicios.estatus;
+        // await usuario.destroy ();
+        //await zonasregiones.update({estatus: 6 });
+        if (estado == true) {
+            //Si el estatus viene con valor 'true' deshabilitada el registro
+            yield hojasservicios.update({ estatus: false });
+        }
+        else if (estado == false) {
+            yield hojasservicios.update({ estatus: true });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'El valor del estatus no es valido (true o false)'
+            });
+        }
         res.json(hojasservicios);
     }
     catch (error) {
