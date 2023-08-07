@@ -7,7 +7,7 @@ export const getRadios = async( req: Request , res: Response ) => {
     //const radios = await Radios.findAll();
 //
     //res.json( radios );
-    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, radios.tipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.fk_marca, marcas.nombreMarcas, radios.fecha_baja, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.situacion, radios.ubicacion, radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas ORDER BY radios.idradios DESC", {
+    const radios: any = await Radios.sequelize?.query("SELECT  radios.idradios, radios.tipo, radios.serie, radios.logico, radios.inventario_interno, radios.inventario_segpub,radios.fk_propietario, corporaciones.nombreCorporacion,radios.fk_recurso_compra, recursocompras.nombreRecursoCompra,radios.contrato_compra, radios.fk_marca, marcas.nombreMarcas,marcas.nombreModelos, radios.fecha_baja, radios.fecha_actualizacion, radios.fecha_asignacion, radios.observaciones, radios.fecha_recepcion,radios.situacion, radios.ubicacion, radios.estatus,radios.createdAt, radios.updatedAt FROM radios INNER JOIN corporaciones ON radios.fk_propietario = corporaciones.idcorporaciones INNER JOIN recursocompras ON radios.fk_recurso_compra = recursocompras.idrecursoCompras INNER JOIN marcas ON radios.fk_marca = marcas.idmarcas ORDER BY radios.idradios DESC", {
         replacements: [],
         model: Radios,
         mapToModel: true
@@ -29,6 +29,7 @@ export const getRadiosFiltrado = async (req:Request, res:Response)=>{
     "radios.contrato_compra,"+ 
     "radios.fk_marca,"+
     "marcas.nombreMarcas,"+
+    "marcas.nombreModelos,"+
     "radios.fecha_actualizacion,"+
     "radios.fecha_asignacion,"+
     "radios.observaciones, "+

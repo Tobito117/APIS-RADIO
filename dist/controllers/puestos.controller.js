@@ -18,7 +18,7 @@ const puestos_model_1 = __importDefault(require("../models/puestos.model"));
 const getPuestos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-    const puestos = yield ((_a = puestos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT puestos.idpuesto, puestos.nombre,puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones ORDER BY puestos.idpuesto DESC", {
+    const puestos = yield ((_a = puestos_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT puestos.idpuesto,  puestos.nombre, puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones ORDER BY puestos.idpuesto DESC", {
         replacements: [],
         model: puestos_model_1.default,
         mapToModel: true
@@ -30,7 +30,7 @@ exports.getPuestos = getPuestos;
 const getPuestosEstatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     //CONSULTA DONDE SE TRAE LOS ELEMENTOS MOSTRADOS DEL QUERY
-    const puestos = yield ((_b = puestos_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT puestos.idpuesto, puestos.nombre,puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones WHERE puestos.estatus = 1 ", {
+    const puestos = yield ((_b = puestos_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT puestos.idpuesto, puestos.nombre,puestos.nombre as nombrePuesto,puestos.fk_corporacion, corporaciones.nombreCorporacion, puestos.estatus, puestos.createdAt, puestos.updatedAt FROM puestos INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones WHERE puestos.estatus = 1 ", {
         replacements: [],
         model: puestos_model_1.default,
         mapToModel: true

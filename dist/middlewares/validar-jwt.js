@@ -48,9 +48,9 @@ const validarJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({
-            msg: 'Token no válido'
-        });
+        // res.status(401).json({
+        //     msg: 'Token no válido'
+        // });
     }
 });
 exports.validarJWT = validarJWT;

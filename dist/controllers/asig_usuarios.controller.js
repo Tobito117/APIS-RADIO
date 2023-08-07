@@ -473,7 +473,7 @@ const actualizarSueRadio = (req, res) => __awaiter(void 0, void 0, void 0, funct
     const { id } = req.params;
     try {
         const sueRadio = yield radios_model_1.default.findByPk(id);
-        yield sueRadio.update({ situacion: "Asignado", fecha_asignacion: new Date() });
+        yield sueRadio.update({ situacion: "Asignado", ubicacion: "Operativo", fecha_asignacion: new Date() });
         res.json(sueRadio);
     }
     catch (error) {

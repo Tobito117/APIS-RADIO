@@ -49,9 +49,9 @@ req.id= id;
         
     } catch (error) {
         console.log(error);
-        res.status(401).json({
-            msg: 'Token no válido'
-        });
+        // res.status(401).json({
+        //     msg: 'Token no válido'
+        // });
     }
 
 } 
