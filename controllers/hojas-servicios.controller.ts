@@ -32,7 +32,11 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             gps.inventario_segpub AS inventario_segpub_gps, 
             vehiculos.unidad,
             zonasregiones.nombreZonasRegiones,
-            hojaservicios.descripcion, 
+            hojaservicios.descripcion,
+            hojaservicios.foto1,
+            hojaservicios.fk_foto1,
+            hojaservicios.foto2,
+            hojaservicios.fk_foto2,
             hojaservicios.folio, 
             hojaservicios.entrego_equipo, 
             hojaservicios.fecha_entrega, 
@@ -257,7 +261,6 @@ export const updateEstatusHojasServicios = async (req: Request, res: Response) =
     
     const hojasservicios = await HojasServicios.findByPk(id);
 
-    
   if (!hojasservicios)
   {
     return res.status(404).json({

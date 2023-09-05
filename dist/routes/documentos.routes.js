@@ -17,6 +17,7 @@ router.get('/:id', documentos_controller_1.getDocumentosById);
 router.post('/', validar_archivo_1.default, documentos_controller_1.postDocumentos);
 router.post('/ine', validar_archivo_1.default, documentos_controller_1.postDocumentosIne);
 router.post('/cuip', validar_archivo_1.default, documentos_controller_1.postDocumentosCuip);
+router.post('/evidencia', validar_archivo_1.default, documentos_controller_1.postDocumentosEvidencia);
 router.put('/:coleccion/:id', [validar_archivo_1.default,
     (0, express_validator_1.check)('coleccion').custom(c => (0, db_validators_1.coleccionesPermitidas)(c, ['users'])),
     validar_campos_1.default], documentos_controller_1.putDocumentos);

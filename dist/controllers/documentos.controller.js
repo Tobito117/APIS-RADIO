@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mostrarImange = exports.postDocumentosCuip = exports.postDocumentosIne = exports.postDocumentos = exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.getDocumentosById = exports.getDocumentosTipoCuip = exports.getDocumentosTipoIne = exports.getDocumentos = void 0;
+exports.mostrarImange = exports.postDocumentosEvidencia = exports.postDocumentosCuip = exports.postDocumentosIne = exports.postDocumentos = exports.updateEstatusDocumentos = exports.deleteDocumentos = exports.putDocumentos = exports.getDocumentosById = exports.getDocumentosTipoCuip = exports.getDocumentosTipoIne = exports.getDocumentos = void 0;
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const documentos_model_1 = __importDefault(require("../models/documentos.model"));
@@ -273,6 +273,27 @@ const postDocumentosCuip = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.postDocumentosCuip = postDocumentosCuip;
+const postDocumentosEvidencia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    console.log(body);
+    try {
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
+        const nombre = yield (0, subir_archivo_1.subirArchivo)(req, req.files, undefined, 'imgs');
+        console.log(nombre);
+        const prueba = {
+            nombre: nombre,
+            tipoDoc: "FotoRadio",
+            estatus: true
+        };
+        const documentos = yield documentos_model_1.default.create(prueba);
+        yield documentos.save();
+        res.json(documentos);
+    }
+    catch (msg) {
+        res.status(400).json({ msg });
+    }
+});
+exports.postDocumentosEvidencia = postDocumentosEvidencia;
 //Cargar Archivo 
 const mostrarImange = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, coleccion } = req.params;

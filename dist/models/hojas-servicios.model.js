@@ -52,7 +52,19 @@ const HojasServicios = connection_1.default.define('hojaservicios', {
     },
     updatedAt: {
         type: sequelize_1.DataTypes.DATE
-    }
+    },
+    foto1: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    fk_foto1: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    foto2: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    fk_foto2: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
 });
 exports.default = HojasServicios;
 //# sourceMappingURL=hojas-servicios.model.js.map

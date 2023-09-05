@@ -326,6 +326,35 @@ export const postDocumentosCuip = async (req: Request, res: Response) => {
     }
 
 }
+export const postDocumentosEvidencia = async (req: Request, res: Response) => {
+    const { body } = req;
+    console.log(body);
+    try {
+
+        //   const nombre = await subirArchivo(req, req.files, ['docx', 'xlsx', 'pdf', 'txt'], 'textos') eyyyyy;
+        const nombre = await subirArchivo(req, req.files, undefined, 'imgs');
+        console.log(nombre);
+        
+
+        const prueba: any = {
+             nombre: nombre,
+             tipoDoc:"FotoRadio",
+             estatus: true
+        }
+
+        const documentos = await Documentos.create(prueba);
+        await documentos.save();
+
+        
+        res.json(documentos);
+
+    } catch (msg) {
+        res.status(400).json({ msg });
+    }
+
+
+
+}
 
 //Cargar Archivo 
 export const mostrarImange = async (req: Request, res: Response) => {

@@ -48,7 +48,19 @@ const HojasServicios = db.define('hojaservicios', {
     },
     updatedAt: {
         type: DataTypes.DATE
-    }
+    },
+    foto1: {
+      type: DataTypes.STRING
+  },
+    fk_foto1: {
+      type: DataTypes.INTEGER
+  },
+  foto2: {
+    type: DataTypes.STRING
+},
+    fk_foto2: {
+    type: DataTypes.INTEGER
+},
 });
 
 export default HojasServicios;

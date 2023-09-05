@@ -9,9 +9,9 @@ export const getConfigReportes = async( req: Request , res: Response ) => {
         "SELECT configreportes.idconfigReportes, configreportes.encabezado_carta, configreportes.articulo1, configreportes.articulo2, configreportes.articulo3,  " +
 		"    configreportes.articulo4, configreportes.articulo5, configreportes.articulo6, configreportes.articulo7, configreportes.logoc4, configreportes.logo_ssypc,configreportes.fk_logo_c4,configreportes.fk_logo_ssypc, " +
 	    "    configreportes.fk_revisor, CONCAT(revisores.nombre, ' ' , revisores.apellido_pat, ' ' , revisores.apellido_mat) AS nombre_revisor, " +
-		"    revisores.nombre, revisores.apellido_pat, revisores.apellido_mat, " +
+		"    revisores.nombre, revisores.apellido_pat, revisores.apellido_mat, revisores.titulo as titulorev  " +
 		"    configreportes.fk_responsable_entrega, CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable, " +
-		"    responsables.idusuarios AS idRes, responsables.nombre AS nombreRes, responsables.apellido_pat AS appatRes, responsables.apellido_mat AS apmatRes, " +
+		"    responsables.idusuarios AS idRes, responsables.nombre AS nombreRes, responsables.apellido_pat AS appatRes, responsables.apellido_mat AS apmatRes, responsables.titulo as titulores " +
 		"    configreportes.ccp_carta, configreportes.fecha_inicial, configreportes.fecha_final, configreportes.estatus, configreportes.createdAt, configreportes.updatedAt " +
         "FROM configreportes " +
         "LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios " +
@@ -46,14 +46,18 @@ export const getConfigReportesByStatus = async( req: Request , res: Response ) =
         revisores.nombre,
         revisores.apellido_pat,
         revisores.apellido_mat,
+        revisores.titulo as titulorev,
         puestosRevisores.nombre AS nombrePuestoRevisor,
+        corporacionesRevisores.nombreCorporacion AS corporacionRevisor,
         configreportes.fk_responsable_entrega,
         CONCAT(responsables.nombre, ' ' , responsables.apellido_pat, ' ' , responsables.apellido_mat) AS nombre_responsable,
         responsables.idusuarios AS idRes,
         responsables.nombre AS nombreRes,
         responsables.apellido_pat AS appatRes,
         responsables.apellido_mat AS apmatRes,
+        responsables.titulo as titulores,
         puestosResponsables.nombre AS nombrePuestoRes,
+        corporacionesResponsables.nombreCorporacion AS corporacionResponsable,
         configreportes.ccp_carta,
         configreportes.fecha_inicial,
         configreportes.fecha_final,
@@ -63,8 +67,10 @@ export const getConfigReportesByStatus = async( req: Request , res: Response ) =
     FROM configreportes
     LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios
     INNER JOIN puestos AS puestosRevisores ON revisores.fk_puesto = puestosRevisores.idpuesto
+    INNER JOIN corporaciones AS corporacionesRevisores ON puestosRevisores.fk_corporacion = corporacionesRevisores.idcorporaciones
     LEFT JOIN usuarios AS responsables ON configreportes.fk_responsable_entrega = responsables.idusuarios
     INNER JOIN puestos AS puestosResponsables ON responsables.fk_puesto = puestosResponsables.idpuesto
+    INNER JOIN corporaciones AS corporacionesResponsables ON puestosResponsables.fk_corporacion = corporacionesResponsables.idcorporaciones
     WHERE configreportes.estatus = true
     ORDER BY configreportes.idconfigReportes DESC`
     ,{ 
