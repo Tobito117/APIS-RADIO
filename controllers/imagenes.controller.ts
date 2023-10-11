@@ -11,7 +11,7 @@ export const getImagenes = async( req: Request , res: Response ) => {
             model: Imagenes,
             mapToModel: true
         });
-    
+
         res.json({
             Datos: radios,
             success: true,
