@@ -101,6 +101,7 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
 //gkdjgposd
     res.json(asig_usuarios );
 }
+
 export const getAsig = async( req: Request , res: Response ) => {
 
     const corporaciones=["Centro de Mando y Comunicaciones","Secretaria de Seguridad y Proteccion Ciudadana","Fiscalia del Estado de Tabasco"];
@@ -277,6 +278,7 @@ export const getAsignacionPorUsuario = async( req: Request , res: Response ) => 
 });
     res.json(asig_usuarios );
 }
+
 export const getAsignacionPorRfsi= async( req: Request , res: Response ) => {
    const { rfsi,usuarioBuscar } = req.params;
    const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
