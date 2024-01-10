@@ -221,7 +221,7 @@ export const getAsignacionPorUsuario = async( req: Request , res: Response ) => 
         usuarios.apellido_pat,
         usuarios.apellido_mat, 
         usuarios.titulo,
-        CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
+        CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo,  
         usuarios.clave_elector,
         puestos.idpuesto,
         puestos.nombre AS nombrePuesto,
@@ -347,6 +347,74 @@ export const getAsignacionPorRfsi= async( req: Request , res: Response ) => {
 });
     res.json(asig_usuarios );
 }
+export const getAsignacionPorSoloRfsi= async( req: Request , res: Response ) => {
+    const { rfsi,usuarioBuscar } = req.params;
+    const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
+     `SELECT asignaciones.idasignacion, 
+         usuarios.idusuarios, 
+         usuarios.nombre, 
+         usuarios.apellido_pat,
+         usuarios.apellido_mat, 
+         usuarios.titulo,
+         CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
+         usuarios.clave_elector,
+         puestos.idpuesto,
+         puestos.nombre AS nombrePuesto,
+         corporaciones.idcorporaciones,
+         corporaciones.nombreCorporacion,
+         asignaciones.fk_accesorio_bateria,
+         baterias.serie_bateria, 
+         asignaciones.fk_accesorio_cargador,
+         cargadores.serie_cargador, 
+         asignaciones.fk_accesorio_gps, 
+         gps.serie_gps,
+         radios.idradios,
+         radios.tipo, 
+         radios.serie, 
+         radios.inventario_interno, 
+         radios.inventario_segpub, 
+         radios.serie AS serie_radio, 
+         vehiculos.idvehiculo, 
+         vehiculos.placa, 
+         vehiculos.unidad,
+         zonasregiones.nombreZonasRegiones,
+         asignaciones.rfsi,
+         asignaciones.funda, 
+         asignaciones.antena,
+         asignaciones.bocina, 
+         asignaciones.c2h, 
+         asignaciones.cable_principal, 
+         asignaciones.caratula, 
+         asignaciones.micro, 
+         asignaciones.cofre, 
+         asignaciones.porta_caratula, 
+         asignaciones.cuello_cisne,
+         asignaciones.estatus, 
+         asignaciones.fecha_asignacion, 
+         asignaciones.createdAt, 
+         asignaciones.updatedAt, 
+         asignaciones.usuarios_idusuarios,
+         asignaciones.radios_idradios 
+     FROM asignaciones 
+     INNER JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
+     INNER JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+     INNER JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+     INNER JOIN radios ON asignaciones.radios_idradios = radios.idradios 
+     LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo
+     LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion= zonasregiones.idzonasregiones
+     LEFT JOIN accesorios AS baterias  ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios 
+     LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios 
+     LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios 
+     WHERE asignaciones.estatus = true 
+     AND asignaciones.rfsi = '${rfsi}' `
+ ,{ 
+     replacements: [],
+     model: Asig_Usuarios,
+     mapToModel: true
+ });
+     res.json(asig_usuarios );
+ }
+ 
 
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getAsig_UsuariosById = async( req: Request , res: Response ) => {

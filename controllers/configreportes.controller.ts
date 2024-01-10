@@ -6,7 +6,7 @@ import Usuarios from "../models/usuarios.model";
 export const getConfigReportes = async( req: Request , res: Response ) => {
 
     const configreportes: any = await ConfigReportes.sequelize?.query(
-        `SELECT configreportes.idconfigReportes, 
+        `   SELECT configreportes.idconfigReportes, 
 	        configreportes.encabezado_carta, 
 	        configreportes.articulo1, 
 	        configreportes.articulo2, 
@@ -41,7 +41,7 @@ export const getConfigReportes = async( req: Request , res: Response ) => {
         FROM configreportes
         LEFT JOIN usuarios AS revisores ON configreportes.fk_revisor = revisores.idusuarios 
         LEFT JOIN usuarios AS responsables ON configreportes.fk_responsable_entrega = responsables.idusuarios
-        ORDER BY configreportes.idconfigReportes DESC`,
+        ORDER BY configreportes.idconfigReportes DESC `,
     { 
         replacements: [],
         model: ConfigReportes,
