@@ -118,17 +118,17 @@ export const postHojasServicios = async( req: Request , res: Response ) => {
     const { body } = req;
 
     try {
-        // const existeEmail = await Usuarios.findOne({
-        //     where: {
-        //         email: body.email
-        //     }
-        // })
+        const existeFolio = await HojasServicios.findOne({
+            where: {
+                folio: body.folio
+            }
+        })
 
-        // if (existeEmail){
-        //     return res.status(400).json({
-        //         msg: 'Ya existe un usuario con el email ' + body.email
-        //     });
-        // }
+        if (existeFolio){
+            return res.status(400).json({
+                msg: 'Ya existe un registro con el folio ' + body.folio
+            });
+        }
 
         const hojasservicios = await HojasServicios.create(body);
         await hojasservicios.save();

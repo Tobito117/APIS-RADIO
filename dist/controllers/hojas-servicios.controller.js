@@ -124,16 +124,16 @@ exports.getHojasServiciosById = getHojasServiciosById;
 const postHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
-        // const existeEmail = await Usuarios.findOne({
-        //     where: {
-        //         email: body.email
-        //     }
-        // })
-        // if (existeEmail){
-        //     return res.status(400).json({
-        //         msg: 'Ya existe un usuario con el email ' + body.email
-        //     });
-        // }
+        const existeFolio = yield hojas_servicios_model_1.default.findOne({
+            where: {
+                folio: body.folio
+            }
+        });
+        if (existeFolio) {
+            return res.status(400).json({
+                msg: 'Ya existe un registro con el folio ' + body.folio
+            });
+        }
         const hojasservicios = yield hojas_servicios_model_1.default.create(body);
         yield hojasservicios.save();
         res.json(hojasservicios);
