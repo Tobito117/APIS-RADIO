@@ -127,7 +127,7 @@ export const postHojasServicios = async( req: Request , res: Response ) => {
         })
        
 
-        if (existeFolio && anioActual != anioUltimoRegistro ){
+        if (existeFolio ){
             return res.status(400).json({
                 msg: 'Ya existe un registro con el folio ' + body.folio
             });

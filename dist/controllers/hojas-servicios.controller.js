@@ -131,7 +131,7 @@ const postHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 folio: body.folio
             }
         });
-        if (existeFolio && anioActual != anioUltimoRegistro) {
+        if (existeFolio) {
             return res.status(400).json({
                 msg: 'Ya existe un registro con el folio ' + body.folio
             });
