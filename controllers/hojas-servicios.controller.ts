@@ -116,15 +116,18 @@ export const getHojasServiciosById = async( req: Request , res: Response ) => {
 export const postHojasServicios = async( req: Request , res: Response ) => {
 
     const { body } = req;
+    let anioActual  = new Date().getFullYear();
+    let anioUltimoRegistro = new Date(body.fecha_servicio).getFullYear();
 
     try {
-        const existeFolio = await HojasServicios.findOne({
+        const existeFolio= await HojasServicios.findOne({
             where: {
                 folio: body.folio
             }
         })
+       
 
-        if (existeFolio){
+        if (existeFolio && anioActual != anioUltimoRegistro ){
             return res.status(400).json({
                 msg: 'Ya existe un registro con el folio ' + body.folio
             });

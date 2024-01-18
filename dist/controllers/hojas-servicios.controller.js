@@ -123,13 +123,15 @@ exports.getHojasServiciosById = getHojasServiciosById;
 //Función para agregar un elemento a la tabla de nuestra base de datos hoja-servicio
 const postHojasServicios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
+    let anioActual = new Date().getFullYear();
+    let anioUltimoRegistro = new Date(body.fecha_servicio).getFullYear();
     try {
         const existeFolio = yield hojas_servicios_model_1.default.findOne({
             where: {
                 folio: body.folio
             }
         });
-        if (existeFolio) {
+        if (existeFolio && anioActual != anioUltimoRegistro) {
             return res.status(400).json({
                 msg: 'Ya existe un registro con el folio ' + body.folio
             });
