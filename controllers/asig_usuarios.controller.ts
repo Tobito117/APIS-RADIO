@@ -91,8 +91,7 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
     LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios 
     LEFT JOIN marcas AS marcasCargadores ON cargadores.marcas_idMarcas = marcasCargadores.idmarcas
     LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios
-    LEFT JOIN marcas AS marcasGps ON gps.marcas_idMarcas = marcasGps.idmarcas
-    ORDER By asignaciones.idasignacion DESC `
+    LEFT JOIN marcas AS marcasGps ON gps.marcas_idMarcas = marcasGps.idmarcas `
     ,{ 
     replacements: [],
     model: Asig_Usuarios,
@@ -101,6 +100,51 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
 //gkdjgposd
     res.json(asig_usuarios );
 }
+export const getAsigOrderUsuario = async( req: Request , res: Response ) => {
+
+   // const asig_usuarios = await Asig_Usuarios.findAll(); //No se está usando
+   const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
+    `SELECT 
+	    asignaciones.idasignacion,
+	    asignaciones.rfsi,
+	    radios.tipo,
+	    radios.serie,
+	    radios.inventario_interno,
+	    CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat) AS nombreCompletoUsuario,
+	    puestos.nombre AS puesto,
+	    corporaciones.nombreCorporacion,
+	    propietarios.nombreCorporacion AS propietario,
+	    baterias.accesorio AS bateria,
+	    baterias.serie_bateria,
+	    cargadores.accesorio AS cargador,
+	    cargadores.serie_cargador,
+	    gps.accesorio AS gps,
+	    gps.serie_gps,
+	    vehiculos.placa,
+	    vehiculos.unidad
+    FROM asignaciones
+    LEFT JOIN usuarios ON asignaciones.usuarios_idusuarios=usuarios.idusuarios
+    LEFT JOIN radios ON asignaciones.radios_idradios=radios.idradios
+    LEFT JOIN puestos ON usuarios.fk_puesto=puestos.idpuesto
+    LEFT JOIN corporaciones ON puestos.fk_corporacion=corporaciones.idcorporaciones
+    LEFT JOIN corporaciones AS propietarios ON radios.fk_propietario=propietarios.idcorporaciones
+    LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria=baterias.idaccesorios
+    LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador=cargadores.idaccesorios
+    LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps=gps.idaccesorios
+    LEFT JOIN vehiculos ON asignaciones.fk_vehiculo=vehiculos.idvehiculo
+    WHERE asignaciones.estatus=1
+    ORDER BY nombreCompletoUsuario `
+    ,{ 
+    replacements: [],
+    model: Asig_Usuarios,
+    mapToModel: true
+});
+//gkdjgposd
+    res.json(asig_usuarios );
+}
+
+
+
 
 export const getAsig = async( req: Request , res: Response ) => {
 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstatusAsig_Usuarios = exports.actualizarSueRadio = exports.deleteAsig_Usuarios = exports.putAsig_Usuarios = exports.postAsig_Usuarios = exports.getAsig_UsuariosById = exports.getAsignacionPorSoloRfsi = exports.getAsignacionPorRfsi = exports.getAsignacionPorUsuario = exports.getAsig = exports.getAsig_Usuarios = void 0;
+exports.updateEstatusAsig_Usuarios = exports.actualizarSueRadio = exports.deleteAsig_Usuarios = exports.putAsig_Usuarios = exports.postAsig_Usuarios = exports.getAsig_UsuariosById = exports.getAsignacionPorSoloRfsi = exports.getAsignacionPorRfsi = exports.getAsignacionPorUsuario = exports.getAsig = exports.getAsigOrderUsuario = exports.getAsig_Usuarios = void 0;
 const asig_usuario_radio_model_1 = __importDefault(require("../models/asig_usuario_radio.model"));
 const radios_model_1 = __importDefault(require("../models/radios.model"));
 //import Asig_Usuarios from '../models/asig_usuario_radio.model';
@@ -103,8 +103,7 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios 
     LEFT JOIN marcas AS marcasCargadores ON cargadores.marcas_idMarcas = marcasCargadores.idmarcas
     LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios
-    LEFT JOIN marcas AS marcasGps ON gps.marcas_idMarcas = marcasGps.idmarcas
-    ORDER By asignaciones.idasignacion DESC `, {
+    LEFT JOIN marcas AS marcasGps ON gps.marcas_idMarcas = marcasGps.idmarcas `, {
         replacements: [],
         model: asig_usuario_radio_model_1.default,
         mapToModel: true
@@ -113,8 +112,49 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     res.json(asig_usuarios);
 });
 exports.getAsig_Usuarios = getAsig_Usuarios;
-const getAsig = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAsigOrderUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
+    // const asig_usuarios = await Asig_Usuarios.findAll(); //No se está usando
+    const asig_usuarios = yield ((_b = asig_usuario_radio_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT 
+	    asignaciones.idasignacion,
+	    asignaciones.rfsi,
+	    radios.tipo,
+	    radios.serie,
+	    radios.inventario_interno,
+	    CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat) AS nombreCompletoUsuario,
+	    puestos.nombre AS puesto,
+	    corporaciones.nombreCorporacion,
+	    propietarios.nombreCorporacion AS propietario,
+	    baterias.accesorio AS bateria,
+	    baterias.serie_bateria,
+	    cargadores.accesorio AS cargador,
+	    cargadores.serie_cargador,
+	    gps.accesorio AS gps,
+	    gps.serie_gps,
+	    vehiculos.placa,
+	    vehiculos.unidad
+    FROM asignaciones
+    LEFT JOIN usuarios ON asignaciones.usuarios_idusuarios=usuarios.idusuarios
+    LEFT JOIN radios ON asignaciones.radios_idradios=radios.idradios
+    LEFT JOIN puestos ON usuarios.fk_puesto=puestos.idpuesto
+    LEFT JOIN corporaciones ON puestos.fk_corporacion=corporaciones.idcorporaciones
+    LEFT JOIN corporaciones AS propietarios ON radios.fk_propietario=propietarios.idcorporaciones
+    LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria=baterias.idaccesorios
+    LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador=cargadores.idaccesorios
+    LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps=gps.idaccesorios
+    LEFT JOIN vehiculos ON asignaciones.fk_vehiculo=vehiculos.idvehiculo
+    WHERE asignaciones.estatus=1
+    ORDER BY nombreCompletoUsuario `, {
+        replacements: [],
+        model: asig_usuario_radio_model_1.default,
+        mapToModel: true
+    }));
+    //gkdjgposd
+    res.json(asig_usuarios);
+});
+exports.getAsigOrderUsuario = getAsigOrderUsuario;
+const getAsig = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _c;
     const corporaciones = ["Centro de Mando y Comunicaciones", "Secretaria de Seguridad y Proteccion Ciudadana", "Fiscalia del Estado de Tabasco"];
     let x = "";
     function pasarLista(nombre, indice) {
@@ -125,7 +165,7 @@ const getAsig = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(x);
     corporaciones.forEach((nombre, indice) => pasarLista(nombre, indice));
     // const asig_usuarios = await Asig_Usuarios.findAll();
-    const asig_usuarios = yield ((_b = asig_usuario_radio_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT asignaciones.idasignacion, 
+    const asig_usuarios = yield ((_c = asig_usuario_radio_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query(`SELECT asignaciones.idasignacion, 
         usuarios.idusuarios, 
         usuarios.nombre, 
         usuarios.apellido_pat,
@@ -222,9 +262,9 @@ const getAsig = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getAsig = getAsig;
 //Función para obtener todos los datos con el filtro de RFSI
 const getAsignacionPorUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
+    var _d;
     const { nombre } = req.params;
-    const asig_usuarios = yield ((_c = asig_usuario_radio_model_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query(`SELECT asignaciones.idasignacion, 
+    const asig_usuarios = yield ((_d = asig_usuario_radio_model_1.default.sequelize) === null || _d === void 0 ? void 0 : _d.query(`SELECT asignaciones.idasignacion, 
         usuarios.idusuarios, 
         usuarios.nombre, 
         usuarios.apellido_pat,
@@ -288,9 +328,9 @@ const getAsignacionPorUsuario = (req, res) => __awaiter(void 0, void 0, void 0, 
 });
 exports.getAsignacionPorUsuario = getAsignacionPorUsuario;
 const getAsignacionPorRfsi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _d;
+    var _e;
     const { rfsi, usuarioBuscar } = req.params;
-    const asig_usuarios = yield ((_d = asig_usuario_radio_model_1.default.sequelize) === null || _d === void 0 ? void 0 : _d.query(`SELECT asignaciones.idasignacion, 
+    const asig_usuarios = yield ((_e = asig_usuario_radio_model_1.default.sequelize) === null || _e === void 0 ? void 0 : _e.query(`SELECT asignaciones.idasignacion, 
         usuarios.idusuarios, 
         usuarios.nombre, 
         usuarios.apellido_pat,
@@ -356,9 +396,9 @@ const getAsignacionPorRfsi = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.getAsignacionPorRfsi = getAsignacionPorRfsi;
 const getAsignacionPorSoloRfsi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _e;
+    var _f;
     const { rfsi, usuarioBuscar } = req.params;
-    const asig_usuarios = yield ((_e = asig_usuario_radio_model_1.default.sequelize) === null || _e === void 0 ? void 0 : _e.query(`SELECT asignaciones.idasignacion, 
+    const asig_usuarios = yield ((_f = asig_usuario_radio_model_1.default.sequelize) === null || _f === void 0 ? void 0 : _f.query(`SELECT asignaciones.idasignacion, 
          usuarios.idusuarios, 
          usuarios.nombre, 
          usuarios.apellido_pat,

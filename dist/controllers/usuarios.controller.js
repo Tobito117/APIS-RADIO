@@ -18,9 +18,27 @@ const usuarios_model_1 = __importDefault(require("../models/usuarios.model"));
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     //const usuarios = await Usuarios.findAll();
-    const usuarios = yield ((_a = usuarios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT usuarios.idusuarios, usuarios.nombre, usuarios.apellido_pat, usuarios.apellido_mat,
-            usuarios.fk_puesto, puestos.idpuesto, puestos.nombre AS nombrePuesto, puestos.fk_corporacion, corporaciones.idcorporaciones, corporaciones.nombreCorporacion,
-            usuarios.cuip, usuarios.clave_elector, usuarios.imagen_ine, usuarios.fk_documento_ine, usuarios.fk_documento_cuip,usuarios.imagen_cuip, usuarios.titulo, usuarios.estatus, usuarios.createdAt, usuarios.updatedAt
+    const usuarios = yield ((_a = usuarios_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT usuarios.idusuarios, 
+                usuarios.nombre, 
+                usuarios.apellido_pat, 
+                usuarios.apellido_mat,
+                CONCAT(usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo,
+                usuarios.fk_puesto, 
+                puestos.idpuesto, 
+                puestos.nombre AS nombrePuesto, 
+                puestos.fk_corporacion, 
+                corporaciones.idcorporaciones, 
+                corporaciones.nombreCorporacion,
+                usuarios.cuip, 
+                usuarios.clave_elector, 
+                usuarios.imagen_ine, 
+                usuarios.fk_documento_ine, 
+                usuarios.fk_documento_cuip,
+                usuarios.imagen_cuip, 
+                usuarios.titulo, 
+                usuarios.estatus, 
+                usuarios.createdAt, 
+                usuarios.updatedAt
         FROM usuarios
         LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
         LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
@@ -34,7 +52,7 @@ const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUsuarios = getUsuarios;
 const getUsuariosIdNombre = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
-    const usuarios = yield ((_b = usuarios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios", {
+    const usuarios = yield ((_b = usuarios_model_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query("SELECT idusuarios, CONCAT(nombre, ' ', apellido_pat, ' ', apellido_mat) AS nombreUsuario FROM usuarios WHERE estatus=1 ORDER BY nombreUsuario", {
         replacements: [],
         model: usuarios_model_1.default,
         mapToModel: true
