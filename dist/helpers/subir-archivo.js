@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.subirArchivo = void 0;
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
-const subirArchivo = (req, files, extensionesValidas = ['PNG', 'png', 'jpg', 'jpeg', 'gif', 'docx', 'xlsx', 'pdf', 'txt'], carpeta = '') => __awaiter(void 0, void 0, void 0, function* () {
+const subirArchivo = (req, files, extensionesValidas = ['PNG', 'png', "JPG", 'jpg', 'jpeg', "JPEG", 'gif', 'docx', 'xlsx', 'pdf', 'txt'], carpeta = '') => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => {
         var _a;
         const archivo = (_a = req.files) === null || _a === void 0 ? void 0 : _a.archivo;
