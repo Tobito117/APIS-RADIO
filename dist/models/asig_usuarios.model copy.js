@@ -5,24 +5,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
-const Asig_Usuarios = connection_1.default.define('asignaciones', {
-    idasignacion: {
+const Asig_Usuarios = connection_1.default.define('asig_usuarios', {
+    id_asigusu: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    usuarios_idusuarios: {
-        type: sequelize_1.DataTypes.INTEGER
-    },
-    fk_armar: {
-        type: sequelize_1.DataTypes.INTEGER,
-        // allowNull: true
-    },
-    fecha_asignacion: {
+    fecha_asigusu: {
         type: sequelize_1.DataTypes.DATE
     },
-    estatus: {
-        type: sequelize_1.DataTypes.BOOLEAN
+    fecha_canusu: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    fk_usuario: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    fk_radio: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    fk_status: {
+        type: sequelize_1.DataTypes.INTEGER
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE
@@ -32,4 +34,4 @@ const Asig_Usuarios = connection_1.default.define('asignaciones', {
     }
 });
 exports.default = Asig_Usuarios;
-//# sourceMappingURL=asig_usuario_radio.model.js.map
+//# sourceMappingURL=asig_usuarios.model%20copy.js.map

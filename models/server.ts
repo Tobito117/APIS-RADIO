@@ -18,6 +18,7 @@ import documentosRoutes from '../routes/documentos.routes';
 import corporacionesRoutes from '../routes/corporaciones.routes';
 import configreportesRoutes from '../routes/configreportes.routes';
 import asig_usuariosRoutes from '../routes/asig_usuarios.routes';
+import armar_radiosRoutes from '../routes/armar_radios.routes';
 import accesoriosRoutes from '../routes/accesorios.routes';
 import radiosRoutes from '../routes/radios.routes';
 import rolesRoutes from '../routes/roles.routes'
@@ -41,6 +42,7 @@ export class Server {
         corporaciones: '/api/v0/corporaciones',
         configreportes: '/api/v0/configreportes',
         asig_usuarios: '/api/v0/asig_usuarios',
+        armar_radios: '/api/v0/armar_radios',
         accesorios: '/api/v0/accesorios',
         radios: '/api/v0/radios',
         roles: '/api/v0/roles',
@@ -107,6 +109,7 @@ export class Server {
         this.app.use (this.baseUrl.corporaciones, corporacionesRoutes);
         this.app.use (this.baseUrl.configreportes, configreportesRoutes);
         this.app.use (this.baseUrl.asig_usuarios, asig_usuariosRoutes);
+        this.app.use (this.baseUrl.armar_radios, armar_radiosRoutes);
         this.app.use (this.baseUrl.accesorios, accesoriosRoutes);
         this.app.use (this.baseUrl.radios, radiosRoutes);
         this.app.use(this.baseUrl.roles, rolesRoutes);

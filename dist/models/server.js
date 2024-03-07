@@ -32,6 +32,7 @@ const documentos_routes_1 = __importDefault(require("../routes/documentos.routes
 const corporaciones_routes_1 = __importDefault(require("../routes/corporaciones.routes"));
 const configreportes_routes_1 = __importDefault(require("../routes/configreportes.routes"));
 const asig_usuarios_routes_1 = __importDefault(require("../routes/asig_usuarios.routes"));
+const armar_radios_routes_1 = __importDefault(require("../routes/armar_radios.routes"));
 const accesorios_routes_1 = __importDefault(require("../routes/accesorios.routes"));
 const radios_routes_1 = __importDefault(require("../routes/radios.routes"));
 const roles_routes_1 = __importDefault(require("../routes/roles.routes"));
@@ -52,6 +53,7 @@ class Server {
             corporaciones: '/api/v0/corporaciones',
             configreportes: '/api/v0/configreportes',
             asig_usuarios: '/api/v0/asig_usuarios',
+            armar_radios: '/api/v0/armar_radios',
             accesorios: '/api/v0/accesorios',
             radios: '/api/v0/radios',
             roles: '/api/v0/roles',
@@ -106,6 +108,7 @@ class Server {
         this.app.use(this.baseUrl.corporaciones, corporaciones_routes_1.default);
         this.app.use(this.baseUrl.configreportes, configreportes_routes_1.default);
         this.app.use(this.baseUrl.asig_usuarios, asig_usuarios_routes_1.default);
+        this.app.use(this.baseUrl.armar_radios, armar_radios_routes_1.default);
         this.app.use(this.baseUrl.accesorios, accesorios_routes_1.default);
         this.app.use(this.baseUrl.radios, radios_routes_1.default);
         this.app.use(this.baseUrl.roles, roles_routes_1.default);

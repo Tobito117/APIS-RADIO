@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+// import { getAsig_Usuarios, getAsignacionPorUsuario, getAsig_UsuariosById, postAsig_Usuarios, putAsig_Usuarios, deleteAsig_Usuarios, updateEstatusAsig_Usuarios, actualizarSueRadio, getAsignacionPorRfsi, getAsig, getAsignacionPorSoloRfsi, getAsigOrderUsuario } from "../controllers/asig_usuarios.controller";
+const validar_jwt_1 = require("../middlewares/validar-jwt");
+const validar_role_1 = require("../middlewares/validar-role");
+const armar_radio_controller_1 = require("../controllers/armar-radio.controller");
+const router = (0, express_1.Router)();
+router.get('/', armar_radio_controller_1.getArmar_Radio);
+//  router.get('/usuarios/:nombre',    getAsignacionPorUsuario );
+router.get('/estatus/', armar_radio_controller_1.getArmarRadioEstatus);
+//  router.get('/filtrado/listo/',     getAsig );
+//  router.get('/radio/:rfsi/:usuarioBuscar', getAsignacionPorRfsi );
+//  router.get('/radio/:rfsi',         getAsignacionPorSoloRfsi );
+//  router.get('/:id',                 getAsig_UsuariosById );
+router.post('/', [validar_jwt_1.validarJWT, validar_role_1.esAdminRole], armar_radio_controller_1.postArmar_Radio);
+router.put('/:id', [validar_jwt_1.validarJWT, validar_role_1.esAdminRole], armar_radio_controller_1.putArmar_Radio);
+//  router.put('/ActualizarSue/:id',   [validarJWT,esAdminRole],actualizarSueRadio );
+router.delete('/:id', [validar_jwt_1.validarJWT, validar_role_1.esAdminRole], armar_radio_controller_1.deleteArmar_Radio);
+//  router.put('/status/:id',          [validarJWT,esAdminRole],updateEstatusAsig_Usuarios );
+exports.default = router;
+//# sourceMappingURL=armar_radios.routes.js.map

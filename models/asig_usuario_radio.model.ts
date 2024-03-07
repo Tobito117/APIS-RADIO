@@ -10,57 +10,9 @@ const Asig_Usuarios = db.define('asignaciones', {
     usuarios_idusuarios: {     
         type: DataTypes.INTEGER
     },
-    radios_idradios: {
-        type: DataTypes.INTEGER
-    },
-    fk_accesorio_cargador: {
+    fk_armar: {
         type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    fk_accesorio_bateria: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    fk_accesorio_gps: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    funda: {
-        type: DataTypes.BOOLEAN
-    },
-    antena: {
-        type: DataTypes.BOOLEAN
-    },
-    bocina: {
-        type: DataTypes.BOOLEAN
-    },
-    c2h: {
-        type: DataTypes.BOOLEAN
-    },
-    cable_principal: {
-        type: DataTypes.BOOLEAN
-    },
-    caratula: {
-        type: DataTypes.BOOLEAN
-    },
-    micro: {
-        type: DataTypes.BOOLEAN
-    },
-    cofre: {
-        type: DataTypes.BOOLEAN
-    },
-    porta_caratula: {
-        type: DataTypes.BOOLEAN
-    },
-    cuello_cisne: {
-        type: DataTypes.BOOLEAN
-    },
-    fk_vehiculo: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    rfsi: {
-        type: DataTypes.STRING
+        // allowNull: true
     },
     fecha_asignacion: {
         type: DataTypes.DATE

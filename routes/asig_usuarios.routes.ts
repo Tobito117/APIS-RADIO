@@ -7,7 +7,7 @@ const router = Router();
 
  router.get('/',                    getAsig_Usuarios );
  router.get('/usuarios/:nombre',    getAsignacionPorUsuario );
- router.get('/orderUsuarios/',           getAsigOrderUsuario );
+ router.get('/orderUsuarios/',      getAsigOrderUsuario );
  router.get('/filtrado/listo/',     getAsig );
  router.get('/radio/:rfsi/:usuarioBuscar', getAsignacionPorRfsi );
  router.get('/radio/:rfsi',         getAsignacionPorSoloRfsi );

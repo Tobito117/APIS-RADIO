@@ -7,7 +7,12 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
 //    const hojasservicios = await HojasServicios.findAll();
 //    res.json( hojasservicios );
     const hojasservicios: any = await HojasServicios.sequelize?.query(
-        `SELECT hojaservicios.idhojaservicios, hojaservicios.folio, hojaservicios.fecha_servicio, hojaservicios.servicios, hojaservicios.fk_idasignacion_ur,  
+        `SELECT 
+            hojaservicios.idhojaservicios, 
+            hojaservicios.folio, 
+            hojaservicios.fecha_servicio, 
+            hojaservicios.servicios, 
+            hojaservicios.fk_idasignacion_ur,  
             asignaciones.idasignacion, 
             CONCAT (usuarios.nombre, ' ', usuarios.apellido_pat, ' ', usuarios.apellido_mat ) AS nombre_completo, 
             usuarios.nombre, 
@@ -20,7 +25,7 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             radios.tipo, 
             radios.inventario_interno, 
             radios.inventario_segpub,
-            asignaciones.rfsi,
+            armarradios.rfsi,
             baterias.idaccesorios AS idbateria, 
             baterias.serie_bateria, 
             baterias.inventario_interno AS inventario_int_bateria,
@@ -54,19 +59,20 @@ export const getHojasServicios = async( req: Request , res: Response ) => {
             hojaservicios.createdAt, 
             hojaservicios.updatedAt 
         FROM hojaservicios 
-            LEFT JOIN asignaciones ON hojaservicios.fk_idasignacion_ur = asignaciones.idasignacion 
-            LEFT JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
-            LEFT JOIN usuarios AS supervisortec ON hojaservicios.fk_supervisortec = supervisortec.idusuarios  
-            LEFT JOIN usuarios AS tecnicos ON hojaservicios.fk_tecnico_entrega = tecnicos.idusuarios 
-            LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
-            LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
-            LEFT JOIN radios ON asignaciones.radios_idradios = radios.idradios 
-            LEFT JOIN accesorios AS baterias ON asignaciones.fk_accesorio_bateria = baterias.idaccesorios
-            LEFT JOIN accesorios AS cargadores ON asignaciones.fk_accesorio_cargador = cargadores.idaccesorios
-            LEFT JOIN accesorios AS gps ON asignaciones.fk_accesorio_gps = gps.idaccesorios
-            LEFT JOIN vehiculos ON asignaciones.fk_vehiculo = vehiculos.idvehiculo
-            LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones
-            ORDER BY hojaservicios.idhojaservicios DESC`
+        LEFT JOIN asignaciones ON hojaservicios.fk_idasignacion_ur = asignaciones.idasignacion 
+        LEFT JOIN armarradios ON asignaciones.fk_armar = armarradios.idarmar
+        LEFT JOIN usuarios ON asignaciones.usuarios_idusuarios = usuarios.idusuarios 
+        LEFT JOIN usuarios AS supervisortec ON hojaservicios.fk_supervisortec = supervisortec.idusuarios  
+        LEFT JOIN usuarios AS tecnicos ON hojaservicios.fk_tecnico_entrega = tecnicos.idusuarios 
+        LEFT JOIN puestos ON usuarios.fk_puesto = puestos.idpuesto
+        LEFT JOIN corporaciones ON puestos.fk_corporacion = corporaciones.idcorporaciones
+        LEFT JOIN radios ON armarradios.radios_idradios = radios.idradios 
+        LEFT JOIN accesorios AS baterias ON armarradios.fk_accesorio_bateria = baterias.idaccesorios
+        LEFT JOIN accesorios AS cargadores ON armarradios.fk_accesorio_cargador = cargadores.idaccesorios
+        LEFT JOIN accesorios AS gps ON armarradios.fk_accesorio_gps = gps.idaccesorios
+        LEFT JOIN vehiculos ON armarradios.fk_vehiculo = vehiculos.idvehiculo
+        LEFT JOIN zonasregiones ON vehiculos.fk_zonaregion = zonasregiones.idzonasregiones
+        ORDER BY hojaservicios.idhojaservicios DESC    `
         , {
             replacements: [],
             model: HojasServicios,

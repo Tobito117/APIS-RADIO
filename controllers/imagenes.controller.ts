@@ -11,13 +11,14 @@ export const getImagenes = async( req: Request , res: Response ) => {
             model: Imagenes,
             mapToModel: true
         });
-
+    
         res.json({
             Datos: radios,
             success: true,
             messagge: "Datos Obtenidos Correctamente" 
         });
 }
+
 //Funcion para obtener un elemento de una tabla en especifico por medio de su ID 
 export const getImagenesById = async( req: Request , res: Response ) => {
 
@@ -30,9 +31,9 @@ export const getImagenesById = async( req: Request , res: Response ) => {
         });
 
         let idimagenes
-
+   
         for(let i of imagenes){
-
+    
           idimagenes = i.dataValues.idimagen
     
         }
@@ -51,6 +52,7 @@ export const getImagenesById = async( req: Request , res: Response ) => {
     } 
 
 }
+
 //Función para agregar un elemento a la tabla de nuestra base de datos imagenes
 export const postImagenes = async( req: Request , res: Response ) => {
 
@@ -80,6 +82,7 @@ export const postImagenes = async( req: Request , res: Response ) => {
         })
     }
 }
+
 //Función para actualizar un elemento a la tabla de nuestra base de datos imagenes
 export const putImagenes = async( req: Request , res: Response ) => {
 
@@ -104,7 +107,9 @@ export const putImagenes = async( req: Request , res: Response ) => {
         res.status(500).json({
             msg: 'Hable con el Administrador'
         })
+        
     }
+   
 }
 
 //Función para borrar un elemento a la tabla de nuestra base de datos imagenes (Solo se dehabilita)
@@ -133,9 +138,13 @@ export const deleteImagenes = async( req: Request , res: Response ) => {
         })
         
     }
+
+ 
 }
+
 //Función para habilitar y deshabilitar el estatus de Imagenes 
 export const updateEstatusImagenes = async (req: Request, res: Response) => {
+
     const  id  = Number(req.params.id);
     const fk_status = req.query.fk_status;
   
@@ -149,6 +158,7 @@ export const updateEstatusImagenes = async (req: Request, res: Response) => {
     }
     
     const imagenes = await Imagenes.findByPk(id);
+
     
   if (!imagenes)
   {
