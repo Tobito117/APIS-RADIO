@@ -157,6 +157,9 @@ exports.postConfigReportes = postConfigReportes;
 const putConfigReportes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
+    if (req.body !== undefined) {
+        console.log("first");
+    }
     try {
         const configreportes = yield configreportes_model_1.default.findByPk(id);
         if (!configreportes) {

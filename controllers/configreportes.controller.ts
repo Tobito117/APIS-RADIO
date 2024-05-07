@@ -159,6 +159,11 @@ export const putConfigReportes = async( req: Request , res: Response ) => {
     const { id } = req.params;
     const { body } =  req;
 
+if(req.body!== undefined){
+    console.log("first")
+}
+
+
     try {
 
         const configreportes = await ConfigReportes.findByPk( id );

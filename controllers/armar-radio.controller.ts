@@ -66,7 +66,7 @@ export const getArmar_Radio = async( req: Request , res: Response ) => {
         armarradios.updatedAt, 
         armarradios.radios_idradios 
     FROM armarradios
-    INNER JOIN radios ON armarradios.radios_idradios = radios.idradios
+    LEFT JOIN radios ON armarradios.radios_idradios = radios.idradios
     LEFT JOIN marcas AS marcasRadios ON radios.fk_marca = marcasRadios.idmarcas
     LEFT JOIN vehiculos ON armarradios.fk_vehiculo = vehiculos.idvehiculo
     LEFT JOIN marcas AS marcasVehiculos ON vehiculos.marcas_idMarcas = marcasVehiculos.idmarcas
