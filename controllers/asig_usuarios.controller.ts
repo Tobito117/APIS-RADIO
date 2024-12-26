@@ -10,7 +10,8 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
    const asig_usuarios: any = await Asig_Usuarios.sequelize?.query(
     `SELECT 
     asignaciones.idasignacion,
-    asignaciones.estatus, 
+    asignaciones.estatus,
+    asignaciones.observaciones, 
     asignaciones.usuarios_idusuarios,
     asignaciones.fecha_asignacion, 
     usuarios.idusuarios, 
@@ -48,7 +49,6 @@ export const getAsig_Usuarios = async( req: Request , res: Response ) => {
     radios.idradios, 
     radios.serie,
     radios.tipo,
-    radios.observaciones,
     radios.situacion,
     radios.ubicacion,
     radios.inventario_segpub,

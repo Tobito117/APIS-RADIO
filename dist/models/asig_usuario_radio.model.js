@@ -18,6 +18,9 @@ const Asig_Usuarios = connection_1.default.define('asignaciones', {
         type: sequelize_1.DataTypes.INTEGER,
         // allowNull: true
     },
+    observaciones: {
+        type: sequelize_1.DataTypes.STRING
+    },
     fecha_asignacion: {
         type: sequelize_1.DataTypes.DATE
     },

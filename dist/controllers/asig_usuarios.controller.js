@@ -22,7 +22,8 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     // const asig_usuarios = await Asig_Usuarios.findAll();
     const asig_usuarios = yield ((_a = asig_usuario_radio_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT 
     asignaciones.idasignacion,
-    asignaciones.estatus, 
+    asignaciones.estatus,
+    asignaciones.observaciones, 
     asignaciones.usuarios_idusuarios,
     asignaciones.fecha_asignacion, 
     usuarios.idusuarios, 
@@ -60,7 +61,6 @@ const getAsig_Usuarios = (req, res) => __awaiter(void 0, void 0, void 0, functio
     radios.idradios, 
     radios.serie,
     radios.tipo,
-    radios.observaciones,
     radios.situacion,
     radios.ubicacion,
     radios.inventario_segpub,

@@ -14,6 +14,9 @@ const Asig_Usuarios = db.define('asignaciones', {
         type: DataTypes.INTEGER,
         // allowNull: true
     },
+    observaciones:{
+        type:DataTypes.STRING
+    },
     fecha_asignacion: {
         type: DataTypes.DATE
     },
